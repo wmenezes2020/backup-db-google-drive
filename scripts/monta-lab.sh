@@ -37,7 +37,12 @@ cat > "$LAB/credentials.json" <<'JSON'
     { "nome": "truncado",  "porta": 3312, "banco": "corta",  "usuario": "corta",  "senha": "c0rt@" },
     { "nome": "fantasma",  "porta": 3313, "banco": "some",   "usuario": "some",   "senha": "s0m3" },
     { "nome": "gemeo-a",   "porta": 3314, "banco": "loja",   "usuario": "loja",   "senha": "S3nh@$%&(*[!)-loja" },
-    { "nome": "gemeo-b",   "porta": 3315, "banco": "loja",   "usuario": "loja",   "senha": "S3nh@$%&(*[!)-loja" }
+    { "nome": "gemeo-b",   "porta": 3315, "banco": "loja",   "usuario": "loja",   "senha": "S3nh@$%&(*[!)-loja" },
+    { "nome": "mariadb",   "porta": 3316, "banco": "mariadb",  "usuario": "maria",    "senha": "m@r1@-db" },
+    { "nome": "processo",  "porta": 3317, "banco": "processo", "usuario": "processo", "senha": "pr0c3ss0" },
+    { "nome": "travado",   "porta": 3318, "banco": "travado",  "usuario": "travado",  "senha": "tr@v@d0" },
+    { "nome": "soMaria",   "porta": 3319, "banco": "soMaria",  "usuario": "somaria",  "senha": "s0-m@r1@" },
+    { "nome": "disfarce",  "porta": 3320, "banco": "disfarce", "usuario": "disfarce", "senha": "d1sf@rc3" }
   ]
 }
 JSON
@@ -97,19 +102,38 @@ cat > "$LAB/cred-quebrado.json" <<'JSON'
 JSON
 
 # ---------------------------------------------------------------------------
-# a verdade do MySQL de mentira, num arquivo que os dois stubs leem
+# a verdade do banco de mentira, num arquivo que os stubs leem
 #
-#   banco : tabelas : bytes : myisam : usuario : senha : nivel_maximo : defeito
+#  banco : tabelas : bytes : myisam : usuario : senha : nivel : defeito : sabor : exige
+#
+# "sabor" e o que o SELECT VERSION() responde. "exige" e o que o servidor exige
+# para o dump passar, e e onde moram os defeitos de compatibilidade de verdade:
+#
+#   colstats    so passa com --column-statistics=0. E o MariaDB recebendo o
+#               mysqldump 8 do MySQL, que consulta uma tabela de histograma que
+#               o MariaDB nao tem. Foi o que derrubou seis de dez bancos na
+#               primeira execucao real deste script.
+#   tablespace  so passa com --no-tablespaces, porque ler tablespace no MySQL 8
+#               pede o privilegio PROCESS, que usuario de um banco so nao tem.
+#   locktables  so passa com --skip-lock-tables.
+#   familia     nao passa com programa de dump da outra familia, com opcao
+#               nenhuma: a correcao e trocar de programa.
+#   -           nao exige nada.
 # ---------------------------------------------------------------------------
 cat > "$LAB/mundo.tsv" <<'TSV'
-loja	3	104857600	0	loja	S3nh@$%&(*[!)-loja	completo	-
-blog	5	52428800	0	blog	asp"as-no-meio	sem-rotina	-
-site	2	10485760	0	site	barra\invertida	minimo	-
-morto	0	0	0	errado	nao-vale	completo	semconexao
-vazio	0	0	0	vazio	v4z10	completo	-
-antigo	4	20971520	3	antigo	my1s@m	completo	-
-corta	6	31457280	0	corta	c0rt@	completo	trunca
-some	5	15728640	0	some	s0m3	completo	semtabela
+loja	3	104857600	0	loja	S3nh@$%&(*[!)-loja	completo	-	8.0.36	-
+blog	5	52428800	0	blog	asp"as-no-meio	sem-rotina	-	8.0.36	-
+site	2	10485760	0	site	barra\invertida	minimo	-	8.0.36	-
+morto	0	0	0	errado	nao-vale	completo	semconexao	8.0.36	-
+vazio	0	0	0	vazio	v4z10	completo	-	8.0.36	-
+antigo	4	20971520	3	antigo	my1s@m	completo	-	8.0.36	-
+corta	6	31457280	0	corta	c0rt@	completo	trunca	8.0.36	-
+some	5	15728640	0	some	s0m3	completo	semtabela	8.0.36	-
+mariadb	7	41943040	0	maria	m@r1@-db	completo	-	10.11.6-MariaDB	colstats
+processo	9	62914560	0	processo	pr0c3ss0	completo	-	8.0.36	tablespace
+travado	4	12582912	0	travado	tr@v@d0	completo	-	8.0.36	locktables
+soMaria	6	33554432	0	somaria	s0-m@r1@	completo	-	11.4.2-MariaDB	familia
+disfarce	5	26214400	0	disfarce	d1sf@rc3	completo	-	8.0.36	colstats
 TSV
 
 # ---------------------------------------------------------------------------
@@ -161,6 +185,15 @@ set -u
 LAB="$(dirname "$(dirname "$0")")"
 printf 'mysql %s\n' "$*" >> "$LAB/argv.log"
 
+case "${1:-}" in
+  --version)
+    case "$(basename "$0")" in
+      mariadb) echo "mariadb from 11.4.2-MariaDB, client 10.19 for debian-linux-gnu" ;;
+      *)       echo "mysql  Ver 8.0.36 for Linux on x86_64 (MySQL Community Server - GPL)" ;;
+    esac
+    exit 0 ;;
+esac
+
 CNF=""; SQL=""
 args=()
 while (($#)); do
@@ -183,7 +216,7 @@ grep -q '^protocol=TCP$' "$CNF" 2>/dev/null || { echo "mysql: falta protocol=TCP
 # jeito de provar que o escape do arquivo de opcoes funcionou.
 linha="$(awk -F'\t' -v u="$U" '$5==u {print; exit}' "$LAB/mundo.tsv")"
 [[ -n "$linha" ]] || { echo "ERROR 1045 (28000): Access denied for user '$U'" >&2; exit 1; }
-IFS=$'\t' read -r BANCO TABELAS BYTES MYISAM USUARIO SENHA NIVEL DEFEITO <<< "$linha"
+IFS=$'\t' read -r BANCO TABELAS BYTES MYISAM USUARIO SENHA NIVEL DEFEITO SABOR EXIGE <<< "$linha"
 if [[ "$S" != "$SENHA" ]]; then
   echo "ERROR 1045 (28000): Access denied for user '$U' (senha nao bate: o escape do .cnf falhou)" >&2
   exit 1
@@ -192,6 +225,7 @@ fi
 
 case "$SQL" in
   "SELECT 1") echo 1; exit 0 ;;
+  "SELECT VERSION()") printf '%s\n' "$SABOR"; exit 0 ;;
   *information_schema*)
     b="$(printf '%s' "$SQL" | sed -n "s/.*table_schema = '\\([^']*\\)'.*/\\1/p")"
     l="$(awk -F'\t' -v n="$b" '$1==n {print; exit}' "$LAB/mundo.tsv")"
@@ -209,11 +243,36 @@ set -u
 LAB="$(dirname "$(dirname "$0")")"
 printf 'mysqldump %s\n' "$*" >> "$LAB/argv.log"
 
+# A familia deste programa sai do nome com que ele foi chamado, igual ao de
+# verdade: em Debian o "mysqldump" e atalho para o "mariadb-dump".
+EU="$(basename "$0")"
+case "$EU" in
+  mariadb-dump) FAMILIA=MariaDB ;;
+  *)            FAMILIA=MySQL ;;
+esac
+
 case "${1:-}" in
-  --help) printf 'mysqldump falso\n  --no-tablespaces   Do not dump tablespaces\n'; exit 0 ;;
+  --version)
+    if [[ "$FAMILIA" == MariaDB ]]; then
+      echo "mariadb-dump from 11.4.2-MariaDB, client 10.19 for debian-linux-gnu"
+    else
+      echo "mysqldump  Ver 8.0.36 for Linux on x86_64 (MySQL Community Server - GPL)"
+    fi
+    exit 0 ;;
+  --help)
+    # so o cliente do MySQL 8 tem --column-statistics. O do MariaDB nao conhece
+    # a opcao, e passar ela para ele seria erro de uso.
+    printf '%s falso\n' "$EU"
+    printf '  --no-tablespaces   Do not dump tablespaces\n'
+    printf '  --skip-lock-tables Do not lock tables\n'
+    if [[ "$FAMILIA" == MySQL ]]; then
+      printf '  --column-statistics[=#]  Add analyze table for column statistics\n'
+    fi
+    exit 0 ;;
 esac
 
 CNF=""; SEM_DADO=0; QUER_ROTINA=0; QUER_EVENTO=0; QUER_GATILHO=0
+COLSTATS_LIGADO=1; TABLESPACE_LIGADO=1; TRAVA_LIGADA=1
 args=()
 while (($#)); do
   case "$1" in
@@ -222,6 +281,14 @@ while (($#)); do
     --routines)    QUER_ROTINA=1; shift ;;
     --events)      QUER_EVENTO=1; shift ;;
     --triggers)    QUER_GATILHO=1; shift ;;
+    --column-statistics=0) COLSTATS_LIGADO=0; shift ;;
+    --column-statistics*)
+      if [[ "$FAMILIA" != MySQL ]]; then
+        echo "$EU: unknown variable 'column-statistics=0'" >&2; exit 7
+      fi
+      shift ;;
+    --no-tablespaces)   TABLESPACE_LIGADO=0; shift ;;
+    --skip-lock-tables) TRAVA_LIGADA=0; shift ;;
     --*) shift ;;
     *) args+=("$1"); shift ;;
   esac
@@ -234,7 +301,7 @@ grep -q '^protocol=TCP$' "$CNF" 2>/dev/null || { echo "mysqldump: falta protocol
 
 linha="$(awk -F'\t' -v u="$U" '$5==u {print; exit}' "$LAB/mundo.tsv")"
 [[ -n "$linha" ]] || { echo "mysqldump: Got error: 1045: Access denied for user '$U'" >&2; exit 2; }
-IFS=$'\t' read -r MBANCO TABELAS BYTES MYISAM USUARIO SENHA NIVEL DEFEITO <<< "$linha"
+IFS=$'\t' read -r MBANCO TABELAS BYTES MYISAM USUARIO SENHA NIVEL DEFEITO SABOR EXIGE <<< "$linha"
 [[ "$S" == "$SENHA" ]] || { echo "mysqldump: Got error: 1045: Access denied (senha nao bate)" >&2; exit 2; }
 [[ "$DEFEITO" == "semconexao" ]] && { echo "mysqldump: Got error: 2003: Can't connect" >&2; exit 2; }
 
@@ -242,15 +309,53 @@ IFS=$'\t' read -r MBANCO TABELAS BYTES MYISAM USUARIO SENHA NIVEL DEFEITO <<< "$
 awk -F'\t' -v n="$BANCO" '$1==n {achou=1} END{exit !achou}' "$LAB/mundo.tsv" \
   || { echo "mysqldump: Got error: 1049: Unknown database '$BANCO'" >&2; exit 2; }
 
-# privilegio, igual ao de verdade: falta de privilegio derruba o dump INTEIRO
+# Compatibilidade, antes do privilegio: e o que o servidor exige, e cada caso
+# tem uma frase diferente, porque e pela frase que o script decide o que mudar.
+case "$EXIGE" in
+  colstats)
+    if ((COLSTATS_LIGADO)) && [[ "$FAMILIA" == MySQL ]]; then
+      echo "$EU: Couldn't execute 'SELECT COLUMN_NAME, JSON_EXTRACT(HISTOGRAM, '\$.\"number-of-buckets-specified\"') FROM information_schema.COLUMN_STATISTICS WHERE SCHEMA_NAME = '$BANCO' AND TABLE_NAME = 't1';': Unknown table 'COLUMN_STATISTICS' in information_schema (1109)" >&2
+      exit 2
+    fi ;;
+  tablespace)
+    if ((TABLESPACE_LIGADO)); then
+      echo "$EU: Error: 'Access denied; you need (at least one of) the PROCESS privilege(s) for this operation' when trying to dump tablespaces" >&2
+      exit 2
+    fi ;;
+  locktables)
+    if ((TRAVA_LIGADA)); then
+      echo "$EU: Got error: 1142: \"SELECT, LOCK TABLES command denied to user '$U' for table 't1'\" when using LOCK TABLES" >&2
+      exit 2
+    fi ;;
+  familia)
+    # servidor de uma familia, programa da outra: nao tem opcao que resolva
+    case "$SABOR" in
+      *MariaDB*) [[ "$FAMILIA" == MariaDB ]] || {
+          echo "$EU: Got error: 1064: You have an error in your SQL syntax; check the manual that corresponds to your server version" >&2; exit 2; } ;;
+      *)         [[ "$FAMILIA" == MySQL ]] || {
+          echo "$EU: Got error: 1193: Unknown system variable 'tmp_table_size'" >&2; exit 2; } ;;
+    esac ;;
+esac
+
+# Privilegio, igual ao de verdade: falta de privilegio derruba o dump INTEIRO.
+# As frases abaixo sao as que MySQL e MariaDB devolvem de fato. Nenhuma tem a
+# palavra "rotina", e nenhuma diz qual opcao tirar: o que elas trazem e a
+# consulta que o programa tentou. E por isso que o diagnostico do script procura
+# "FUNCTION STATUS", "show events" e "SHOW TRIGGERS", e nao palavras bonitas.
 case "$NIVEL" in
   sem-rotina)
     if ((QUER_ROTINA || QUER_EVENTO)); then
-      echo "mysqldump: Got error: 1142: SELECT,LOCK TABLES command denied (routine/event)" >&2; exit 2
+      echo "$EU: Couldn't execute 'SHOW FUNCTION STATUS WHERE Db = $BANCO': Access denied; you need (at least one of) the SELECT privilege(s) for this operation (1227)" >&2
+      exit 2
     fi ;;
   minimo)
-    if ((QUER_ROTINA || QUER_EVENTO || QUER_GATILHO)); then
-      echo "mysqldump: Got error: 1142: command denied (routine/event/trigger)" >&2; exit 2
+    if ((QUER_ROTINA || QUER_EVENTO)); then
+      echo "$EU: Couldn't execute 'show events': Access denied for user $U to database $BANCO (1044)" >&2
+      exit 2
+    fi
+    if ((QUER_GATILHO)); then
+      echo "$EU: Couldn't execute 'SHOW TRIGGERS LIKE t1': Access denied; you need (at least one of) the TRIGGER privilege(s) for this operation (1227)" >&2
+      exit 2
     fi ;;
 esac
 
@@ -346,9 +451,16 @@ esac
 exit 0
 STUB
 
+# As duas familias sao o MESMO stub, que descobre quem e pelo nome com que foi
+# chamado. Copia em vez de atalho simbolico, porque no Windows o ln -s do MSYS
+# copia de qualquer jeito e o basename precisa ser o nome novo.
+cp "$LAB/bin/mysqldump" "$LAB/bin/mariadb-dump"
+cp "$LAB/bin/mysql"     "$LAB/bin/mariadb"
+
 chmod +x "$LAB/bin/"*
 
 printf 'lab montado em %s\n' "$LAB"
+printf 'programas de dump de mentira: mysqldump (MySQL 8) e mariadb-dump (MariaDB 11)\n' 
 printf 'credencial de teste: %s (%s banco(s))\n' "$LAB/credentials.json" \
   "$(grep -c '"nome"' "$LAB/credentials.json")"
 bash -n "$REPO/backup-db.sh" && printf 'sintaxe do script: ok\n'

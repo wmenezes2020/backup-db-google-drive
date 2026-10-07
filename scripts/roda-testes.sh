@@ -13,11 +13,13 @@ S="$REPO/backup-db.sh"
 
 [[ -d "$LAB" ]] || { echo "monte o lab primeiro: bash scripts/monta-lab.sh" >&2; exit 1; }
 
+PATH_ORIGINAL="$PATH"
 export PATH="$LAB/bin:$PATH"
 export HOME="$CASA"
 
 # as senhas do lab, que NUNCA podem aparecer em log, relatorio ou linha de comando
-SENHAS=( 'S3nh@$%&(*[!)-loja' 'asp"as-no-meio' 'barra\invertida' 'v4z10' 'my1s@m' 'c0rt@' 's0m3' )
+SENHAS=( 'S3nh@$%&(*[!)-loja' 'asp"as-no-meio' 'barra\invertida' 'v4z10' 'my1s@m' 'c0rt@' 's0m3'
+         'm@r1@-db' 'pr0c3ss0' 'tr@v@d0' 's0-m@r1@' 'd1sf@rc3' )
 
 PASSOU=0; REPROVOU=0
 declare -a FALHAS=()
@@ -56,16 +58,48 @@ pasta_data() { ls -d "$DRIVE/BANCOS-TESTE"/[0-9]*_[0-9]* 2>/dev/null | head -1; 
 caso "T01 --simular le o arquivo, testa cada banco e mede, sem gerar nada"
 limpa; desconecta
 roda "$CRED" --simular
-contem "$SAIDA" "10 banco(s)"                     && ok "le os 10 bancos do arquivo" || nok "T01 contagem"
+contem "$SAIDA" "15 banco(s)"                     && ok "le os 15 bancos do arquivo" || nok "T01 contagem"
 contem "$SAIDA" "bom: 3 tabela(s)"                && ok "mede tabela e tamanho do banco" || nok "T01 medida"
 contem "$SAIDA" "nivel completo"                  && ok "descobre que o usuario pleno tem tudo" || nok "T01 nivel completo"
 contem "$SAIDA" "nivel sem rotina e evento"       && ok "cai para 'sem rotina e evento' no usuario limitado" || nok "T01 nivel medio"
 contem "$SAIDA" "nivel minimo"                    && ok "cai para 'minimo' no usuario mais limitado ainda" || nok "T01 nivel minimo"
-contem "$SAIDA" "semacesso: nao consegui conectar" && ok "diz qual credencial nao conecta" || nok "T01 sem conexao"
+contem "$SAIDA" "semacesso: nao conectei"         && ok "diz qual credencial nao conecta" || nok "T01 sem conexao"
+contem "$SAIDA" "O servidor disse: ERROR 2003"    && ok "mostra a frase CRUA do servidor, em vez de mandar abrir um log" || nok "T01 erro cru"
 contem "$SAIDA" "tabela(s) MyISAM"                && ok "avisa que --single-transaction nao vale para MyISAM" || nok "T01 myisam"
 contem "$SAIDA" "nao enxerga nenhuma tabela"      && ok "avisa banco que conecta e nao mostra tabela" || nok "T01 vazio"
 ((CODIGO == 2)) && ok "sai com 2 porque um banco nao respondeu" || nok "T01 codigo=$CODIGO"
 [[ -z "$(ls -A "$DRIVE" 2>/dev/null)" ]] && ok "--simular nao criou nada no Drive" || nok "T01 criou no Drive"
+
+caso "T01c sabor do servidor e familia do cliente"
+contem "$SAIDA" "cliente: mysql (MySQL) mariadb (MariaDB)"   && ok "descobre a familia de cada cliente pelo --version, nao pelo nome" || nok "T01c familia do cliente"
+contem "$SAIDA" "dump: mysqldump (MySQL) mariadb-dump (MariaDB)" && ok "descobre a familia de cada programa de dump" || nok "T01c familia do dump"
+contem "$SAIDA" "MySQL 8.0.36"    && ok "le a versao do servidor MySQL" || nok "T01c versao MySQL"
+contem "$SAIDA" "MariaDB 10.11.6" && ok "le a versao do servidor MariaDB" || nok "T01c versao MariaDB"
+
+caso "T01d o dump se ajusta lendo o que o servidor responde"
+contem "$SAIDA" "mariadb: ajustei o dump: sem estatistica de coluna, porque o servidor e MariaDB" \
+  && ok "servidor MariaDB com cliente MySQL 8: desliga a estatistica de coluna antes de tentar" || nok "T01d colstats"
+contem "$SAIDA" "travado: ajustei o dump: sem travar tabela" \
+  && ok "usuario sem LOCK TABLES: le o erro e acrescenta --skip-lock-tables" || nok "T01d lock tables"
+contem "$SAIDA" "limitado: ajustei o dump: sem rotina e evento" \
+  && ok "le 'SHOW FUNCTION STATUS ... Access denied' e tira rotina e evento" || nok "T01d rotina"
+contem "$SAIDA" "minimo: ajustei o dump: sem rotina e evento, que o usuario nao alcanca; sem gatilho" \
+  && ok "dois ajustes em sequencia no mesmo banco, cada um lido do erro seguinte" || nok "T01d dois ajustes"
+contem "$SAIDA" "disfarce: ajustei o dump: sem estatistica de coluna, que o servidor nao tem" \
+  && ok "servidor que reporta versao de MySQL e recusa igual: o ajuste vem da FRASE, nao da versao" || nok "T01d colstats reativo"
+contem "$SAIDA" "disfarce: 5 tabela(s)" && ok "e depois do ajuste ele passa" || nok "T01d disfarce passou"
+contem "$SAIDA" "soMaria: 6 tabela(s)" && ok "o banco que exige a familia certa passou" || nok "T01d familia passou"
+contem "$SAIDA" "nivel completo, dump pelo mariadb-dump" \
+  && ok "quando opcao nenhuma resolve, ele TROCA de programa de dump" || nok "T01d troca de familia"
+
+caso "T01e o log da simulacao sobrevive e tem a resposta crua"
+EST="$(estado)"
+LOGSIM="$(ls "$EST"/simulacao-*.log 2>/dev/null | head -1)"
+[[ -n "$LOGSIM" && -f "$LOGSIM" ]] && ok "o log da simulacao fica em $ \$ESTADO, nao no temporario que o script apaga" || nok "T01e log sumiu"
+contem "$SAIDA" "Log desta simulacao:" && ok "a tela diz onde o log ficou" || nok "T01e nao diz onde"
+if [[ -n "$LOGSIM" ]]; then
+  grep -qF "COLUMN_STATISTICS" "$LOGSIM" && ok "o log guarda a frase crua do servidor" || nok "T01e log sem a frase"
+fi
 
 caso "T01b a senha chega pelo arquivo de opcoes, nunca pela linha de comando"
 FALTOU=0
@@ -120,14 +154,25 @@ limpa; conecta
 roda "$CRED" -s
 PD="$(pasta_data)"
 [[ -n "$PD" ]] && ok "criou a pasta de data, que e o padrao aqui" || nok "T03 sem pasta de data"
-contem "$SAIDA" "Bancos ok ..... 7 de 9" \
-  && ok "7 dos 9 que conectaram subiram, e o decimo nem entrou na conta" || nok "T03 ok"
-for n in bom limitado minimo vazio antigo gemeo-a gemeo-b; do
+contem "$SAIDA" "Bancos ok ..... 12 de 14" \
+  && ok "12 dos 14 que conectaram subiram, e o que nao conecta nem entrou na conta" || nok "T03 ok"
+for n in bom limitado minimo vazio antigo gemeo-a gemeo-b mariadb processo travado soMaria disfarce; do
   [[ -f "$PD/$n.sql.gz" ]] && ok "subiu $n.sql.gz" || nok "T03 falta $n.sql.gz"
 done
 [[ ! -f "$PD/truncado.sql.gz" ]] && ok "o dump truncado NAO subiu" || nok "T03 truncado subiu"
 [[ ! -f "$PD/fantasma.sql.gz" ]] && ok "o dump vazio de um banco com tabela NAO subiu" || nok "T03 fantasma subiu"
 [[ ! -f "$PD/semacesso.sql.gz" ]] && ok "o banco sem conexao NAO subiu" || nok "T03 semacesso subiu"
+
+caso "T03a o ajuste da sonda vale no dump de verdade"
+# Esta e a regressao que importa: se o dump remontasse as opcoes a partir do NOME
+# do nivel, ele perderia --column-statistics=0 e --skip-lock-tables, e falharia
+# DEPOIS de a sonda ter passado. No lab o stub recusa sem a opcao, entao a
+# presenca do arquivo prova que as opcoes exatas atravessaram.
+[[ -f "$PD/mariadb.sql.gz" ]] && ok "o banco que exige --column-statistics=0 subiu" || nok "T03a colstats no dump"
+[[ -f "$PD/travado.sql.gz" ]] && ok "o banco que exige --skip-lock-tables subiu" || nok "T03a lock tables no dump"
+[[ -f "$PD/soMaria.sql.gz" ]] && ok "o banco que exige o dump da outra familia subiu" || nok "T03a familia no dump"
+[[ -f "$PD/processo.sql.gz" ]] && ok "o banco que exige --no-tablespaces subiu" || nok "T03a tablespaces no dump"
+[[ -f "$PD/disfarce.sql.gz" ]] && ok "o banco cujo ajuste veio da frase do servidor subiu" || nok "T03a colstats reativo no dump"
 
 caso "T03b o mesmo banco em tres portas vira tres arquivos distintos"
 A="$(gunzip -c "$PD/bom.sql.gz" 2>/dev/null | md5sum | awk '{print $1}')"
@@ -188,8 +233,12 @@ find /tmp "$EST" -name 'mysql-*.cnf' 2>/dev/null | grep -q . \
 caso "T07 relatorio"
 ls "$EST"/RELATORIO-*.txt >/dev/null 2>&1 && ok "escreveu o relatorio" || nok "T07 sem relatorio"
 REL="$(cat "$EST"/RELATORIO-*.txt 2>/dev/null)"
-contem "$REL" "BANCOS OK ...... 7"     && ok "relatorio diz 7 ok" || nok "T07 contagem"
+contem "$REL" "BANCOS OK ...... 12"    && ok "relatorio diz 12 ok" || nok "T07 contagem"
 contem "$REL" "COM ERRO ....... 3"     && ok "relatorio diz 3 com erro" || nok "T07 erros"
+contem "$REL" "SERVIDOR E OPCOES, BANCO POR BANCO" && ok "relatorio tem a tabela de servidor e opcoes" || nok "T07 tabela"
+contem "$REL" "MariaDB 10.11.6"        && ok "relatorio registra a versao de cada servidor" || nok "T07 versao"
+contem "$REL" "sem estatistica de coluna" && ok "relatorio registra o ajuste que foi preciso" || nok "T07 ajuste"
+contem "$REL" "CLIENTES ......."       && ok "relatorio registra os clientes disponiveis" || nok "T07 clientes"
 contem "$REL" "CONFERENCIA .... MD5"   && ok "relatorio diz que conferiu por MD5" || nok "T07 conferencia"
 contem "$REL" "sem rotina e evento"    && ok "relatorio registra o nivel de privilegio usado" || nok "T07 nivel"
 contem "$REL" "gunzip -c"              && ok "relatorio ensina a restaurar" || nok "T07 restaurar"
@@ -216,7 +265,7 @@ contem "$SAIDA" "Vou retomar na MESMA pasta" && ok "avisa que vai retomar na mes
 PD2="$(pasta_data)"
 [[ "$PD1" == "$PD2" ]] && ok "continuou na mesma pasta de data" || nok "T08 pasta mudou: $PD1 -> $PD2"
 contem "$SAIDA" "bom: pulado, ja subiu nesta mesma pasta" && ok "pula o que ja estava na pasta" || nok "T08 nao pulou"
-contem "$SAIDA" "Pulados ....... 7" && ok "pulou os 7 que ja tinham subido" || nok "T08 contagem de pulados"
+contem "$SAIDA" "Pulados ....... 12" && ok "pulou os 12 que ja tinham subido" || nok "T08 contagem de pulados"
 
 caso "T08b --nova comeca uma pasta nova mesmo com execucao interrompida"
 roda "$CRED" -s --bancos bom --nova
@@ -265,7 +314,7 @@ limpa; conecta
 roda "$CRED" -s --bancos bom,limitado
 contem "$SAIDA" "2 banco(s): bom limitado" && ok "--bancos pega so os pedidos" || nok "T10 bancos"
 limpa; conecta
-roda "$CRED" -s --excluir truncado,fantasma,semacesso,vazio,antigo,gemeo-a,gemeo-b
+roda "$CRED" -s --excluir truncado,fantasma,semacesso,vazio,antigo,gemeo-a,gemeo-b,mariadb,processo,travado,soMaria,disfarce
 contem "$SAIDA" "3 banco(s): bom limitado minimo" && ok "--excluir tira os listados" || nok "T10 excluir"
 limpa; conecta
 roda "$CRED" -s --bancos bom --so-estrutura
@@ -346,6 +395,30 @@ if ((CHMOD_VALE)); then
 else
   pula "esta maquina nao aplica permissao POSIX: no MSYS sem ACL o stat devolve 0777 & ~umask, nao a permissao real"
 fi
+
+# ===========================================================================
+caso "T18 com uma familia so, ele diz qual instalar"
+limpa; conecta
+# PATH com o mysqldump do MySQL e sem o mariadb-dump: e a situacao do servidor de
+# verdade, onde seis de dez bancos MariaDB falharam porque so havia o cliente do
+# MySQL instalado.
+mkdir -p "$LAB/so-mysql"
+for b in mysql mysqldump _lecnf rclone; do cp "$LAB/bin/$b" "$LAB/so-mysql/$b" 2>/dev/null; done
+chmod +x "$LAB/so-mysql"/* 2>/dev/null
+# o $LAB/bin tem que ficar FORA do caminho: com ele ali o mariadb-dump continua
+# achavel e o teste nao testa nada. Daqui vem o PATH_ORIGINAL do topo do arquivo.
+SAIDA="$( cd "$LAB" && PATH="$LAB/so-mysql:$PATH_ORIGINAL" bash "$S" "$CRED" --simular --bancos soMaria 2>&1 )"
+CODIGO=$?
+contem "$SAIDA" "so existe UMA familia de cliente nesta maquina" \
+  && ok "diz que so tem uma familia, que e a causa de verdade" || nok "T18 nao avisou"
+contem "$SAIDA" "apt-get install -y mariadb-client" \
+  && ok "diz exatamente qual pacote instalar" || nok "T18 nao ensina o pacote"
+contem "$SAIDA" "Tentei com: mysqldump (MySQL)" \
+  && ok "diz com que programa tentou" || nok "T18 nao diz o que tentou"
+
+caso "T18b com as duas familias, o mesmo banco passa"
+SAIDA="$( cd "$LAB" && bash "$S" "$CRED" --simular --bancos soMaria 2>&1 )"
+contem "$SAIDA" "soMaria: 6 tabela(s)" && ok "com as duas familias instaladas ele acha o caminho sozinho" || nok "T18b falhou"
 
 # ===========================================================================
 caso "T17 trava contra duas execucoes ao mesmo tempo"

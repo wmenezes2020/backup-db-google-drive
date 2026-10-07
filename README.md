@@ -65,21 +65,97 @@ Isso conecta em cada banco e diz, em segundos:
 
 ```
 ==> Testando a conexao de cada banco
-  ok loja: 42 tabela(s), 1.2 GB, nivel completo
-  ok blog: 11 tabela(s), 180.4 MB, nivel sem rotina e evento
-  !! blog: o usuario nao tem privilegio para tudo, o dump vai sair no nivel 'sem rotina e evento'
-  xx relatorios: nao consegui conectar em db.exemplo.com:3310 como relatorios
+  ok loja: 42 tabela(s), 1.2 GB, MySQL 8.0.36, nivel completo, dump pelo mysqldump
+  ok blog: 11 tabela(s), 180.4 MB, MySQL 8.0.36, nivel sem rotina e evento, dump pelo mysqldump
+  !! blog: o dump vai sair no nivel 'sem rotina e evento', porque o usuario nao alcanca o resto
+  xx relatorios: nao conectei em db.exemplo.com:3310 como relatorios. O servidor disse:
+     ERROR 1045 (28000): Access denied for user 'relatorios'@'10.0.0.4'
   !! antigo: 3 tabela(s) MyISAM. Com --single-transaction o dump NAO fica
      consistente para elas: MyISAM nao tem transacao.
 
-  NOME        BANCO            SERVIDOR               TABELAS   TAMANHO NIVEL
-  ---------------------------------------------------------------------------
-  loja        loja_producao    db.exemplo.com:3306         42    1.2 GB completo
-  blog        blog             db.exemplo.com:3307         11  180.4 MB sem rotina e evento
+  NOME      BANCO          SERVIDOR            TABELAS   TAMANHO VERSAO          NIVEL
+  -------------------------------------------------------------------------------------
+  loja      loja_producao  db.exemplo.com:3306      42    1.2 GB MySQL 8.0.36    completo
+  blog      blog           db.exemplo.com:3307      11  180.4 MB MySQL 8.0.36    sem rotina e evento
 ```
 
 Credencial errada aparece aqui, em segundos, em vez de aparecer depois de uma
-hora de dump.
+hora de dump. E a mensagem traz a frase crua do servidor, nao um "veja o log".
+
+O log da simulacao fica guardado em `$HOME/.backup-db/<arquivo>-<id>/`, com a
+resposta de cada banco, e a tela diz onde ele esta.
+
+## MySQL e MariaDB não são a mesma coisa, e isso derruba backup
+
+Esse é o problema que mais confunde, e ele não parece ter nada a ver com o que
+está errado.
+
+O `mysqldump` 8 do MySQL consulta uma tabela de histograma chamada
+`COLUMN_STATISTICS`. O MariaDB não tem essa tabela. Resultado: o dump **inteiro**
+morre com `Unknown table 'COLUMN_STATISTICS' in information_schema`, que soa como
+problema de permissão e não é.
+
+Na primeira execução deste script contra um servidor de verdade, **seis de dez
+bancos falharam por isso**, e a mensagem só dizia que nem o nível mínimo passou.
+
+Agora ele resolve sozinho. Em vez de desistir, ele lê o que o servidor respondeu e
+ajusta:
+
+```
+==> Testando a conexao de cada banco
+  ok loja: 42 tabela(s), 1.2 GB, MySQL 8.0.36, nivel completo, dump pelo mysqldump
+[03:00:12] crm: ajustei o dump: sem estatistica de coluna, porque o servidor e MariaDB
+  ok crm: 88 tabela(s), 3.4 GB, MariaDB 10.11.6, nivel completo, dump pelo mysqldump
+[03:00:20] antigo: ajustei o dump: sem travar tabela, que o usuario nao pode
+  ok antigo: 12 tabela(s), 240.0 MB, MySQL 8.0.36, nivel completo, dump pelo mysqldump
+  ok legado: 6 tabela(s), 32.0 MB, MariaDB 11.4.2, nivel completo, dump pelo mariadb-dump
+```
+
+O que ele faz, nessa ordem:
+
+1. pergunta ao servidor a versão dele, com `SELECT VERSION()`;
+2. descobre a família de cada cliente instalado, pelo `--version` e não pelo nome
+   do programa (em Debian o `mysqldump` é só um atalho para o `mariadb-dump`);
+3. tenta um dump sem dados, que é rápido, e **lê o erro** se falhar;
+4. muda o que o erro aponta, e tenta de novo;
+5. se opção nenhuma resolver, **troca de programa de dump** para o da outra
+   família;
+6. diz na tela qual ajuste foi preciso, e guarda isso no relatório.
+
+| O que o servidor responde | O que ele faz |
+|---|---|
+| `Unknown table 'COLUMN_STATISTICS'` | acrescenta `--column-statistics=0` |
+| `you need (at least one of) the PROCESS privilege(s)` | acrescenta `--no-tablespaces` |
+| `LOCK TABLES command denied` | acrescenta `--skip-lock-tables` |
+| `SHOW FUNCTION STATUS ... Access denied` | tira `--routines --events` |
+| `SHOW TRIGGERS ... Access denied` | tira `--triggers` |
+| erro que não aponta nada | degrada na ordem que custa menos |
+
+**Instale as duas famílias.** Com as duas, o script escolhe por servidor qual
+usar, e um servidor que recusa uma aceita a outra:
+
+```bash
+sudo apt-get install -y mysql-client mariadb-client
+```
+
+Com uma só, ele ainda tenta todos os ajustes de opção, e quando não dá ele diz
+exatamente qual pacote falta em vez de deixar você adivinhando.
+
+## Quando não conecta, ele diz o que fazer
+
+"Não conseguiu conectar" não ajuda ninguém: as causas são diferentes, moram em
+lugares diferentes e quem resolve cada uma também é diferente. O servidor já diz
+qual é; o script traduz.
+
+| O que o servidor responde | O que ele te diz |
+|---|---|
+| `Access denied for user` | a senha ou o usuário não conferem, ou esse usuário não tem permissão de vir do IP desta máquina |
+| `Unknown database` | o usuário conecta, mas não existe banco com esse nome nesta porta |
+| `Can't connect` / `Connection refused` | nada atendeu nessa porta: instância fora do ar, porta errada, ou firewall |
+| `timed out` / `Lost connection` | rede no caminho, ou servidor sobrecarregado |
+| algo sobre `plugin` ou `authentication` | o servidor pede um método de autenticação que este cliente não faz: instalar a outra família resolve |
+| `too many connections` | o servidor está com todas as conexões ocupadas |
+| nada, nem respondeu | a conexão morreu antes de o servidor falar, o que costuma ser rede |
 
 ## Três coisas que ele não deixa passar
 
@@ -222,15 +298,19 @@ O script avisa se o arquivo estiver legível por outros usuários. Ele está no
 ## O que o script precisa na máquina
 
 - `bash` 4 ou mais novo (no macOS, `brew install bash`)
-- `mysql` e `mysqldump`, que ele instala sozinho se faltar
+- `mysql` e `mysqldump`, **ou** `mariadb` e `mariadb-dump`. Ele instala sozinho se
+  faltar, e trabalha melhor com as duas famílias instaladas
 - `jq` **ou** um Python 3 de verdade, para ler o JSON
 - `rclone`, que ele instala sozinho se faltar
 - `curl`, para a autorização do Google
 - `gzip`, `gunzip`, `awk`, `sed`, `stat`
 
 ```bash
-sudo apt-get install -y jq mysql-client
+sudo apt-get install -y jq mysql-client mariadb-client
 ```
+
+As duas famílias de cliente de propósito: o script escolhe por servidor qual usar,
+e isso resolve uma classe de falha que opção nenhuma conserta.
 
 ## Perguntas que aparecem
 
@@ -242,8 +322,16 @@ servidor. Dump comprimido costuma sair bem menor, mas isso depende do conteúdo.
 **O que é esse "nível" que aparece em cada banco?**
 Usuário de um banco só costuma não ter privilégio para rotina armazenada e para
 evento, e aí o `mysqldump` falha **inteiro** em vez de pular aquela parte. Antes
-de gastar tempo, o script testa três combinações com um dump sem dados, que é
-rápido, e usa a melhor que o usuário consegue. O relatório registra qual foi.
+de gastar tempo, o script faz um dump sem dados, que é rápido, lê o erro se
+falhar, e tira só o que o erro aponta. `completo` é com rotina, evento e gatilho;
+`sem rotina e evento` mantém o gatilho; `minimo` é estrutura e dados. O relatório
+registra o nível e os ajustes de cada banco.
+
+**As opções que a sonda achou valem no dump de verdade?**
+Valem, e isso é testado. O script guarda as opções exatas que funcionaram e as usa
+inteiras no dump. Remontar a lista a partir do nome do nível perderia ajustes como
+`--column-statistics=0`, e o dump falharia **depois** de a sonda ter passado, que é
+o pior jeito de errar: parece defeito aleatório.
 
 **E tabela MyISAM?**
 O script usa `--single-transaction`, que dá um dump consistente para InnoDB
@@ -278,9 +366,16 @@ bash scripts/monta-lab.sh   # monta um MySQL e um Drive de mentira
 bash scripts/roda-testes.sh # a bateria
 ```
 
-O laboratório tem os casos que aparecem na vida real: usuário sem privilégio de
-rotina, banco vazio, dump que para no meio, tabela MyISAM, credencial errada,
+O laboratório tem os casos que aparecem na vida real: servidor MySQL e servidor
+MariaDB no mesmo arquivo, servidor que reporta versão de MySQL e recusa como
+MariaDB (que é o caso de um proxy reescrevendo o `VERSION()`), usuário sem privilégio de rotina, usuário sem `LOCK
+TABLES`, banco que exige `--no-tablespaces`, banco que só aceita o dump da própria
+família, banco vazio, dump que para no meio, tabela MyISAM, credencial errada,
 senha com aspa dupla e com barra invertida, e o mesmo banco em três portas.
+
+As frases de erro dos programas de mentira são as que MySQL e MariaDB devolvem de
+verdade, e não versões simplificadas. Isso importa porque é pela frase que o
+script decide o que mudar: um erro inventado testaria o teste, não o script.
 
 ## Documentos
 

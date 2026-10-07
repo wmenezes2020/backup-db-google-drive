@@ -55,7 +55,22 @@
       },
       "norm_label": "agora()",
       "source_file": "backup-db.sh",
-      "source_location": "L102"
+      "source_location": "L111"
+    },
+    {
+      "id": "backup_db_ajustes_de",
+      "label": "AJUSTES_DE",
+      "_origin": "ast",
+      "community": 0,
+      "community_name": "backup-db.sh",
+      "file_type": "code",
+      "metadata": {
+        "language": "bash",
+        "kind": "code"
+      },
+      "norm_label": "ajustes_de",
+      "source_file": "backup-db.sh",
+      "source_location": "L97"
     },
     {
       "id": "backup_db_avisos",
@@ -70,7 +85,7 @@
       },
       "norm_label": "avisos",
       "source_file": "backup-db.sh",
-      "source_location": "L88"
+      "source_location": "L96"
     },
     {
       "id": "backup_db_banco_de",
@@ -85,7 +100,7 @@
       },
       "norm_label": "banco_de",
       "source_file": "backup-db.sh",
-      "source_location": "L87"
+      "source_location": "L95"
     },
     {
       "id": "backup_db_bons",
@@ -100,7 +115,7 @@
       },
       "norm_label": "bons",
       "source_file": "backup-db.sh",
-      "source_location": "L1202"
+      "source_location": "L1489"
     },
     {
       "id": "backup_db_bytes_de",
@@ -115,7 +130,52 @@
       },
       "norm_label": "bytes_de",
       "source_file": "backup-db.sh",
-      "source_location": "L1201"
+      "source_location": "L1488"
+    },
+    {
+      "id": "backup_db_candidatos_dump",
+      "label": "candidatos_dump()",
+      "_origin": "ast",
+      "community": 0,
+      "community_name": "backup-db.sh",
+      "file_type": "code",
+      "metadata": {
+        "language": "bash",
+        "kind": "bash_function"
+      },
+      "norm_label": "candidatos_dump()",
+      "source_file": "backup-db.sh",
+      "source_location": "L729"
+    },
+    {
+      "id": "backup_db_cliente_de",
+      "label": "CLIENTE_DE",
+      "_origin": "ast",
+      "community": 0,
+      "community_name": "backup-db.sh",
+      "file_type": "code",
+      "metadata": {
+        "language": "bash",
+        "kind": "code"
+      },
+      "norm_label": "cliente_de",
+      "source_file": "backup-db.sh",
+      "source_location": "L1488"
+    },
+    {
+      "id": "backup_db_clientes_disponiveis",
+      "label": "CLIENTES_DISPONIVEIS",
+      "_origin": "ast",
+      "community": 0,
+      "community_name": "backup-db.sh",
+      "file_type": "code",
+      "metadata": {
+        "language": "bash",
+        "kind": "code"
+      },
+      "norm_label": "clientes_disponiveis",
+      "source_file": "backup-db.sh",
+      "source_location": "L89"
     },
     {
       "id": "backup_db_cor",
@@ -130,7 +190,37 @@
       },
       "norm_label": "cor()",
       "source_file": "backup-db.sh",
-      "source_location": "L101"
+      "source_location": "L110"
+    },
+    {
+      "id": "backup_db_dump_de",
+      "label": "DUMP_DE",
+      "_origin": "ast",
+      "community": 0,
+      "community_name": "backup-db.sh",
+      "file_type": "code",
+      "metadata": {
+        "language": "bash",
+        "kind": "code"
+      },
+      "norm_label": "dump_de",
+      "source_file": "backup-db.sh",
+      "source_location": "L97"
+    },
+    {
+      "id": "backup_db_dumps_disponiveis",
+      "label": "DUMPS_DISPONIVEIS",
+      "_origin": "ast",
+      "community": 0,
+      "community_name": "backup-db.sh",
+      "file_type": "code",
+      "metadata": {
+        "language": "bash",
+        "kind": "code"
+      },
+      "norm_label": "dumps_disponiveis",
+      "source_file": "backup-db.sh",
+      "source_location": "L88"
     },
     {
       "id": "backup_db_erros",
@@ -145,7 +235,7 @@
       },
       "norm_label": "erros",
       "source_file": "backup-db.sh",
-      "source_location": "L88"
+      "source_location": "L96"
     },
     {
       "id": "backup_db_escapa_cnf",
@@ -160,7 +250,7 @@
       },
       "norm_label": "escapa_cnf()",
       "source_file": "backup-db.sh",
-      "source_location": "L703"
+      "source_location": "L772"
     },
     {
       "id": "backup_db_escopo_conf",
@@ -175,7 +265,22 @@
       },
       "norm_label": "escopo_conf()",
       "source_file": "backup-db.sh",
-      "source_location": "L425"
+      "source_location": "L434"
+    },
+    {
+      "id": "backup_db_flags_de",
+      "label": "FLAGS_DE",
+      "_origin": "ast",
+      "community": 0,
+      "community_name": "backup-db.sh",
+      "file_type": "code",
+      "metadata": {
+        "language": "bash",
+        "kind": "code"
+      },
+      "norm_label": "flags_de",
+      "source_file": "backup-db.sh",
+      "source_location": "L1488"
     },
     {
       "id": "backup_db_flags_dump",
@@ -190,7 +295,7 @@
       },
       "norm_label": "flags_dump",
       "source_file": "backup-db.sh",
-      "source_location": "L85"
+      "source_location": "L93"
     },
     {
       "id": "backup_db_legivel",
@@ -205,7 +310,7 @@
       },
       "norm_label": "legivel()",
       "source_file": "backup-db.sh",
-      "source_location": "L263"
+      "source_location": "L272"
     },
     {
       "id": "backup_db_linhas_relatorio",
@@ -220,7 +325,7 @@
       },
       "norm_label": "linhas_relatorio",
       "source_file": "backup-db.sh",
-      "source_location": "L88"
+      "source_location": "L96"
     },
     {
       "id": "backup_db_myisam_de",
@@ -235,7 +340,7 @@
       },
       "norm_label": "myisam_de",
       "source_file": "backup-db.sh",
-      "source_location": "L1201"
+      "source_location": "L1488"
     },
     {
       "id": "backup_db_na_saida",
@@ -250,7 +355,7 @@
       },
       "norm_label": "na_saida()",
       "source_file": "backup-db.sh",
-      "source_location": "L327"
+      "source_location": "L336"
     },
     {
       "id": "backup_db_nivel_de",
@@ -265,7 +370,7 @@
       },
       "norm_label": "nivel_de",
       "source_file": "backup-db.sh",
-      "source_location": "L1201"
+      "source_location": "L1488"
     },
     {
       "id": "backup_db_nomes",
@@ -280,7 +385,7 @@
       },
       "norm_label": "nomes",
       "source_file": "backup-db.sh",
-      "source_location": "L86"
+      "source_location": "L94"
     },
     {
       "id": "backup_db_opcoes_rclone",
@@ -295,7 +400,7 @@
       },
       "norm_label": "opcoes_rclone()",
       "source_file": "backup-db.sh",
-      "source_location": "L598"
+      "source_location": "L607"
     },
     {
       "id": "backup_db_porta_de",
@@ -310,7 +415,22 @@
       },
       "norm_label": "porta_de",
       "source_file": "backup-db.sh",
-      "source_location": "L87"
+      "source_location": "L95"
+    },
+    {
+      "id": "backup_db_sabor_de",
+      "label": "SABOR_DE",
+      "_origin": "ast",
+      "community": 0,
+      "community_name": "backup-db.sh",
+      "file_type": "code",
+      "metadata": {
+        "language": "bash",
+        "kind": "code"
+      },
+      "norm_label": "sabor_de",
+      "source_file": "backup-db.sh",
+      "source_location": "L97"
     },
     {
       "id": "backup_db_senha_de",
@@ -325,7 +445,7 @@
       },
       "norm_label": "senha_de",
       "source_file": "backup-db.sh",
-      "source_location": "L87"
+      "source_location": "L95"
     },
     {
       "id": "backup_db_servidor_de",
@@ -340,7 +460,7 @@
       },
       "norm_label": "servidor_de",
       "source_file": "backup-db.sh",
-      "source_location": "L87"
+      "source_location": "L95"
     },
     {
       "id": "backup_db_tabelas_de",
@@ -355,7 +475,7 @@
       },
       "norm_label": "tabelas_de",
       "source_file": "backup-db.sh",
-      "source_location": "L1201"
+      "source_location": "L1488"
     },
     {
       "id": "backup_db_usuario_de",
@@ -370,13 +490,358 @@
       },
       "norm_label": "usuario_de",
       "source_file": "backup-db.sh",
-      "source_location": "L87"
+      "source_location": "L95"
+    },
+    {
+      "id": "backup_db_arquivo_conf_rclone",
+      "label": "arquivo_conf_rclone()",
+      "_origin": "ast",
+      "community": 1,
+      "community_name": "configura_drive",
+      "file_type": "code",
+      "metadata": {
+        "language": "bash",
+        "kind": "bash_function"
+      },
+      "norm_label": "arquivo_conf_rclone()",
+      "source_file": "backup-db.sh",
+      "source_location": "L395"
+    },
+    {
+      "id": "backup_db_autoriza_por_link",
+      "label": "autoriza_por_link()",
+      "_origin": "ast",
+      "community": 1,
+      "community_name": "configura_drive",
+      "file_type": "code",
+      "metadata": {
+        "language": "bash",
+        "kind": "bash_function"
+      },
+      "norm_label": "autoriza_por_link()",
+      "source_file": "backup-db.sh",
+      "source_location": "L473"
+    },
+    {
+      "id": "backup_db_aviso",
+      "label": "aviso()",
+      "_origin": "ast",
+      "community": 1,
+      "community_name": "configura_drive",
+      "file_type": "code",
+      "metadata": {
+        "language": "bash",
+        "kind": "bash_function"
+      },
+      "norm_label": "aviso()",
+      "source_file": "backup-db.sh",
+      "source_location": "L115"
+    },
+    {
+      "id": "backup_db_cifra_arquivo",
+      "label": "cifra_arquivo()",
+      "_origin": "ast",
+      "community": 1,
+      "community_name": "configura_drive",
+      "file_type": "code",
+      "metadata": {
+        "language": "bash",
+        "kind": "bash_function"
+      },
+      "norm_label": "cifra_arquivo()",
+      "source_file": "backup-db.sh",
+      "source_location": "L1073"
+    },
+    {
+      "id": "backup_db_configura_drive",
+      "label": "configura_drive()",
+      "_origin": "ast",
+      "community": 1,
+      "community_name": "configura_drive",
+      "file_type": "code",
+      "metadata": {
+        "language": "bash",
+        "kind": "bash_function"
+      },
+      "norm_label": "configura_drive()",
+      "source_file": "backup-db.sh",
+      "source_location": "L581"
+    },
+    {
+      "id": "backup_db_diz",
+      "label": "diz()",
+      "_origin": "ast",
+      "community": 1,
+      "community_name": "configura_drive",
+      "file_type": "code",
+      "metadata": {
+        "language": "bash",
+        "kind": "bash_function"
+      },
+      "norm_label": "diz()",
+      "source_file": "backup-db.sh",
+      "source_location": "L112"
+    },
+    {
+      "id": "backup_db_escopo_codificado",
+      "label": "escopo_codificado()",
+      "_origin": "ast",
+      "community": 1,
+      "community_name": "configura_drive",
+      "file_type": "code",
+      "metadata": {
+        "language": "bash",
+        "kind": "bash_function"
+      },
+      "norm_label": "escopo_codificado()",
+      "source_file": "backup-db.sh",
+      "source_location": "L437"
+    },
+    {
+      "id": "backup_db_escreve_remote_rclone",
+      "label": "escreve_remote_rclone()",
+      "_origin": "ast",
+      "community": 1,
+      "community_name": "configura_drive",
+      "file_type": "code",
+      "metadata": {
+        "language": "bash",
+        "kind": "bash_function"
+      },
+      "norm_label": "escreve_remote_rclone()",
+      "source_file": "backup-db.sh",
+      "source_location": "L405"
+    },
+    {
+      "id": "backup_db_falha",
+      "label": "falha()",
+      "_origin": "ast",
+      "community": 1,
+      "community_name": "configura_drive",
+      "file_type": "code",
+      "metadata": {
+        "language": "bash",
+        "kind": "bash_function"
+      },
+      "norm_label": "falha()",
+      "source_file": "backup-db.sh",
+      "source_location": "L116"
+    },
+    {
+      "id": "backup_db_feito",
+      "label": "feito()",
+      "_origin": "ast",
+      "community": 1,
+      "community_name": "configura_drive",
+      "file_type": "code",
+      "metadata": {
+        "language": "bash",
+        "kind": "bash_function"
+      },
+      "norm_label": "feito()",
+      "source_file": "backup-db.sh",
+      "source_location": "L114"
+    },
+    {
+      "id": "backup_db_id_curto",
+      "label": "id_curto()",
+      "_origin": "ast",
+      "community": 1,
+      "community_name": "configura_drive",
+      "file_type": "code",
+      "metadata": {
+        "language": "bash",
+        "kind": "bash_function"
+      },
+      "norm_label": "id_curto()",
+      "source_file": "backup-db.sh",
+      "source_location": "L343"
+    },
+    {
+      "id": "backup_db_instala_cliente_mysql",
+      "label": "instala_cliente_mysql()",
+      "_origin": "ast",
+      "community": 1,
+      "community_name": "configura_drive",
+      "file_type": "code",
+      "metadata": {
+        "language": "bash",
+        "kind": "bash_function"
+      },
+      "norm_label": "instala_cliente_mysql()",
+      "source_file": "backup-db.sh",
+      "source_location": "L739"
+    },
+    {
+      "id": "backup_db_instala_rclone",
+      "label": "instala_rclone()",
+      "_origin": "ast",
+      "community": 1,
+      "community_name": "configura_drive",
+      "file_type": "code",
+      "metadata": {
+        "language": "bash",
+        "kind": "bash_function"
+      },
+      "norm_label": "instala_rclone()",
+      "source_file": "backup-db.sh",
+      "source_location": "L363"
+    },
+    {
+      "id": "backup_db_ja_enviado",
+      "label": "ja_enviado()",
+      "_origin": "ast",
+      "community": 1,
+      "community_name": "configura_drive",
+      "file_type": "code",
+      "metadata": {
+        "language": "bash",
+        "kind": "bash_function"
+      },
+      "norm_label": "ja_enviado()",
+      "source_file": "backup-db.sh",
+      "source_location": "L1280"
+    },
+    {
+      "id": "backup_db_mapeia_clientes",
+      "label": "mapeia_clientes()",
+      "_origin": "ast",
+      "community": 1,
+      "community_name": "configura_drive",
+      "file_type": "code",
+      "metadata": {
+        "language": "bash",
+        "kind": "bash_function"
+      },
+      "norm_label": "mapeia_clientes()",
+      "source_file": "backup-db.sh",
+      "source_location": "L696"
+    },
+    {
+      "id": "backup_db_numero_json",
+      "label": "numero_json()",
+      "_origin": "ast",
+      "community": 1,
+      "community_name": "configura_drive",
+      "file_type": "code",
+      "metadata": {
+        "language": "bash",
+        "kind": "bash_function"
+      },
+      "norm_label": "numero_json()",
+      "source_file": "backup-db.sh",
+      "source_location": "L448"
+    },
+    {
+      "id": "backup_db_passo",
+      "label": "passo()",
+      "_origin": "ast",
+      "community": 1,
+      "community_name": "configura_drive",
+      "file_type": "code",
+      "metadata": {
+        "language": "bash",
+        "kind": "bash_function"
+      },
+      "norm_label": "passo()",
+      "source_file": "backup-db.sh",
+      "source_location": "L113"
+    },
+    {
+      "id": "backup_db_remote_ja_existe",
+      "label": "remote_ja_existe()",
+      "_origin": "ast",
+      "community": 1,
+      "community_name": "configura_drive",
+      "file_type": "code",
+      "metadata": {
+        "language": "bash",
+        "kind": "bash_function"
+      },
+      "norm_label": "remote_ja_existe()",
+      "source_file": "backup-db.sh",
+      "source_location": "L402"
+    },
+    {
+      "id": "backup_db_retencao_drive",
+      "label": "retencao_drive()",
+      "_origin": "ast",
+      "community": 1,
+      "community_name": "configura_drive",
+      "file_type": "code",
+      "metadata": {
+        "language": "bash",
+        "kind": "bash_function"
+      },
+      "norm_label": "retencao_drive()",
+      "source_file": "backup-db.sh",
+      "source_location": "L655"
+    },
+    {
+      "id": "backup_db_sabor_do_binario",
+      "label": "sabor_do_binario()",
+      "_origin": "ast",
+      "community": 1,
+      "community_name": "configura_drive",
+      "file_type": "code",
+      "metadata": {
+        "language": "bash",
+        "kind": "bash_function"
+      },
+      "norm_label": "sabor_do_binario()",
+      "source_file": "backup-db.sh",
+      "source_location": "L686"
+    },
+    {
+      "id": "backup_db_tem",
+      "label": "tem()",
+      "_origin": "ast",
+      "community": 1,
+      "community_name": "configura_drive",
+      "file_type": "code",
+      "metadata": {
+        "language": "bash",
+        "kind": "bash_function"
+      },
+      "norm_label": "tem()",
+      "source_file": "backup-db.sh",
+      "source_location": "L270"
+    },
+    {
+      "id": "backup_db_testa_remote",
+      "label": "testa_remote()",
+      "_origin": "ast",
+      "community": 1,
+      "community_name": "configura_drive",
+      "file_type": "code",
+      "metadata": {
+        "language": "bash",
+        "kind": "bash_function"
+      },
+      "norm_label": "testa_remote()",
+      "source_file": "backup-db.sh",
+      "source_location": "L403"
+    },
+    {
+      "id": "backup_db_valor_json",
+      "label": "valor_json()",
+      "_origin": "ast",
+      "community": 1,
+      "community_name": "configura_drive",
+      "file_type": "code",
+      "metadata": {
+        "language": "bash",
+        "kind": "bash_function"
+      },
+      "norm_label": "valor_json()",
+      "source_file": "backup-db.sh",
+      "source_location": "L444"
     },
     {
       "id": "scripts_roda_testes",
       "label": "roda-testes.sh",
       "_origin": "ast",
-      "community": 1,
+      "community": 2,
       "community_name": "roda-testes.sh",
       "file_type": "code",
       "metadata": {
@@ -391,7 +856,7 @@
       "id": "scripts_roda_testes_caso",
       "label": "caso()",
       "_origin": "ast",
-      "community": 1,
+      "community": 2,
       "community_name": "roda-testes.sh",
       "file_type": "code",
       "metadata": {
@@ -400,13 +865,13 @@
       },
       "norm_label": "caso()",
       "source_file": "scripts/roda-testes.sh",
-      "source_location": "L26"
+      "source_location": "L28"
     },
     {
       "id": "scripts_roda_testes_conecta",
       "label": "conecta()",
       "_origin": "ast",
-      "community": 1,
+      "community": 2,
       "community_name": "roda-testes.sh",
       "file_type": "code",
       "metadata": {
@@ -415,13 +880,13 @@
       },
       "norm_label": "conecta()",
       "source_file": "scripts/roda-testes.sh",
-      "source_location": "L48"
+      "source_location": "L50"
     },
     {
       "id": "scripts_roda_testes_contem",
       "label": "contem()",
       "_origin": "ast",
-      "community": 1,
+      "community": 2,
       "community_name": "roda-testes.sh",
       "file_type": "code",
       "metadata": {
@@ -430,13 +895,13 @@
       },
       "norm_label": "contem()",
       "source_file": "scripts/roda-testes.sh",
-      "source_location": "L50"
+      "source_location": "L52"
     },
     {
       "id": "scripts_roda_testes_desconecta",
       "label": "desconecta()",
       "_origin": "ast",
-      "community": 1,
+      "community": 2,
       "community_name": "roda-testes.sh",
       "file_type": "code",
       "metadata": {
@@ -445,13 +910,13 @@
       },
       "norm_label": "desconecta()",
       "source_file": "scripts/roda-testes.sh",
-      "source_location": "L49"
+      "source_location": "L51"
     },
     {
       "id": "scripts_roda_testes_estado",
       "label": "estado()",
       "_origin": "ast",
-      "community": 1,
+      "community": 2,
       "community_name": "roda-testes.sh",
       "file_type": "code",
       "metadata": {
@@ -460,13 +925,13 @@
       },
       "norm_label": "estado()",
       "source_file": "scripts/roda-testes.sh",
-      "source_location": "L52"
+      "source_location": "L54"
     },
     {
       "id": "scripts_roda_testes_falhas",
       "label": "FALHAS",
       "_origin": "ast",
-      "community": 1,
+      "community": 2,
       "community_name": "roda-testes.sh",
       "file_type": "code",
       "metadata": {
@@ -475,13 +940,13 @@
       },
       "norm_label": "falhas",
       "source_file": "scripts/roda-testes.sh",
-      "source_location": "L23"
+      "source_location": "L25"
     },
     {
       "id": "scripts_roda_testes_home",
       "label": "HOME",
       "_origin": "ast",
-      "community": 1,
+      "community": 2,
       "community_name": "roda-testes.sh",
       "file_type": "code",
       "metadata": {
@@ -490,13 +955,13 @@
       },
       "norm_label": "home",
       "source_file": "scripts/roda-testes.sh",
-      "source_location": "L17"
+      "source_location": "L18"
     },
     {
       "id": "scripts_roda_testes_limpa",
       "label": "limpa()",
       "_origin": "ast",
-      "community": 1,
+      "community": 2,
       "community_name": "roda-testes.sh",
       "file_type": "code",
       "metadata": {
@@ -505,13 +970,13 @@
       },
       "norm_label": "limpa()",
       "source_file": "scripts/roda-testes.sh",
-      "source_location": "L44"
+      "source_location": "L46"
     },
     {
       "id": "scripts_roda_testes_nao_contem",
       "label": "nao_contem()",
       "_origin": "ast",
-      "community": 1,
+      "community": 2,
       "community_name": "roda-testes.sh",
       "file_type": "code",
       "metadata": {
@@ -520,13 +985,13 @@
       },
       "norm_label": "nao_contem()",
       "source_file": "scripts/roda-testes.sh",
-      "source_location": "L51"
+      "source_location": "L53"
     },
     {
       "id": "scripts_roda_testes_nok",
       "label": "nok()",
       "_origin": "ast",
-      "community": 1,
+      "community": 2,
       "community_name": "roda-testes.sh",
       "file_type": "code",
       "metadata": {
@@ -535,13 +1000,13 @@
       },
       "norm_label": "nok()",
       "source_file": "scripts/roda-testes.sh",
-      "source_location": "L25"
+      "source_location": "L27"
     },
     {
       "id": "scripts_roda_testes_ok",
       "label": "ok()",
       "_origin": "ast",
-      "community": 1,
+      "community": 2,
       "community_name": "roda-testes.sh",
       "file_type": "code",
       "metadata": {
@@ -550,13 +1015,13 @@
       },
       "norm_label": "ok()",
       "source_file": "scripts/roda-testes.sh",
-      "source_location": "L24"
+      "source_location": "L26"
     },
     {
       "id": "scripts_roda_testes_pasta_data",
       "label": "pasta_data()",
       "_origin": "ast",
-      "community": 1,
+      "community": 2,
       "community_name": "roda-testes.sh",
       "file_type": "code",
       "metadata": {
@@ -565,13 +1030,13 @@
       },
       "norm_label": "pasta_data()",
       "source_file": "scripts/roda-testes.sh",
-      "source_location": "L53"
+      "source_location": "L55"
     },
     {
       "id": "scripts_roda_testes_path",
       "label": "PATH",
       "_origin": "ast",
-      "community": 1,
+      "community": 2,
       "community_name": "roda-testes.sh",
       "file_type": "code",
       "metadata": {
@@ -580,13 +1045,13 @@
       },
       "norm_label": "path",
       "source_file": "scripts/roda-testes.sh",
-      "source_location": "L16"
+      "source_location": "L17"
     },
     {
       "id": "scripts_roda_testes_pula",
       "label": "pula()",
       "_origin": "ast",
-      "community": 1,
+      "community": 2,
       "community_name": "roda-testes.sh",
       "file_type": "code",
       "metadata": {
@@ -595,13 +1060,13 @@
       },
       "norm_label": "pula()",
       "source_file": "scripts/roda-testes.sh",
-      "source_location": "L27"
+      "source_location": "L29"
     },
     {
       "id": "scripts_roda_testes_roda",
       "label": "roda()",
       "_origin": "ast",
-      "community": 1,
+      "community": 2,
       "community_name": "roda-testes.sh",
       "file_type": "code",
       "metadata": {
@@ -610,13 +1075,13 @@
       },
       "norm_label": "roda()",
       "source_file": "scripts/roda-testes.sh",
-      "source_location": "L30"
+      "source_location": "L32"
     },
     {
       "id": "scripts_roda_testes_sh__entry",
       "label": "roda-testes.sh script",
       "_origin": "ast",
-      "community": 1,
+      "community": 2,
       "community_name": "roda-testes.sh",
       "file_type": "code",
       "metadata": {
@@ -628,85 +1093,10 @@
       "source_location": "L1"
     },
     {
-      "id": "backup_db_le_do_tty",
-      "label": "le_do_tty()",
-      "_origin": "ast",
-      "community": 10,
-      "community_name": "tem_terminal",
-      "file_type": "code",
-      "metadata": {
-        "language": "bash",
-        "kind": "bash_function"
-      },
-      "norm_label": "le_do_tty()",
-      "source_file": "backup-db.sh",
-      "source_location": "L303"
-    },
-    {
-      "id": "backup_db_pergunta_sim",
-      "label": "pergunta_sim()",
-      "_origin": "ast",
-      "community": 10,
-      "community_name": "tem_terminal",
-      "file_type": "code",
-      "metadata": {
-        "language": "bash",
-        "kind": "bash_function"
-      },
-      "norm_label": "pergunta_sim()",
-      "source_file": "backup-db.sh",
-      "source_location": "L294"
-    },
-    {
-      "id": "backup_db_tem_terminal",
-      "label": "tem_terminal()",
-      "_origin": "ast",
-      "community": 10,
-      "community_name": "tem_terminal",
-      "file_type": "code",
-      "metadata": {
-        "language": "bash",
-        "kind": "bash_function"
-      },
-      "norm_label": "tem_terminal()",
-      "source_file": "backup-db.sh",
-      "source_location": "L292"
-    },
-    {
-      "id": "scripts_monta_lab",
-      "label": "monta-lab.sh",
-      "_origin": "ast",
-      "community": 11,
-      "community_name": "monta-lab.sh script",
-      "file_type": "code",
-      "metadata": {
-        "language": "bash",
-        "kind": "file"
-      },
-      "norm_label": "monta-lab.sh",
-      "source_file": "scripts/monta-lab.sh",
-      "source_location": "L1"
-    },
-    {
-      "id": "scripts_monta_lab_sh__entry",
-      "label": "monta-lab.sh script",
-      "_origin": "ast",
-      "community": 11,
-      "community_name": "monta-lab.sh script",
-      "file_type": "code",
-      "metadata": {
-        "language": "bash",
-        "kind": "bash_entrypoint"
-      },
-      "norm_label": "monta-lab.sh script",
-      "source_file": "scripts/monta-lab.sh",
-      "source_location": "L1"
-    },
-    {
       "id": "backup_db_ajuda",
       "label": "ajuda()",
       "_origin": "ast",
-      "community": 2,
+      "community": 3,
       "community_name": "backup-db.sh script",
       "file_type": "code",
       "metadata": {
@@ -715,13 +1105,13 @@
       },
       "norm_label": "ajuda()",
       "source_file": "backup-db.sh",
-      "source_location": "L112"
+      "source_location": "L121"
     },
     {
       "id": "backup_db_apelido",
       "label": "apelido()",
       "_origin": "ast",
-      "community": 2,
+      "community": 3,
       "community_name": "backup-db.sh script",
       "file_type": "code",
       "metadata": {
@@ -730,13 +1120,13 @@
       },
       "norm_label": "apelido()",
       "source_file": "backup-db.sh",
-      "source_location": "L344"
+      "source_location": "L353"
     },
     {
       "id": "backup_db_arquivo_opcoes_mysql",
       "label": "arquivo_opcoes_mysql()",
       "_origin": "ast",
-      "community": 2,
+      "community": 3,
       "community_name": "backup-db.sh script",
       "file_type": "code",
       "metadata": {
@@ -745,13 +1135,13 @@
       },
       "norm_label": "arquivo_opcoes_mysql()",
       "source_file": "backup-db.sh",
-      "source_location": "L710"
+      "source_location": "L779"
     },
     {
       "id": "backup_db_confere_dump",
       "label": "confere_dump()",
       "_origin": "ast",
-      "community": 2,
+      "community": 3,
       "community_name": "backup-db.sh script",
       "file_type": "code",
       "metadata": {
@@ -760,13 +1150,28 @@
       },
       "norm_label": "confere_dump()",
       "source_file": "backup-db.sh",
-      "source_location": "L790"
+      "source_location": "L1059"
+    },
+    {
+      "id": "backup_db_dica_da_recusa",
+      "label": "dica_da_recusa()",
+      "_origin": "ast",
+      "community": 3,
+      "community_name": "backup-db.sh script",
+      "file_type": "code",
+      "metadata": {
+        "language": "bash",
+        "kind": "bash_function"
+      },
+      "norm_label": "dica_da_recusa()",
+      "source_file": "backup-db.sh",
+      "source_location": "L834"
     },
     {
       "id": "backup_db_dump_banco",
       "label": "dump_banco()",
       "_origin": "ast",
-      "community": 2,
+      "community": 3,
       "community_name": "backup-db.sh script",
       "file_type": "code",
       "metadata": {
@@ -775,28 +1180,13 @@
       },
       "norm_label": "dump_banco()",
       "source_file": "backup-db.sh",
-      "source_location": "L771"
-    },
-    {
-      "id": "backup_db_escolhe_nivel",
-      "label": "escolhe_nivel()",
-      "_origin": "ast",
-      "community": 2,
-      "community_name": "backup-db.sh script",
-      "file_type": "code",
-      "metadata": {
-        "language": "bash",
-        "kind": "bash_function"
-      },
-      "norm_label": "escolhe_nivel()",
-      "source_file": "backup-db.sh",
-      "source_location": "L745"
+      "source_location": "L1040"
     },
     {
       "id": "backup_db_espaco_livre",
       "label": "espaco_livre()",
       "_origin": "ast",
-      "community": 2,
+      "community": 3,
       "community_name": "backup-db.sh script",
       "file_type": "code",
       "metadata": {
@@ -805,13 +1195,13 @@
       },
       "norm_label": "espaco_livre()",
       "source_file": "backup-db.sh",
-      "source_location": "L277"
+      "source_location": "L286"
     },
     {
       "id": "backup_db_info_banco",
       "label": "info_banco()",
       "_origin": "ast",
-      "community": 2,
+      "community": 3,
       "community_name": "backup-db.sh script",
       "file_type": "code",
       "metadata": {
@@ -820,13 +1210,28 @@
       },
       "norm_label": "info_banco()",
       "source_file": "backup-db.sh",
-      "source_location": "L731"
+      "source_location": "L869"
+    },
+    {
+      "id": "backup_db_le_do_tty",
+      "label": "le_do_tty()",
+      "_origin": "ast",
+      "community": 3,
+      "community_name": "backup-db.sh script",
+      "file_type": "code",
+      "metadata": {
+        "language": "bash",
+        "kind": "bash_function"
+      },
+      "norm_label": "le_do_tty()",
+      "source_file": "backup-db.sh",
+      "source_location": "L312"
     },
     {
       "id": "backup_db_mostra_registro",
       "label": "mostra_registro()",
       "_origin": "ast",
-      "community": 2,
+      "community": 3,
       "community_name": "backup-db.sh script",
       "file_type": "code",
       "metadata": {
@@ -835,13 +1240,28 @@
       },
       "norm_label": "mostra_registro()",
       "source_file": "backup-db.sh",
-      "source_location": "L1033"
+      "source_location": "L1302"
+    },
+    {
+      "id": "backup_db_pergunta_sim",
+      "label": "pergunta_sim()",
+      "_origin": "ast",
+      "community": 3,
+      "community_name": "backup-db.sh script",
+      "file_type": "code",
+      "metadata": {
+        "language": "bash",
+        "kind": "bash_function"
+      },
+      "norm_label": "pergunta_sim()",
+      "source_file": "backup-db.sh",
+      "source_location": "L303"
     },
     {
       "id": "backup_db_registra",
       "label": "registra()",
       "_origin": "ast",
-      "community": 2,
+      "community": 3,
       "community_name": "backup-db.sh script",
       "file_type": "code",
       "metadata": {
@@ -850,13 +1270,28 @@
       },
       "norm_label": "registra()",
       "source_file": "backup-db.sh",
-      "source_location": "L999"
+      "source_location": "L1268"
+    },
+    {
+      "id": "backup_db_sabor_servidor",
+      "label": "sabor_servidor()",
+      "_origin": "ast",
+      "community": 3,
+      "community_name": "backup-db.sh script",
+      "file_type": "code",
+      "metadata": {
+        "language": "bash",
+        "kind": "bash_function"
+      },
+      "norm_label": "sabor_servidor()",
+      "source_file": "backup-db.sh",
+      "source_location": "L857"
     },
     {
       "id": "backup_db_sh__entry",
       "label": "backup-db.sh script",
       "_origin": "ast",
-      "community": 2,
+      "community": 3,
       "community_name": "backup-db.sh script",
       "file_type": "code",
       "metadata": {
@@ -868,41 +1303,26 @@
       "source_location": "L1"
     },
     {
-      "id": "backup_db_testa_conexao",
-      "label": "testa_conexao()",
+      "id": "backup_db_tem_terminal",
+      "label": "tem_terminal()",
       "_origin": "ast",
-      "community": 2,
+      "community": 3,
       "community_name": "backup-db.sh script",
       "file_type": "code",
       "metadata": {
         "language": "bash",
         "kind": "bash_function"
       },
-      "norm_label": "testa_conexao()",
+      "norm_label": "tem_terminal()",
       "source_file": "backup-db.sh",
-      "source_location": "L728"
-    },
-    {
-      "id": "backup_db_testa_remote",
-      "label": "testa_remote()",
-      "_origin": "ast",
-      "community": 2,
-      "community_name": "backup-db.sh script",
-      "file_type": "code",
-      "metadata": {
-        "language": "bash",
-        "kind": "bash_function"
-      },
-      "norm_label": "testa_remote()",
-      "source_file": "backup-db.sh",
-      "source_location": "L394"
+      "source_location": "L301"
     },
     {
       "id": "backup_db_acha_python",
       "label": "acha_python()",
       "_origin": "ast",
-      "community": 3,
-      "community_name": "tem",
+      "community": 4,
+      "community_name": "carrega_credenciais",
       "file_type": "code",
       "metadata": {
         "language": "bash",
@@ -910,44 +1330,29 @@
       },
       "norm_label": "acha_python()",
       "source_file": "backup-db.sh",
-      "source_location": "L832"
+      "source_location": "L1101"
     },
     {
-      "id": "backup_db_cifra_arquivo",
-      "label": "cifra_arquivo()",
+      "id": "backup_db_carrega_credenciais",
+      "label": "carrega_credenciais()",
       "_origin": "ast",
-      "community": 3,
-      "community_name": "tem",
+      "community": 4,
+      "community_name": "carrega_credenciais",
       "file_type": "code",
       "metadata": {
         "language": "bash",
         "kind": "bash_function"
       },
-      "norm_label": "cifra_arquivo()",
+      "norm_label": "carrega_credenciais()",
       "source_file": "backup-db.sh",
-      "source_location": "L804"
-    },
-    {
-      "id": "backup_db_id_curto",
-      "label": "id_curto()",
-      "_origin": "ast",
-      "community": 3,
-      "community_name": "tem",
-      "file_type": "code",
-      "metadata": {
-        "language": "bash",
-        "kind": "bash_function"
-      },
-      "norm_label": "id_curto()",
-      "source_file": "backup-db.sh",
-      "source_location": "L334"
+      "source_location": "L1187"
     },
     {
       "id": "backup_db_le_credenciais",
       "label": "le_credenciais()",
       "_origin": "ast",
-      "community": 3,
-      "community_name": "tem",
+      "community": 4,
+      "community_name": "carrega_credenciais",
       "file_type": "code",
       "metadata": {
         "language": "bash",
@@ -955,29 +1360,44 @@
       },
       "norm_label": "le_credenciais()",
       "source_file": "backup-db.sh",
-      "source_location": "L859"
+      "source_location": "L1128"
     },
     {
-      "id": "backup_db_md5_local",
-      "label": "md5_local()",
+      "id": "backup_db_morre",
+      "label": "morre()",
       "_origin": "ast",
-      "community": 3,
-      "community_name": "tem",
+      "community": 4,
+      "community_name": "carrega_credenciais",
       "file_type": "code",
       "metadata": {
         "language": "bash",
         "kind": "bash_function"
       },
-      "norm_label": "md5_local()",
+      "norm_label": "morre()",
       "source_file": "backup-db.sh",
-      "source_location": "L284"
+      "source_location": "L117"
+    },
+    {
+      "id": "backup_db_na_lista",
+      "label": "na_lista()",
+      "_origin": "ast",
+      "community": 4,
+      "community_name": "carrega_credenciais",
+      "file_type": "code",
+      "metadata": {
+        "language": "bash",
+        "kind": "bash_function"
+      },
+      "norm_label": "na_lista()",
+      "source_file": "backup-db.sh",
+      "source_location": "L325"
     },
     {
       "id": "backup_db_pasta_do_json",
       "label": "pasta_do_json()",
       "_origin": "ast",
-      "community": 3,
-      "community_name": "tem",
+      "community": 4,
+      "community_name": "carrega_credenciais",
       "file_type": "code",
       "metadata": {
         "language": "bash",
@@ -985,29 +1405,14 @@
       },
       "norm_label": "pasta_do_json()",
       "source_file": "backup-db.sh",
-      "source_location": "L908"
-    },
-    {
-      "id": "backup_db_tem",
-      "label": "tem()",
-      "_origin": "ast",
-      "community": 3,
-      "community_name": "tem",
-      "file_type": "code",
-      "metadata": {
-        "language": "bash",
-        "kind": "bash_function"
-      },
-      "norm_label": "tem()",
-      "source_file": "backup-db.sh",
-      "source_location": "L261"
+      "source_location": "L1177"
     },
     {
       "id": "backup_db_tem_jq",
       "label": "tem_jq()",
       "_origin": "ast",
-      "community": 3,
-      "community_name": "tem",
+      "community": 4,
+      "community_name": "carrega_credenciais",
       "file_type": "code",
       "metadata": {
         "language": "bash",
@@ -1015,127 +1420,7 @@
       },
       "norm_label": "tem_jq()",
       "source_file": "backup-db.sh",
-      "source_location": "L846"
-    },
-    {
-      "id": "backup_db_aviso",
-      "label": "aviso()",
-      "_origin": "ast",
-      "community": 4,
-      "community_name": "configura_drive",
-      "file_type": "code",
-      "metadata": {
-        "language": "bash",
-        "kind": "bash_function"
-      },
-      "norm_label": "aviso()",
-      "source_file": "backup-db.sh",
-      "source_location": "L106"
-    },
-    {
-      "id": "backup_db_configura_drive",
-      "label": "configura_drive()",
-      "_origin": "ast",
-      "community": 4,
-      "community_name": "configura_drive",
-      "file_type": "code",
-      "metadata": {
-        "language": "bash",
-        "kind": "bash_function"
-      },
-      "norm_label": "configura_drive()",
-      "source_file": "backup-db.sh",
-      "source_location": "L572"
-    },
-    {
-      "id": "backup_db_falha",
-      "label": "falha()",
-      "_origin": "ast",
-      "community": 4,
-      "community_name": "configura_drive",
-      "file_type": "code",
-      "metadata": {
-        "language": "bash",
-        "kind": "bash_function"
-      },
-      "norm_label": "falha()",
-      "source_file": "backup-db.sh",
-      "source_location": "L107"
-    },
-    {
-      "id": "backup_db_feito",
-      "label": "feito()",
-      "_origin": "ast",
-      "community": 4,
-      "community_name": "configura_drive",
-      "file_type": "code",
-      "metadata": {
-        "language": "bash",
-        "kind": "bash_function"
-      },
-      "norm_label": "feito()",
-      "source_file": "backup-db.sh",
-      "source_location": "L105"
-    },
-    {
-      "id": "backup_db_instala_cliente_mysql",
-      "label": "instala_cliente_mysql()",
-      "_origin": "ast",
-      "community": 4,
-      "community_name": "configura_drive",
-      "file_type": "code",
-      "metadata": {
-        "language": "bash",
-        "kind": "bash_function"
-      },
-      "norm_label": "instala_cliente_mysql()",
-      "source_file": "backup-db.sh",
-      "source_location": "L671"
-    },
-    {
-      "id": "backup_db_instala_rclone",
-      "label": "instala_rclone()",
-      "_origin": "ast",
-      "community": 4,
-      "community_name": "configura_drive",
-      "file_type": "code",
-      "metadata": {
-        "language": "bash",
-        "kind": "bash_function"
-      },
-      "norm_label": "instala_rclone()",
-      "source_file": "backup-db.sh",
-      "source_location": "L354"
-    },
-    {
-      "id": "backup_db_passo",
-      "label": "passo()",
-      "_origin": "ast",
-      "community": 4,
-      "community_name": "configura_drive",
-      "file_type": "code",
-      "metadata": {
-        "language": "bash",
-        "kind": "bash_function"
-      },
-      "norm_label": "passo()",
-      "source_file": "backup-db.sh",
-      "source_location": "L104"
-    },
-    {
-      "id": "backup_db_remote_ja_existe",
-      "label": "remote_ja_existe()",
-      "_origin": "ast",
-      "community": 4,
-      "community_name": "configura_drive",
-      "file_type": "code",
-      "metadata": {
-        "language": "bash",
-        "kind": "bash_function"
-      },
-      "norm_label": "remote_ja_existe()",
-      "source_file": "backup-db.sh",
-      "source_location": "L393"
+      "source_location": "L1115"
     },
     {
       "id": "scripts_gerar_grafo",
@@ -1160,190 +1445,85 @@
       "source_location": "L2"
     },
     {
-      "id": "backup_db_carrega_credenciais",
-      "label": "carrega_credenciais()",
+      "id": "backup_db_erro_recente",
+      "label": "erro_recente()",
       "_origin": "ast",
       "community": 6,
-      "community_name": "carrega_credenciais",
+      "community_name": "testa_conexao",
       "file_type": "code",
       "metadata": {
         "language": "bash",
         "kind": "bash_function"
       },
-      "norm_label": "carrega_credenciais()",
+      "norm_label": "erro_recente()",
       "source_file": "backup-db.sh",
-      "source_location": "L918"
+      "source_location": "L804"
     },
     {
-      "id": "backup_db_diz",
-      "label": "diz()",
+      "id": "backup_db_escolhe_dump_e_opcoes",
+      "label": "escolhe_dump_e_opcoes()",
       "_origin": "ast",
       "community": 6,
-      "community_name": "carrega_credenciais",
+      "community_name": "testa_conexao",
       "file_type": "code",
       "metadata": {
         "language": "bash",
         "kind": "bash_function"
       },
-      "norm_label": "diz()",
+      "norm_label": "escolhe_dump_e_opcoes()",
       "source_file": "backup-db.sh",
-      "source_location": "L103"
+      "source_location": "L1023"
     },
     {
-      "id": "backup_db_morre",
-      "label": "morre()",
+      "id": "backup_db_escolhe_opcoes_dump",
+      "label": "escolhe_opcoes_dump()",
       "_origin": "ast",
       "community": 6,
-      "community_name": "carrega_credenciais",
+      "community_name": "testa_conexao",
       "file_type": "code",
       "metadata": {
         "language": "bash",
         "kind": "bash_function"
       },
-      "norm_label": "morre()",
+      "norm_label": "escolhe_opcoes_dump()",
       "source_file": "backup-db.sh",
-      "source_location": "L108"
+      "source_location": "L908"
     },
     {
-      "id": "backup_db_na_lista",
-      "label": "na_lista()",
+      "id": "backup_db_linhas_log",
+      "label": "linhas_log()",
       "_origin": "ast",
       "community": 6,
-      "community_name": "carrega_credenciais",
+      "community_name": "testa_conexao",
       "file_type": "code",
       "metadata": {
         "language": "bash",
         "kind": "bash_function"
       },
-      "norm_label": "na_lista()",
+      "norm_label": "linhas_log()",
       "source_file": "backup-db.sh",
-      "source_location": "L316"
+      "source_location": "L798"
     },
     {
-      "id": "backup_db_retencao_drive",
-      "label": "retencao_drive()",
+      "id": "backup_db_testa_conexao",
+      "label": "testa_conexao()",
       "_origin": "ast",
       "community": 6,
-      "community_name": "carrega_credenciais",
+      "community_name": "testa_conexao",
       "file_type": "code",
       "metadata": {
         "language": "bash",
         "kind": "bash_function"
       },
-      "norm_label": "retencao_drive()",
+      "norm_label": "testa_conexao()",
       "source_file": "backup-db.sh",
-      "source_location": "L646"
-    },
-    {
-      "id": "backup_db_autoriza_por_link",
-      "label": "autoriza_por_link()",
-      "_origin": "ast",
-      "community": 7,
-      "community_name": "autoriza_por_link",
-      "file_type": "code",
-      "metadata": {
-        "language": "bash",
-        "kind": "bash_function"
-      },
-      "norm_label": "autoriza_por_link()",
-      "source_file": "backup-db.sh",
-      "source_location": "L464"
-    },
-    {
-      "id": "backup_db_escopo_codificado",
-      "label": "escopo_codificado()",
-      "_origin": "ast",
-      "community": 7,
-      "community_name": "autoriza_por_link",
-      "file_type": "code",
-      "metadata": {
-        "language": "bash",
-        "kind": "bash_function"
-      },
-      "norm_label": "escopo_codificado()",
-      "source_file": "backup-db.sh",
-      "source_location": "L428"
-    },
-    {
-      "id": "backup_db_numero_json",
-      "label": "numero_json()",
-      "_origin": "ast",
-      "community": 7,
-      "community_name": "autoriza_por_link",
-      "file_type": "code",
-      "metadata": {
-        "language": "bash",
-        "kind": "bash_function"
-      },
-      "norm_label": "numero_json()",
-      "source_file": "backup-db.sh",
-      "source_location": "L439"
-    },
-    {
-      "id": "backup_db_valor_json",
-      "label": "valor_json()",
-      "_origin": "ast",
-      "community": 7,
-      "community_name": "autoriza_por_link",
-      "file_type": "code",
-      "metadata": {
-        "language": "bash",
-        "kind": "bash_function"
-      },
-      "norm_label": "valor_json()",
-      "source_file": "backup-db.sh",
-      "source_location": "L435"
-    },
-    {
-      "id": "backup_db_arquivo_conf_rclone",
-      "label": "arquivo_conf_rclone()",
-      "_origin": "ast",
-      "community": 8,
-      "community_name": "ja_enviado",
-      "file_type": "code",
-      "metadata": {
-        "language": "bash",
-        "kind": "bash_function"
-      },
-      "norm_label": "arquivo_conf_rclone()",
-      "source_file": "backup-db.sh",
-      "source_location": "L386"
-    },
-    {
-      "id": "backup_db_escreve_remote_rclone",
-      "label": "escreve_remote_rclone()",
-      "_origin": "ast",
-      "community": 8,
-      "community_name": "ja_enviado",
-      "file_type": "code",
-      "metadata": {
-        "language": "bash",
-        "kind": "bash_function"
-      },
-      "norm_label": "escreve_remote_rclone()",
-      "source_file": "backup-db.sh",
-      "source_location": "L396"
-    },
-    {
-      "id": "backup_db_ja_enviado",
-      "label": "ja_enviado()",
-      "_origin": "ast",
-      "community": 8,
-      "community_name": "ja_enviado",
-      "file_type": "code",
-      "metadata": {
-        "language": "bash",
-        "kind": "bash_function"
-      },
-      "norm_label": "ja_enviado()",
-      "source_file": "backup-db.sh",
-      "source_location": "L1011"
+      "source_location": "L816"
     },
     {
       "id": "backup_db_envia_arquivo",
       "label": "envia_arquivo()",
       "_origin": "ast",
-      "community": 9,
+      "community": 7,
       "community_name": "envia_arquivo",
       "file_type": "code",
       "metadata": {
@@ -1352,13 +1532,28 @@
       },
       "norm_label": "envia_arquivo()",
       "source_file": "backup-db.sh",
-      "source_location": "L607"
+      "source_location": "L616"
+    },
+    {
+      "id": "backup_db_md5_local",
+      "label": "md5_local()",
+      "_origin": "ast",
+      "community": 7,
+      "community_name": "envia_arquivo",
+      "file_type": "code",
+      "metadata": {
+        "language": "bash",
+        "kind": "bash_function"
+      },
+      "norm_label": "md5_local()",
+      "source_file": "backup-db.sh",
+      "source_location": "L293"
     },
     {
       "id": "backup_db_minusculo",
       "label": "minusculo()",
       "_origin": "ast",
-      "community": 9,
+      "community": 7,
       "community_name": "envia_arquivo",
       "file_type": "code",
       "metadata": {
@@ -1367,13 +1562,13 @@
       },
       "norm_label": "minusculo()",
       "source_file": "backup-db.sh",
-      "source_location": "L290"
+      "source_location": "L299"
     },
     {
       "id": "backup_db_tamanho_arquivo",
       "label": "tamanho_arquivo()",
       "_origin": "ast",
-      "community": 9,
+      "community": 7,
       "community_name": "envia_arquivo",
       "file_type": "code",
       "metadata": {
@@ -1382,7 +1577,37 @@
       },
       "norm_label": "tamanho_arquivo()",
       "source_file": "backup-db.sh",
-      "source_location": "L272"
+      "source_location": "L281"
+    },
+    {
+      "id": "scripts_monta_lab",
+      "label": "monta-lab.sh",
+      "_origin": "ast",
+      "community": 8,
+      "community_name": "monta-lab.sh script",
+      "file_type": "code",
+      "metadata": {
+        "language": "bash",
+        "kind": "file"
+      },
+      "norm_label": "monta-lab.sh",
+      "source_file": "scripts/monta-lab.sh",
+      "source_location": "L1"
+    },
+    {
+      "id": "scripts_monta_lab_sh__entry",
+      "label": "monta-lab.sh script",
+      "_origin": "ast",
+      "community": 8,
+      "community_name": "monta-lab.sh script",
+      "file_type": "code",
+      "metadata": {
+        "language": "bash",
+        "kind": "bash_entrypoint"
+      },
+      "norm_label": "monta-lab.sh script",
+      "source_file": "scripts/monta-lab.sh",
+      "source_location": "L1"
     },
     {
       "id": "json",
@@ -1428,7 +1653,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "backup-db.sh",
-      "source_location": "L836",
+      "source_location": "L1105",
       "weight": 1.0
     },
     {
@@ -1440,7 +1665,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "backup-db.sh",
-      "source_location": "L468",
+      "source_location": "L477",
       "weight": 1.0
     },
     {
@@ -1452,7 +1677,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "backup-db.sh",
-      "source_location": "L482",
+      "source_location": "L491",
       "weight": 1.0
     },
     {
@@ -1464,7 +1689,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "backup-db.sh",
-      "source_location": "L499",
+      "source_location": "L508",
       "weight": 1.0
     },
     {
@@ -1476,24 +1701,12 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "backup-db.sh",
-      "source_location": "L503",
+      "source_location": "L512",
       "weight": 1.0
     },
     {
       "source": "backup_db_autoriza_por_link",
       "target": "backup_db_aviso",
-      "relation": "calls",
-      "_origin": "ast",
-      "confidence": "EXTRACTED",
-      "confidence_score": 1.0,
-      "context": "call",
-      "source_file": "backup-db.sh",
-      "source_location": "L504",
-      "weight": 1.0
-    },
-    {
-      "source": "backup_db_autoriza_por_link",
-      "target": "backup_db_diz",
       "relation": "calls",
       "_origin": "ast",
       "confidence": "EXTRACTED",
@@ -1505,19 +1718,19 @@
     },
     {
       "source": "backup_db_autoriza_por_link",
-      "target": "backup_db_valor_json",
+      "target": "backup_db_diz",
       "relation": "calls",
       "_origin": "ast",
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "backup-db.sh",
-      "source_location": "L541",
+      "source_location": "L522",
       "weight": 1.0
     },
     {
       "source": "backup_db_autoriza_por_link",
-      "target": "backup_db_numero_json",
+      "target": "backup_db_valor_json",
       "relation": "calls",
       "_origin": "ast",
       "confidence": "EXTRACTED",
@@ -1529,6 +1742,18 @@
     },
     {
       "source": "backup_db_autoriza_por_link",
+      "target": "backup_db_numero_json",
+      "relation": "calls",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "call",
+      "source_file": "backup-db.sh",
+      "source_location": "L559",
+      "weight": 1.0
+    },
+    {
+      "source": "backup_db_autoriza_por_link",
       "target": "backup_db_escreve_remote_rclone",
       "relation": "calls",
       "_origin": "ast",
@@ -1536,7 +1761,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "backup-db.sh",
-      "source_location": "L566",
+      "source_location": "L575",
       "weight": 1.0
     },
     {
@@ -1548,7 +1773,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "backup-db.sh",
-      "source_location": "L922",
+      "source_location": "L1191",
       "weight": 1.0
     },
     {
@@ -1560,7 +1785,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "backup-db.sh",
-      "source_location": "L946",
+      "source_location": "L1215",
       "weight": 1.0
     },
     {
@@ -1572,7 +1797,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "backup-db.sh",
-      "source_location": "L969",
+      "source_location": "L1238",
       "weight": 1.0
     },
     {
@@ -1584,7 +1809,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "backup-db.sh",
-      "source_location": "L976",
+      "source_location": "L1245",
       "weight": 1.0
     },
     {
@@ -1596,7 +1821,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "backup-db.sh",
-      "source_location": "L978",
+      "source_location": "L1247",
       "weight": 1.0
     },
     {
@@ -1608,84 +1833,12 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "backup-db.sh",
-      "source_location": "L807",
+      "source_location": "L1076",
       "weight": 1.0
     },
     {
       "source": "backup_db_configura_drive",
       "target": "backup_db_passo",
-      "relation": "calls",
-      "_origin": "ast",
-      "confidence": "EXTRACTED",
-      "confidence_score": 1.0,
-      "context": "call",
-      "source_file": "backup-db.sh",
-      "source_location": "L573",
-      "weight": 1.0
-    },
-    {
-      "source": "backup_db_configura_drive",
-      "target": "backup_db_instala_rclone",
-      "relation": "calls",
-      "_origin": "ast",
-      "confidence": "EXTRACTED",
-      "confidence_score": 1.0,
-      "context": "call",
-      "source_file": "backup-db.sh",
-      "source_location": "L574",
-      "weight": 1.0
-    },
-    {
-      "source": "backup_db_configura_drive",
-      "target": "backup_db_remote_ja_existe",
-      "relation": "calls",
-      "_origin": "ast",
-      "confidence": "EXTRACTED",
-      "confidence_score": 1.0,
-      "context": "call",
-      "source_file": "backup-db.sh",
-      "source_location": "L575",
-      "weight": 1.0
-    },
-    {
-      "source": "backup_db_configura_drive",
-      "target": "backup_db_testa_remote",
-      "relation": "calls",
-      "_origin": "ast",
-      "confidence": "EXTRACTED",
-      "confidence_score": 1.0,
-      "context": "call",
-      "source_file": "backup-db.sh",
-      "source_location": "L576",
-      "weight": 1.0
-    },
-    {
-      "source": "backup_db_configura_drive",
-      "target": "backup_db_feito",
-      "relation": "calls",
-      "_origin": "ast",
-      "confidence": "EXTRACTED",
-      "confidence_score": 1.0,
-      "context": "call",
-      "source_file": "backup-db.sh",
-      "source_location": "L577",
-      "weight": 1.0
-    },
-    {
-      "source": "backup_db_configura_drive",
-      "target": "backup_db_aviso",
-      "relation": "calls",
-      "_origin": "ast",
-      "confidence": "EXTRACTED",
-      "confidence_score": 1.0,
-      "context": "call",
-      "source_file": "backup-db.sh",
-      "source_location": "L580",
-      "weight": 1.0
-    },
-    {
-      "source": "backup_db_configura_drive",
-      "target": "backup_db_tem_terminal",
       "relation": "calls",
       "_origin": "ast",
       "confidence": "EXTRACTED",
@@ -1697,7 +1850,7 @@
     },
     {
       "source": "backup_db_configura_drive",
-      "target": "backup_db_falha",
+      "target": "backup_db_instala_rclone",
       "relation": "calls",
       "_origin": "ast",
       "confidence": "EXTRACTED",
@@ -1709,6 +1862,78 @@
     },
     {
       "source": "backup_db_configura_drive",
+      "target": "backup_db_remote_ja_existe",
+      "relation": "calls",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "call",
+      "source_file": "backup-db.sh",
+      "source_location": "L584",
+      "weight": 1.0
+    },
+    {
+      "source": "backup_db_configura_drive",
+      "target": "backup_db_testa_remote",
+      "relation": "calls",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "call",
+      "source_file": "backup-db.sh",
+      "source_location": "L585",
+      "weight": 1.0
+    },
+    {
+      "source": "backup_db_configura_drive",
+      "target": "backup_db_feito",
+      "relation": "calls",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "call",
+      "source_file": "backup-db.sh",
+      "source_location": "L586",
+      "weight": 1.0
+    },
+    {
+      "source": "backup_db_configura_drive",
+      "target": "backup_db_aviso",
+      "relation": "calls",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "call",
+      "source_file": "backup-db.sh",
+      "source_location": "L589",
+      "weight": 1.0
+    },
+    {
+      "source": "backup_db_configura_drive",
+      "target": "backup_db_tem_terminal",
+      "relation": "calls",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "call",
+      "source_file": "backup-db.sh",
+      "source_location": "L591",
+      "weight": 1.0
+    },
+    {
+      "source": "backup_db_configura_drive",
+      "target": "backup_db_falha",
+      "relation": "calls",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "call",
+      "source_file": "backup-db.sh",
+      "source_location": "L592",
+      "weight": 1.0
+    },
+    {
+      "source": "backup_db_configura_drive",
       "target": "backup_db_tem",
       "relation": "calls",
       "_origin": "ast",
@@ -1716,7 +1941,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "backup-db.sh",
-      "source_location": "L587",
+      "source_location": "L596",
       "weight": 1.0
     },
     {
@@ -1728,7 +1953,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "backup-db.sh",
-      "source_location": "L588",
+      "source_location": "L597",
       "weight": 1.0
     },
     {
@@ -1740,7 +1965,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "backup-db.sh",
-      "source_location": "L589",
+      "source_location": "L598",
       "weight": 1.0
     },
     {
@@ -1752,7 +1977,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "backup-db.sh",
-      "source_location": "L614",
+      "source_location": "L623",
       "weight": 1.0
     },
     {
@@ -1764,7 +1989,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "backup-db.sh",
-      "source_location": "L616",
+      "source_location": "L625",
       "weight": 1.0
     },
     {
@@ -1776,7 +2001,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "backup-db.sh",
-      "source_location": "L620",
+      "source_location": "L629",
       "weight": 1.0
     },
     {
@@ -1788,7 +2013,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "backup-db.sh",
-      "source_location": "L631",
+      "source_location": "L640",
       "weight": 1.0
     },
     {
@@ -1800,7 +2025,43 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "backup-db.sh",
-      "source_location": "L638",
+      "source_location": "L647",
+      "weight": 1.0
+    },
+    {
+      "source": "backup_db_escolhe_dump_e_opcoes",
+      "target": "backup_db_escolhe_opcoes_dump",
+      "relation": "calls",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "call",
+      "source_file": "backup-db.sh",
+      "source_location": "L1029",
+      "weight": 1.0
+    },
+    {
+      "source": "backup_db_escolhe_opcoes_dump",
+      "target": "backup_db_linhas_log",
+      "relation": "calls",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "call",
+      "source_file": "backup-db.sh",
+      "source_location": "L933",
+      "weight": 1.0
+    },
+    {
+      "source": "backup_db_escolhe_opcoes_dump",
+      "target": "backup_db_erro_recente",
+      "relation": "calls",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "call",
+      "source_file": "backup-db.sh",
+      "source_location": "L943",
       "weight": 1.0
     },
     {
@@ -1812,7 +2073,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "backup-db.sh",
-      "source_location": "L398",
+      "source_location": "L407",
       "weight": 1.0
     },
     {
@@ -1824,7 +2085,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "backup-db.sh",
-      "source_location": "L422",
+      "source_location": "L431",
       "weight": 1.0
     },
     {
@@ -1836,19 +2097,19 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "backup-db.sh",
-      "source_location": "L336",
+      "source_location": "L345",
       "weight": 1.0
     },
     {
       "source": "backup_db_instala_cliente_mysql",
-      "target": "backup_db_tem",
+      "target": "backup_db_mapeia_clientes",
       "relation": "calls",
       "_origin": "ast",
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "backup-db.sh",
-      "source_location": "L672",
+      "source_location": "L740",
       "weight": 1.0
     },
     {
@@ -1860,7 +2121,19 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "backup-db.sh",
-      "source_location": "L673",
+      "source_location": "L741",
+      "weight": 1.0
+    },
+    {
+      "source": "backup_db_instala_cliente_mysql",
+      "target": "backup_db_tem",
+      "relation": "calls",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "call",
+      "source_file": "backup-db.sh",
+      "source_location": "L742",
       "weight": 1.0
     },
     {
@@ -1872,7 +2145,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "backup-db.sh",
-      "source_location": "L685",
+      "source_location": "L753",
       "weight": 1.0
     },
     {
@@ -1884,7 +2157,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "backup-db.sh",
-      "source_location": "L688",
+      "source_location": "L756",
       "weight": 1.0
     },
     {
@@ -1896,7 +2169,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "backup-db.sh",
-      "source_location": "L689",
+      "source_location": "L757",
       "weight": 1.0
     },
     {
@@ -1908,7 +2181,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "backup-db.sh",
-      "source_location": "L355",
+      "source_location": "L364",
       "weight": 1.0
     },
     {
@@ -1920,7 +2193,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "backup-db.sh",
-      "source_location": "L356",
+      "source_location": "L365",
       "weight": 1.0
     },
     {
@@ -1932,7 +2205,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "backup-db.sh",
-      "source_location": "L359",
+      "source_location": "L368",
       "weight": 1.0
     },
     {
@@ -1944,7 +2217,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "backup-db.sh",
-      "source_location": "L367",
+      "source_location": "L376",
       "weight": 1.0
     },
     {
@@ -1956,7 +2229,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "backup-db.sh",
-      "source_location": "L371",
+      "source_location": "L380",
       "weight": 1.0
     },
     {
@@ -1968,7 +2241,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "backup-db.sh",
-      "source_location": "L372",
+      "source_location": "L381",
       "weight": 1.0
     },
     {
@@ -1980,7 +2253,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "backup-db.sh",
-      "source_location": "L1023",
+      "source_location": "L1292",
       "weight": 1.0
     },
     {
@@ -1992,7 +2265,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "backup-db.sh",
-      "source_location": "L1026",
+      "source_location": "L1295",
       "weight": 1.0
     },
     {
@@ -2004,7 +2277,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "backup-db.sh",
-      "source_location": "L861",
+      "source_location": "L1130",
       "weight": 1.0
     },
     {
@@ -2016,7 +2289,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "backup-db.sh",
-      "source_location": "L875",
+      "source_location": "L1144",
       "weight": 1.0
     },
     {
@@ -2028,7 +2301,31 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "backup-db.sh",
-      "source_location": "L305",
+      "source_location": "L314",
+      "weight": 1.0
+    },
+    {
+      "source": "backup_db_mapeia_clientes",
+      "target": "backup_db_tem",
+      "relation": "calls",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "call",
+      "source_file": "backup-db.sh",
+      "source_location": "L700",
+      "weight": 1.0
+    },
+    {
+      "source": "backup_db_mapeia_clientes",
+      "target": "backup_db_sabor_do_binario",
+      "relation": "calls",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "call",
+      "source_file": "backup-db.sh",
+      "source_location": "L707",
       "weight": 1.0
     },
     {
@@ -2040,7 +2337,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "backup-db.sh",
-      "source_location": "L285",
+      "source_location": "L294",
       "weight": 1.0
     },
     {
@@ -2052,7 +2349,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "backup-db.sh",
-      "source_location": "L910",
+      "source_location": "L1179",
       "weight": 1.0
     },
     {
@@ -2064,7 +2361,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "backup-db.sh",
-      "source_location": "L911",
+      "source_location": "L1180",
       "weight": 1.0
     },
     {
@@ -2076,7 +2373,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "backup-db.sh",
-      "source_location": "L297",
+      "source_location": "L306",
       "weight": 1.0
     },
     {
@@ -2088,7 +2385,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "backup-db.sh",
-      "source_location": "L650",
+      "source_location": "L659",
       "weight": 1.0
     },
     {
@@ -2100,7 +2397,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "backup-db.sh",
-      "source_location": "L657",
+      "source_location": "L666",
       "weight": 1.0
     },
     {
@@ -2112,7 +2409,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "backup-db.sh",
-      "source_location": "L659",
+      "source_location": "L668",
       "weight": 1.0
     },
     {
@@ -2124,7 +2421,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "backup-db.sh",
-      "source_location": "L1058",
+      "source_location": "L1327",
       "weight": 1.0
     },
     {
@@ -2136,7 +2433,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "backup-db.sh",
-      "source_location": "L1072",
+      "source_location": "L1341",
       "weight": 1.0
     },
     {
@@ -2148,7 +2445,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "backup-db.sh",
-      "source_location": "L1075",
+      "source_location": "L1344",
       "weight": 1.0
     },
     {
@@ -2160,7 +2457,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "backup-db.sh",
-      "source_location": "L1079",
+      "source_location": "L1348",
       "weight": 1.0
     },
     {
@@ -2172,7 +2469,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "backup-db.sh",
-      "source_location": "L1080",
+      "source_location": "L1349",
       "weight": 1.0
     },
     {
@@ -2184,7 +2481,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "backup-db.sh",
-      "source_location": "L1089",
+      "source_location": "L1358",
       "weight": 1.0
     },
     {
@@ -2196,7 +2493,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "backup-db.sh",
-      "source_location": "L1095",
+      "source_location": "L1364",
       "weight": 1.0
     },
     {
@@ -2208,55 +2505,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "backup-db.sh",
-      "source_location": "L1098",
-      "weight": 1.0
-    },
-    {
-      "source": "backup_db_sh__entry",
-      "target": "backup_db_apelido",
-      "relation": "calls",
-      "_origin": "ast",
-      "confidence": "EXTRACTED",
-      "confidence_score": 1.0,
-      "context": "call",
-      "source_file": "backup-db.sh",
-      "source_location": "L1125",
-      "weight": 1.0
-    },
-    {
-      "source": "backup_db_sh__entry",
-      "target": "backup_db_id_curto",
-      "relation": "calls",
-      "_origin": "ast",
-      "confidence": "EXTRACTED",
-      "confidence_score": 1.0,
-      "context": "call",
-      "source_file": "backup-db.sh",
-      "source_location": "L1125",
-      "weight": 1.0
-    },
-    {
-      "source": "backup_db_sh__entry",
-      "target": "backup_db_mostra_registro",
-      "relation": "calls",
-      "_origin": "ast",
-      "confidence": "EXTRACTED",
-      "confidence_score": 1.0,
-      "context": "call",
-      "source_file": "backup-db.sh",
-      "source_location": "L1136",
-      "weight": 1.0
-    },
-    {
-      "source": "backup_db_sh__entry",
-      "target": "backup_db_carrega_credenciais",
-      "relation": "calls",
-      "_origin": "ast",
-      "confidence": "EXTRACTED",
-      "confidence_score": 1.0,
-      "context": "call",
-      "source_file": "backup-db.sh",
-      "source_location": "L1161",
+      "source_location": "L1367",
       "weight": 1.0
     },
     {
@@ -2268,7 +2517,55 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "backup-db.sh",
-      "source_location": "L1164",
+      "source_location": "L1384",
+      "weight": 1.0
+    },
+    {
+      "source": "backup_db_sh__entry",
+      "target": "backup_db_apelido",
+      "relation": "calls",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "call",
+      "source_file": "backup-db.sh",
+      "source_location": "L1409",
+      "weight": 1.0
+    },
+    {
+      "source": "backup_db_sh__entry",
+      "target": "backup_db_id_curto",
+      "relation": "calls",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "call",
+      "source_file": "backup-db.sh",
+      "source_location": "L1409",
+      "weight": 1.0
+    },
+    {
+      "source": "backup_db_sh__entry",
+      "target": "backup_db_mostra_registro",
+      "relation": "calls",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "call",
+      "source_file": "backup-db.sh",
+      "source_location": "L1420",
+      "weight": 1.0
+    },
+    {
+      "source": "backup_db_sh__entry",
+      "target": "backup_db_carrega_credenciais",
+      "relation": "calls",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "call",
+      "source_file": "backup-db.sh",
+      "source_location": "L1448",
       "weight": 1.0
     },
     {
@@ -2280,7 +2577,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "backup-db.sh",
-      "source_location": "L1167",
+      "source_location": "L1454",
       "weight": 1.0
     },
     {
@@ -2292,7 +2589,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "backup-db.sh",
-      "source_location": "L1204",
+      "source_location": "L1491",
       "weight": 1.0
     },
     {
@@ -2304,7 +2601,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "backup-db.sh",
-      "source_location": "L1205",
+      "source_location": "L1492",
       "weight": 1.0
     },
     {
@@ -2316,7 +2613,31 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "backup-db.sh",
-      "source_location": "L1206",
+      "source_location": "L1493",
+      "weight": 1.0
+    },
+    {
+      "source": "backup_db_sh__entry",
+      "target": "backup_db_dica_da_recusa",
+      "relation": "calls",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "call",
+      "source_file": "backup-db.sh",
+      "source_location": "L1494",
+      "weight": 1.0
+    },
+    {
+      "source": "backup_db_sh__entry",
+      "target": "backup_db_sabor_servidor",
+      "relation": "calls",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "call",
+      "source_file": "backup-db.sh",
+      "source_location": "L1502",
       "weight": 1.0
     },
     {
@@ -2328,19 +2649,19 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "backup-db.sh",
-      "source_location": "L1212",
+      "source_location": "L1503",
       "weight": 1.0
     },
     {
       "source": "backup_db_sh__entry",
-      "target": "backup_db_escolhe_nivel",
+      "target": "backup_db_escolhe_dump_e_opcoes",
       "relation": "calls",
       "_origin": "ast",
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "backup-db.sh",
-      "source_location": "L1226",
+      "source_location": "L1517",
       "weight": 1.0
     },
     {
@@ -2352,7 +2673,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "backup-db.sh",
-      "source_location": "L1277",
+      "source_location": "L1587",
       "weight": 1.0
     },
     {
@@ -2364,7 +2685,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "backup-db.sh",
-      "source_location": "L1280",
+      "source_location": "L1590",
       "weight": 1.0
     },
     {
@@ -2376,7 +2697,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "backup-db.sh",
-      "source_location": "L1280",
+      "source_location": "L1590",
       "weight": 1.0
     },
     {
@@ -2388,7 +2709,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "backup-db.sh",
-      "source_location": "L1319",
+      "source_location": "L1629",
       "weight": 1.0
     },
     {
@@ -2400,7 +2721,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "backup-db.sh",
-      "source_location": "L1345",
+      "source_location": "L1655",
       "weight": 1.0
     },
     {
@@ -2412,7 +2733,19 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "backup-db.sh",
-      "source_location": "L1352",
+      "source_location": "L1662",
+      "weight": 1.0
+    },
+    {
+      "source": "backup_db_sh__entry",
+      "target": "backup_db_linhas_log",
+      "relation": "calls",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "call",
+      "source_file": "backup-db.sh",
+      "source_location": "L1685",
       "weight": 1.0
     },
     {
@@ -2424,7 +2757,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "backup-db.sh",
-      "source_location": "L1377",
+      "source_location": "L1686",
       "weight": 1.0
     },
     {
@@ -2436,7 +2769,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "backup-db.sh",
-      "source_location": "L1382",
+      "source_location": "L1691",
       "weight": 1.0
     },
     {
@@ -2448,7 +2781,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "backup-db.sh",
-      "source_location": "L1387",
+      "source_location": "L1696",
       "weight": 1.0
     },
     {
@@ -2460,7 +2793,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "backup-db.sh",
-      "source_location": "L1391",
+      "source_location": "L1700",
       "weight": 1.0
     },
     {
@@ -2472,7 +2805,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "backup-db.sh",
-      "source_location": "L1424",
+      "source_location": "L1733",
       "weight": 1.0
     },
     {
@@ -2484,7 +2817,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "backup-db.sh",
-      "source_location": "L1438",
+      "source_location": "L1747",
       "weight": 1.0
     },
     {
@@ -2496,7 +2829,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "backup-db.sh",
-      "source_location": "L1539",
+      "source_location": "L1860",
       "weight": 1.0
     },
     {
@@ -2508,7 +2841,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "backup-db.sh",
-      "source_location": "L238",
+      "source_location": "L247",
       "weight": 1.0
     },
     {
@@ -2520,7 +2853,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "backup-db.sh",
-      "source_location": "L239",
+      "source_location": "L248",
       "weight": 1.0
     },
     {
@@ -2532,7 +2865,31 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "backup-db.sh",
-      "source_location": "L846",
+      "source_location": "L1115",
+      "weight": 1.0
+    },
+    {
+      "source": "backup_db_testa_conexao",
+      "target": "backup_db_linhas_log",
+      "relation": "calls",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "call",
+      "source_file": "backup-db.sh",
+      "source_location": "L821",
+      "weight": 1.0
+    },
+    {
+      "source": "backup_db_testa_conexao",
+      "target": "backup_db_erro_recente",
+      "relation": "calls",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "call",
+      "source_file": "backup-db.sh",
+      "source_location": "L826",
       "weight": 1.0
     },
     {
@@ -2556,7 +2913,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "scripts/roda-testes.sh",
-      "source_location": "L115",
+      "source_location": "L149",
       "weight": 1.0
     },
     {
@@ -2568,7 +2925,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "scripts/roda-testes.sh",
-      "source_location": "L119",
+      "source_location": "L153",
       "weight": 1.0
     },
     {
@@ -2580,19 +2937,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "scripts/roda-testes.sh",
-      "source_location": "L121",
-      "weight": 1.0
-    },
-    {
-      "source": "scripts_roda_testes_sh__entry",
-      "target": "scripts_roda_testes_estado",
-      "relation": "calls",
-      "_origin": "ast",
-      "confidence": "EXTRACTED",
-      "confidence_score": 1.0,
-      "context": "call",
-      "source_file": "scripts/roda-testes.sh",
-      "source_location": "L151",
+      "source_location": "L155",
       "weight": 1.0
     },
     {
@@ -2604,7 +2949,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "scripts/roda-testes.sh",
-      "source_location": "L347",
+      "source_location": "L396",
       "weight": 1.0
     },
     {
@@ -2616,7 +2961,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "scripts/roda-testes.sh",
-      "source_location": "L56",
+      "source_location": "L58",
       "weight": 1.0
     },
     {
@@ -2628,7 +2973,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "scripts/roda-testes.sh",
-      "source_location": "L57",
+      "source_location": "L59",
       "weight": 1.0
     },
     {
@@ -2640,7 +2985,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "scripts/roda-testes.sh",
-      "source_location": "L57",
+      "source_location": "L59",
       "weight": 1.0
     },
     {
@@ -2652,7 +2997,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "scripts/roda-testes.sh",
-      "source_location": "L58",
+      "source_location": "L60",
       "weight": 1.0
     },
     {
@@ -2664,7 +3009,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "scripts/roda-testes.sh",
-      "source_location": "L59",
+      "source_location": "L61",
       "weight": 1.0
     },
     {
@@ -2676,7 +3021,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "scripts/roda-testes.sh",
-      "source_location": "L59",
+      "source_location": "L61",
       "weight": 1.0
     },
     {
@@ -2688,7 +3033,19 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "scripts/roda-testes.sh",
-      "source_location": "L59",
+      "source_location": "L61",
+      "weight": 1.0
+    },
+    {
+      "source": "scripts_roda_testes_sh__entry",
+      "target": "scripts_roda_testes_estado",
+      "relation": "calls",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "call",
+      "source_file": "scripts/roda-testes.sh",
+      "source_location": "L96",
       "weight": 1.0
     },
     {
@@ -2784,541 +3141,13 @@
     },
     {
       "source": "backup_db",
-      "target": "backup_db_cor",
+      "target": "backup_db_escolhe_dump_e_opcoes",
       "relation": "defines",
       "_origin": "ast",
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "backup-db.sh",
-      "source_location": "L101",
-      "weight": 1.0
-    },
-    {
-      "source": "backup_db",
-      "target": "backup_db_ja_enviado",
-      "relation": "defines",
-      "_origin": "ast",
-      "confidence": "EXTRACTED",
-      "confidence_score": 1.0,
-      "source_file": "backup-db.sh",
-      "source_location": "L1011",
-      "weight": 1.0
-    },
-    {
-      "source": "backup_db",
-      "target": "backup_db_agora",
-      "relation": "defines",
-      "_origin": "ast",
-      "confidence": "EXTRACTED",
-      "confidence_score": 1.0,
-      "source_file": "backup-db.sh",
-      "source_location": "L102",
-      "weight": 1.0
-    },
-    {
-      "source": "backup_db",
-      "target": "backup_db_diz",
-      "relation": "defines",
-      "_origin": "ast",
-      "confidence": "EXTRACTED",
-      "confidence_score": 1.0,
-      "source_file": "backup-db.sh",
-      "source_location": "L103",
-      "weight": 1.0
-    },
-    {
-      "source": "backup_db",
-      "target": "backup_db_mostra_registro",
-      "relation": "defines",
-      "_origin": "ast",
-      "confidence": "EXTRACTED",
-      "confidence_score": 1.0,
-      "source_file": "backup-db.sh",
-      "source_location": "L1033",
-      "weight": 1.0
-    },
-    {
-      "source": "backup_db",
-      "target": "backup_db_passo",
-      "relation": "defines",
-      "_origin": "ast",
-      "confidence": "EXTRACTED",
-      "confidence_score": 1.0,
-      "source_file": "backup-db.sh",
-      "source_location": "L104",
-      "weight": 1.0
-    },
-    {
-      "source": "backup_db",
-      "target": "backup_db_feito",
-      "relation": "defines",
-      "_origin": "ast",
-      "confidence": "EXTRACTED",
-      "confidence_score": 1.0,
-      "source_file": "backup-db.sh",
-      "source_location": "L105",
-      "weight": 1.0
-    },
-    {
-      "source": "backup_db",
-      "target": "backup_db_aviso",
-      "relation": "defines",
-      "_origin": "ast",
-      "confidence": "EXTRACTED",
-      "confidence_score": 1.0,
-      "source_file": "backup-db.sh",
-      "source_location": "L106",
-      "weight": 1.0
-    },
-    {
-      "source": "backup_db",
-      "target": "backup_db_falha",
-      "relation": "defines",
-      "_origin": "ast",
-      "confidence": "EXTRACTED",
-      "confidence_score": 1.0,
-      "source_file": "backup-db.sh",
-      "source_location": "L107",
-      "weight": 1.0
-    },
-    {
-      "source": "backup_db",
-      "target": "backup_db_morre",
-      "relation": "defines",
-      "_origin": "ast",
-      "confidence": "EXTRACTED",
-      "confidence_score": 1.0,
-      "source_file": "backup-db.sh",
-      "source_location": "L108",
-      "weight": 1.0
-    },
-    {
-      "source": "backup_db",
-      "target": "backup_db_ajuda",
-      "relation": "defines",
-      "_origin": "ast",
-      "confidence": "EXTRACTED",
-      "confidence_score": 1.0,
-      "source_file": "backup-db.sh",
-      "source_location": "L112",
-      "weight": 1.0
-    },
-    {
-      "source": "backup_db",
-      "target": "backup_db_bytes_de",
-      "relation": "defines",
-      "_origin": "ast",
-      "confidence": "EXTRACTED",
-      "confidence_score": 1.0,
-      "source_file": "backup-db.sh",
-      "source_location": "L1201",
-      "weight": 1.0
-    },
-    {
-      "source": "backup_db",
-      "target": "backup_db_myisam_de",
-      "relation": "defines",
-      "_origin": "ast",
-      "confidence": "EXTRACTED",
-      "confidence_score": 1.0,
-      "source_file": "backup-db.sh",
-      "source_location": "L1201",
-      "weight": 1.0
-    },
-    {
-      "source": "backup_db",
-      "target": "backup_db_nivel_de",
-      "relation": "defines",
-      "_origin": "ast",
-      "confidence": "EXTRACTED",
-      "confidence_score": 1.0,
-      "source_file": "backup-db.sh",
-      "source_location": "L1201",
-      "weight": 1.0
-    },
-    {
-      "source": "backup_db",
-      "target": "backup_db_tabelas_de",
-      "relation": "defines",
-      "_origin": "ast",
-      "confidence": "EXTRACTED",
-      "confidence_score": 1.0,
-      "source_file": "backup-db.sh",
-      "source_location": "L1201",
-      "weight": 1.0
-    },
-    {
-      "source": "backup_db",
-      "target": "backup_db_bons",
-      "relation": "defines",
-      "_origin": "ast",
-      "confidence": "EXTRACTED",
-      "confidence_score": 1.0,
-      "source_file": "backup-db.sh",
-      "source_location": "L1202",
-      "weight": 1.0
-    },
-    {
-      "source": "backup_db",
-      "target": "backup_db_tem",
-      "relation": "defines",
-      "_origin": "ast",
-      "confidence": "EXTRACTED",
-      "confidence_score": 1.0,
-      "source_file": "backup-db.sh",
-      "source_location": "L261",
-      "weight": 1.0
-    },
-    {
-      "source": "backup_db",
-      "target": "backup_db_legivel",
-      "relation": "defines",
-      "_origin": "ast",
-      "confidence": "EXTRACTED",
-      "confidence_score": 1.0,
-      "source_file": "backup-db.sh",
-      "source_location": "L263",
-      "weight": 1.0
-    },
-    {
-      "source": "backup_db",
-      "target": "backup_db_tamanho_arquivo",
-      "relation": "defines",
-      "_origin": "ast",
-      "confidence": "EXTRACTED",
-      "confidence_score": 1.0,
-      "source_file": "backup-db.sh",
-      "source_location": "L272",
-      "weight": 1.0
-    },
-    {
-      "source": "backup_db",
-      "target": "backup_db_espaco_livre",
-      "relation": "defines",
-      "_origin": "ast",
-      "confidence": "EXTRACTED",
-      "confidence_score": 1.0,
-      "source_file": "backup-db.sh",
-      "source_location": "L277",
-      "weight": 1.0
-    },
-    {
-      "source": "backup_db",
-      "target": "backup_db_md5_local",
-      "relation": "defines",
-      "_origin": "ast",
-      "confidence": "EXTRACTED",
-      "confidence_score": 1.0,
-      "source_file": "backup-db.sh",
-      "source_location": "L284",
-      "weight": 1.0
-    },
-    {
-      "source": "backup_db",
-      "target": "backup_db_minusculo",
-      "relation": "defines",
-      "_origin": "ast",
-      "confidence": "EXTRACTED",
-      "confidence_score": 1.0,
-      "source_file": "backup-db.sh",
-      "source_location": "L290",
-      "weight": 1.0
-    },
-    {
-      "source": "backup_db",
-      "target": "backup_db_tem_terminal",
-      "relation": "defines",
-      "_origin": "ast",
-      "confidence": "EXTRACTED",
-      "confidence_score": 1.0,
-      "source_file": "backup-db.sh",
-      "source_location": "L292",
-      "weight": 1.0
-    },
-    {
-      "source": "backup_db",
-      "target": "backup_db_pergunta_sim",
-      "relation": "defines",
-      "_origin": "ast",
-      "confidence": "EXTRACTED",
-      "confidence_score": 1.0,
-      "source_file": "backup-db.sh",
-      "source_location": "L294",
-      "weight": 1.0
-    },
-    {
-      "source": "backup_db",
-      "target": "backup_db_le_do_tty",
-      "relation": "defines",
-      "_origin": "ast",
-      "confidence": "EXTRACTED",
-      "confidence_score": 1.0,
-      "source_file": "backup-db.sh",
-      "source_location": "L303",
-      "weight": 1.0
-    },
-    {
-      "source": "backup_db",
-      "target": "backup_db_na_lista",
-      "relation": "defines",
-      "_origin": "ast",
-      "confidence": "EXTRACTED",
-      "confidence_score": 1.0,
-      "source_file": "backup-db.sh",
-      "source_location": "L316",
-      "weight": 1.0
-    },
-    {
-      "source": "backup_db",
-      "target": "backup_db_na_saida",
-      "relation": "defines",
-      "_origin": "ast",
-      "confidence": "EXTRACTED",
-      "confidence_score": 1.0,
-      "source_file": "backup-db.sh",
-      "source_location": "L327",
-      "weight": 1.0
-    },
-    {
-      "source": "backup_db",
-      "target": "backup_db_id_curto",
-      "relation": "defines",
-      "_origin": "ast",
-      "confidence": "EXTRACTED",
-      "confidence_score": 1.0,
-      "source_file": "backup-db.sh",
-      "source_location": "L334",
-      "weight": 1.0
-    },
-    {
-      "source": "backup_db",
-      "target": "backup_db_apelido",
-      "relation": "defines",
-      "_origin": "ast",
-      "confidence": "EXTRACTED",
-      "confidence_score": 1.0,
-      "source_file": "backup-db.sh",
-      "source_location": "L344",
-      "weight": 1.0
-    },
-    {
-      "source": "backup_db",
-      "target": "backup_db_instala_rclone",
-      "relation": "defines",
-      "_origin": "ast",
-      "confidence": "EXTRACTED",
-      "confidence_score": 1.0,
-      "source_file": "backup-db.sh",
-      "source_location": "L354",
-      "weight": 1.0
-    },
-    {
-      "source": "backup_db",
-      "target": "backup_db_arquivo_conf_rclone",
-      "relation": "defines",
-      "_origin": "ast",
-      "confidence": "EXTRACTED",
-      "confidence_score": 1.0,
-      "source_file": "backup-db.sh",
-      "source_location": "L386",
-      "weight": 1.0
-    },
-    {
-      "source": "backup_db",
-      "target": "backup_db_remote_ja_existe",
-      "relation": "defines",
-      "_origin": "ast",
-      "confidence": "EXTRACTED",
-      "confidence_score": 1.0,
-      "source_file": "backup-db.sh",
-      "source_location": "L393",
-      "weight": 1.0
-    },
-    {
-      "source": "backup_db",
-      "target": "backup_db_testa_remote",
-      "relation": "defines",
-      "_origin": "ast",
-      "confidence": "EXTRACTED",
-      "confidence_score": 1.0,
-      "source_file": "backup-db.sh",
-      "source_location": "L394",
-      "weight": 1.0
-    },
-    {
-      "source": "backup_db",
-      "target": "backup_db_escreve_remote_rclone",
-      "relation": "defines",
-      "_origin": "ast",
-      "confidence": "EXTRACTED",
-      "confidence_score": 1.0,
-      "source_file": "backup-db.sh",
-      "source_location": "L396",
-      "weight": 1.0
-    },
-    {
-      "source": "backup_db",
-      "target": "backup_db_escopo_conf",
-      "relation": "defines",
-      "_origin": "ast",
-      "confidence": "EXTRACTED",
-      "confidence_score": 1.0,
-      "source_file": "backup-db.sh",
-      "source_location": "L425",
-      "weight": 1.0
-    },
-    {
-      "source": "backup_db",
-      "target": "backup_db_escopo_codificado",
-      "relation": "defines",
-      "_origin": "ast",
-      "confidence": "EXTRACTED",
-      "confidence_score": 1.0,
-      "source_file": "backup-db.sh",
-      "source_location": "L428",
-      "weight": 1.0
-    },
-    {
-      "source": "backup_db",
-      "target": "backup_db_valor_json",
-      "relation": "defines",
-      "_origin": "ast",
-      "confidence": "EXTRACTED",
-      "confidence_score": 1.0,
-      "source_file": "backup-db.sh",
-      "source_location": "L435",
-      "weight": 1.0
-    },
-    {
-      "source": "backup_db",
-      "target": "backup_db_numero_json",
-      "relation": "defines",
-      "_origin": "ast",
-      "confidence": "EXTRACTED",
-      "confidence_score": 1.0,
-      "source_file": "backup-db.sh",
-      "source_location": "L439",
-      "weight": 1.0
-    },
-    {
-      "source": "backup_db",
-      "target": "backup_db_autoriza_por_link",
-      "relation": "defines",
-      "_origin": "ast",
-      "confidence": "EXTRACTED",
-      "confidence_score": 1.0,
-      "source_file": "backup-db.sh",
-      "source_location": "L464",
-      "weight": 1.0
-    },
-    {
-      "source": "backup_db",
-      "target": "backup_db_configura_drive",
-      "relation": "defines",
-      "_origin": "ast",
-      "confidence": "EXTRACTED",
-      "confidence_score": 1.0,
-      "source_file": "backup-db.sh",
-      "source_location": "L572",
-      "weight": 1.0
-    },
-    {
-      "source": "backup_db",
-      "target": "backup_db_opcoes_rclone",
-      "relation": "defines",
-      "_origin": "ast",
-      "confidence": "EXTRACTED",
-      "confidence_score": 1.0,
-      "source_file": "backup-db.sh",
-      "source_location": "L598",
-      "weight": 1.0
-    },
-    {
-      "source": "backup_db",
-      "target": "backup_db_envia_arquivo",
-      "relation": "defines",
-      "_origin": "ast",
-      "confidence": "EXTRACTED",
-      "confidence_score": 1.0,
-      "source_file": "backup-db.sh",
-      "source_location": "L607",
-      "weight": 1.0
-    },
-    {
-      "source": "backup_db",
-      "target": "backup_db_retencao_drive",
-      "relation": "defines",
-      "_origin": "ast",
-      "confidence": "EXTRACTED",
-      "confidence_score": 1.0,
-      "source_file": "backup-db.sh",
-      "source_location": "L646",
-      "weight": 1.0
-    },
-    {
-      "source": "backup_db",
-      "target": "backup_db_instala_cliente_mysql",
-      "relation": "defines",
-      "_origin": "ast",
-      "confidence": "EXTRACTED",
-      "confidence_score": 1.0,
-      "source_file": "backup-db.sh",
-      "source_location": "L671",
-      "weight": 1.0
-    },
-    {
-      "source": "backup_db",
-      "target": "backup_db_escapa_cnf",
-      "relation": "defines",
-      "_origin": "ast",
-      "confidence": "EXTRACTED",
-      "confidence_score": 1.0,
-      "source_file": "backup-db.sh",
-      "source_location": "L703",
-      "weight": 1.0
-    },
-    {
-      "source": "backup_db",
-      "target": "backup_db_arquivo_opcoes_mysql",
-      "relation": "defines",
-      "_origin": "ast",
-      "confidence": "EXTRACTED",
-      "confidence_score": 1.0,
-      "source_file": "backup-db.sh",
-      "source_location": "L710",
-      "weight": 1.0
-    },
-    {
-      "source": "backup_db",
-      "target": "backup_db_testa_conexao",
-      "relation": "defines",
-      "_origin": "ast",
-      "confidence": "EXTRACTED",
-      "confidence_score": 1.0,
-      "source_file": "backup-db.sh",
-      "source_location": "L728",
-      "weight": 1.0
-    },
-    {
-      "source": "backup_db",
-      "target": "backup_db_info_banco",
-      "relation": "defines",
-      "_origin": "ast",
-      "confidence": "EXTRACTED",
-      "confidence_score": 1.0,
-      "source_file": "backup-db.sh",
-      "source_location": "L731",
-      "weight": 1.0
-    },
-    {
-      "source": "backup_db",
-      "target": "backup_db_escolhe_nivel",
-      "relation": "defines",
-      "_origin": "ast",
-      "confidence": "EXTRACTED",
-      "confidence_score": 1.0,
-      "source_file": "backup-db.sh",
-      "source_location": "L745",
+      "source_location": "L1023",
       "weight": 1.0
     },
     {
@@ -3329,7 +3158,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "backup-db.sh",
-      "source_location": "L771",
+      "source_location": "L1040",
       "weight": 1.0
     },
     {
@@ -3340,7 +3169,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "backup-db.sh",
-      "source_location": "L790",
+      "source_location": "L1059",
       "weight": 1.0
     },
     {
@@ -3351,7 +3180,18 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "backup-db.sh",
-      "source_location": "L804",
+      "source_location": "L1073",
+      "weight": 1.0
+    },
+    {
+      "source": "backup_db",
+      "target": "backup_db_cor",
+      "relation": "defines",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "backup-db.sh",
+      "source_location": "L110",
       "weight": 1.0
     },
     {
@@ -3362,7 +3202,18 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "backup-db.sh",
-      "source_location": "L832",
+      "source_location": "L1101",
+      "weight": 1.0
+    },
+    {
+      "source": "backup_db",
+      "target": "backup_db_agora",
+      "relation": "defines",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "backup-db.sh",
+      "source_location": "L111",
       "weight": 1.0
     },
     {
@@ -3373,18 +3224,18 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "backup-db.sh",
-      "source_location": "L846",
+      "source_location": "L1115",
       "weight": 1.0
     },
     {
       "source": "backup_db",
-      "target": "backup_db_flags_dump",
+      "target": "backup_db_diz",
       "relation": "defines",
       "_origin": "ast",
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "backup-db.sh",
-      "source_location": "L85",
+      "source_location": "L112",
       "weight": 1.0
     },
     {
@@ -3395,106 +3246,62 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "backup-db.sh",
-      "source_location": "L859",
+      "source_location": "L1128",
       "weight": 1.0
     },
     {
       "source": "backup_db",
-      "target": "backup_db_nomes",
+      "target": "backup_db_passo",
       "relation": "defines",
       "_origin": "ast",
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "backup-db.sh",
-      "source_location": "L86",
+      "source_location": "L113",
       "weight": 1.0
     },
     {
       "source": "backup_db",
-      "target": "backup_db_banco_de",
+      "target": "backup_db_feito",
       "relation": "defines",
       "_origin": "ast",
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "backup-db.sh",
-      "source_location": "L87",
+      "source_location": "L114",
       "weight": 1.0
     },
     {
       "source": "backup_db",
-      "target": "backup_db_porta_de",
+      "target": "backup_db_aviso",
       "relation": "defines",
       "_origin": "ast",
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "backup-db.sh",
-      "source_location": "L87",
+      "source_location": "L115",
       "weight": 1.0
     },
     {
       "source": "backup_db",
-      "target": "backup_db_senha_de",
+      "target": "backup_db_falha",
       "relation": "defines",
       "_origin": "ast",
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "backup-db.sh",
-      "source_location": "L87",
+      "source_location": "L116",
       "weight": 1.0
     },
     {
       "source": "backup_db",
-      "target": "backup_db_servidor_de",
+      "target": "backup_db_morre",
       "relation": "defines",
       "_origin": "ast",
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "backup-db.sh",
-      "source_location": "L87",
-      "weight": 1.0
-    },
-    {
-      "source": "backup_db",
-      "target": "backup_db_usuario_de",
-      "relation": "defines",
-      "_origin": "ast",
-      "confidence": "EXTRACTED",
-      "confidence_score": 1.0,
-      "source_file": "backup-db.sh",
-      "source_location": "L87",
-      "weight": 1.0
-    },
-    {
-      "source": "backup_db",
-      "target": "backup_db_avisos",
-      "relation": "defines",
-      "_origin": "ast",
-      "confidence": "EXTRACTED",
-      "confidence_score": 1.0,
-      "source_file": "backup-db.sh",
-      "source_location": "L88",
-      "weight": 1.0
-    },
-    {
-      "source": "backup_db",
-      "target": "backup_db_erros",
-      "relation": "defines",
-      "_origin": "ast",
-      "confidence": "EXTRACTED",
-      "confidence_score": 1.0,
-      "source_file": "backup-db.sh",
-      "source_location": "L88",
-      "weight": 1.0
-    },
-    {
-      "source": "backup_db",
-      "target": "backup_db_linhas_relatorio",
-      "relation": "defines",
-      "_origin": "ast",
-      "confidence": "EXTRACTED",
-      "confidence_score": 1.0,
-      "source_file": "backup-db.sh",
-      "source_location": "L88",
+      "source_location": "L117",
       "weight": 1.0
     },
     {
@@ -3505,7 +3312,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "backup-db.sh",
-      "source_location": "L908",
+      "source_location": "L1177",
       "weight": 1.0
     },
     {
@@ -3516,7 +3323,18 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "backup-db.sh",
-      "source_location": "L918",
+      "source_location": "L1187",
+      "weight": 1.0
+    },
+    {
+      "source": "backup_db",
+      "target": "backup_db_ajuda",
+      "relation": "defines",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "backup-db.sh",
+      "source_location": "L121",
       "weight": 1.0
     },
     {
@@ -3527,7 +3345,711 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "backup-db.sh",
-      "source_location": "L999",
+      "source_location": "L1268",
+      "weight": 1.0
+    },
+    {
+      "source": "backup_db",
+      "target": "backup_db_ja_enviado",
+      "relation": "defines",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "backup-db.sh",
+      "source_location": "L1280",
+      "weight": 1.0
+    },
+    {
+      "source": "backup_db",
+      "target": "backup_db_mostra_registro",
+      "relation": "defines",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "backup-db.sh",
+      "source_location": "L1302",
+      "weight": 1.0
+    },
+    {
+      "source": "backup_db",
+      "target": "backup_db_bytes_de",
+      "relation": "defines",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "backup-db.sh",
+      "source_location": "L1488",
+      "weight": 1.0
+    },
+    {
+      "source": "backup_db",
+      "target": "backup_db_cliente_de",
+      "relation": "defines",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "backup-db.sh",
+      "source_location": "L1488",
+      "weight": 1.0
+    },
+    {
+      "source": "backup_db",
+      "target": "backup_db_flags_de",
+      "relation": "defines",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "backup-db.sh",
+      "source_location": "L1488",
+      "weight": 1.0
+    },
+    {
+      "source": "backup_db",
+      "target": "backup_db_myisam_de",
+      "relation": "defines",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "backup-db.sh",
+      "source_location": "L1488",
+      "weight": 1.0
+    },
+    {
+      "source": "backup_db",
+      "target": "backup_db_nivel_de",
+      "relation": "defines",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "backup-db.sh",
+      "source_location": "L1488",
+      "weight": 1.0
+    },
+    {
+      "source": "backup_db",
+      "target": "backup_db_tabelas_de",
+      "relation": "defines",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "backup-db.sh",
+      "source_location": "L1488",
+      "weight": 1.0
+    },
+    {
+      "source": "backup_db",
+      "target": "backup_db_bons",
+      "relation": "defines",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "backup-db.sh",
+      "source_location": "L1489",
+      "weight": 1.0
+    },
+    {
+      "source": "backup_db",
+      "target": "backup_db_tem",
+      "relation": "defines",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "backup-db.sh",
+      "source_location": "L270",
+      "weight": 1.0
+    },
+    {
+      "source": "backup_db",
+      "target": "backup_db_legivel",
+      "relation": "defines",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "backup-db.sh",
+      "source_location": "L272",
+      "weight": 1.0
+    },
+    {
+      "source": "backup_db",
+      "target": "backup_db_tamanho_arquivo",
+      "relation": "defines",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "backup-db.sh",
+      "source_location": "L281",
+      "weight": 1.0
+    },
+    {
+      "source": "backup_db",
+      "target": "backup_db_espaco_livre",
+      "relation": "defines",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "backup-db.sh",
+      "source_location": "L286",
+      "weight": 1.0
+    },
+    {
+      "source": "backup_db",
+      "target": "backup_db_md5_local",
+      "relation": "defines",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "backup-db.sh",
+      "source_location": "L293",
+      "weight": 1.0
+    },
+    {
+      "source": "backup_db",
+      "target": "backup_db_minusculo",
+      "relation": "defines",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "backup-db.sh",
+      "source_location": "L299",
+      "weight": 1.0
+    },
+    {
+      "source": "backup_db",
+      "target": "backup_db_tem_terminal",
+      "relation": "defines",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "backup-db.sh",
+      "source_location": "L301",
+      "weight": 1.0
+    },
+    {
+      "source": "backup_db",
+      "target": "backup_db_pergunta_sim",
+      "relation": "defines",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "backup-db.sh",
+      "source_location": "L303",
+      "weight": 1.0
+    },
+    {
+      "source": "backup_db",
+      "target": "backup_db_le_do_tty",
+      "relation": "defines",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "backup-db.sh",
+      "source_location": "L312",
+      "weight": 1.0
+    },
+    {
+      "source": "backup_db",
+      "target": "backup_db_na_lista",
+      "relation": "defines",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "backup-db.sh",
+      "source_location": "L325",
+      "weight": 1.0
+    },
+    {
+      "source": "backup_db",
+      "target": "backup_db_na_saida",
+      "relation": "defines",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "backup-db.sh",
+      "source_location": "L336",
+      "weight": 1.0
+    },
+    {
+      "source": "backup_db",
+      "target": "backup_db_id_curto",
+      "relation": "defines",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "backup-db.sh",
+      "source_location": "L343",
+      "weight": 1.0
+    },
+    {
+      "source": "backup_db",
+      "target": "backup_db_apelido",
+      "relation": "defines",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "backup-db.sh",
+      "source_location": "L353",
+      "weight": 1.0
+    },
+    {
+      "source": "backup_db",
+      "target": "backup_db_instala_rclone",
+      "relation": "defines",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "backup-db.sh",
+      "source_location": "L363",
+      "weight": 1.0
+    },
+    {
+      "source": "backup_db",
+      "target": "backup_db_arquivo_conf_rclone",
+      "relation": "defines",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "backup-db.sh",
+      "source_location": "L395",
+      "weight": 1.0
+    },
+    {
+      "source": "backup_db",
+      "target": "backup_db_remote_ja_existe",
+      "relation": "defines",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "backup-db.sh",
+      "source_location": "L402",
+      "weight": 1.0
+    },
+    {
+      "source": "backup_db",
+      "target": "backup_db_testa_remote",
+      "relation": "defines",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "backup-db.sh",
+      "source_location": "L403",
+      "weight": 1.0
+    },
+    {
+      "source": "backup_db",
+      "target": "backup_db_escreve_remote_rclone",
+      "relation": "defines",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "backup-db.sh",
+      "source_location": "L405",
+      "weight": 1.0
+    },
+    {
+      "source": "backup_db",
+      "target": "backup_db_escopo_conf",
+      "relation": "defines",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "backup-db.sh",
+      "source_location": "L434",
+      "weight": 1.0
+    },
+    {
+      "source": "backup_db",
+      "target": "backup_db_escopo_codificado",
+      "relation": "defines",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "backup-db.sh",
+      "source_location": "L437",
+      "weight": 1.0
+    },
+    {
+      "source": "backup_db",
+      "target": "backup_db_valor_json",
+      "relation": "defines",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "backup-db.sh",
+      "source_location": "L444",
+      "weight": 1.0
+    },
+    {
+      "source": "backup_db",
+      "target": "backup_db_numero_json",
+      "relation": "defines",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "backup-db.sh",
+      "source_location": "L448",
+      "weight": 1.0
+    },
+    {
+      "source": "backup_db",
+      "target": "backup_db_autoriza_por_link",
+      "relation": "defines",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "backup-db.sh",
+      "source_location": "L473",
+      "weight": 1.0
+    },
+    {
+      "source": "backup_db",
+      "target": "backup_db_configura_drive",
+      "relation": "defines",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "backup-db.sh",
+      "source_location": "L581",
+      "weight": 1.0
+    },
+    {
+      "source": "backup_db",
+      "target": "backup_db_opcoes_rclone",
+      "relation": "defines",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "backup-db.sh",
+      "source_location": "L607",
+      "weight": 1.0
+    },
+    {
+      "source": "backup_db",
+      "target": "backup_db_envia_arquivo",
+      "relation": "defines",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "backup-db.sh",
+      "source_location": "L616",
+      "weight": 1.0
+    },
+    {
+      "source": "backup_db",
+      "target": "backup_db_retencao_drive",
+      "relation": "defines",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "backup-db.sh",
+      "source_location": "L655",
+      "weight": 1.0
+    },
+    {
+      "source": "backup_db",
+      "target": "backup_db_sabor_do_binario",
+      "relation": "defines",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "backup-db.sh",
+      "source_location": "L686",
+      "weight": 1.0
+    },
+    {
+      "source": "backup_db",
+      "target": "backup_db_mapeia_clientes",
+      "relation": "defines",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "backup-db.sh",
+      "source_location": "L696",
+      "weight": 1.0
+    },
+    {
+      "source": "backup_db",
+      "target": "backup_db_candidatos_dump",
+      "relation": "defines",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "backup-db.sh",
+      "source_location": "L729",
+      "weight": 1.0
+    },
+    {
+      "source": "backup_db",
+      "target": "backup_db_instala_cliente_mysql",
+      "relation": "defines",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "backup-db.sh",
+      "source_location": "L739",
+      "weight": 1.0
+    },
+    {
+      "source": "backup_db",
+      "target": "backup_db_escapa_cnf",
+      "relation": "defines",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "backup-db.sh",
+      "source_location": "L772",
+      "weight": 1.0
+    },
+    {
+      "source": "backup_db",
+      "target": "backup_db_arquivo_opcoes_mysql",
+      "relation": "defines",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "backup-db.sh",
+      "source_location": "L779",
+      "weight": 1.0
+    },
+    {
+      "source": "backup_db",
+      "target": "backup_db_linhas_log",
+      "relation": "defines",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "backup-db.sh",
+      "source_location": "L798",
+      "weight": 1.0
+    },
+    {
+      "source": "backup_db",
+      "target": "backup_db_erro_recente",
+      "relation": "defines",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "backup-db.sh",
+      "source_location": "L804",
+      "weight": 1.0
+    },
+    {
+      "source": "backup_db",
+      "target": "backup_db_testa_conexao",
+      "relation": "defines",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "backup-db.sh",
+      "source_location": "L816",
+      "weight": 1.0
+    },
+    {
+      "source": "backup_db",
+      "target": "backup_db_dica_da_recusa",
+      "relation": "defines",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "backup-db.sh",
+      "source_location": "L834",
+      "weight": 1.0
+    },
+    {
+      "source": "backup_db",
+      "target": "backup_db_sabor_servidor",
+      "relation": "defines",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "backup-db.sh",
+      "source_location": "L857",
+      "weight": 1.0
+    },
+    {
+      "source": "backup_db",
+      "target": "backup_db_info_banco",
+      "relation": "defines",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "backup-db.sh",
+      "source_location": "L869",
+      "weight": 1.0
+    },
+    {
+      "source": "backup_db",
+      "target": "backup_db_dumps_disponiveis",
+      "relation": "defines",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "backup-db.sh",
+      "source_location": "L88",
+      "weight": 1.0
+    },
+    {
+      "source": "backup_db",
+      "target": "backup_db_clientes_disponiveis",
+      "relation": "defines",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "backup-db.sh",
+      "source_location": "L89",
+      "weight": 1.0
+    },
+    {
+      "source": "backup_db",
+      "target": "backup_db_escolhe_opcoes_dump",
+      "relation": "defines",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "backup-db.sh",
+      "source_location": "L908",
+      "weight": 1.0
+    },
+    {
+      "source": "backup_db",
+      "target": "backup_db_flags_dump",
+      "relation": "defines",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "backup-db.sh",
+      "source_location": "L93",
+      "weight": 1.0
+    },
+    {
+      "source": "backup_db",
+      "target": "backup_db_nomes",
+      "relation": "defines",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "backup-db.sh",
+      "source_location": "L94",
+      "weight": 1.0
+    },
+    {
+      "source": "backup_db",
+      "target": "backup_db_banco_de",
+      "relation": "defines",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "backup-db.sh",
+      "source_location": "L95",
+      "weight": 1.0
+    },
+    {
+      "source": "backup_db",
+      "target": "backup_db_porta_de",
+      "relation": "defines",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "backup-db.sh",
+      "source_location": "L95",
+      "weight": 1.0
+    },
+    {
+      "source": "backup_db",
+      "target": "backup_db_senha_de",
+      "relation": "defines",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "backup-db.sh",
+      "source_location": "L95",
+      "weight": 1.0
+    },
+    {
+      "source": "backup_db",
+      "target": "backup_db_servidor_de",
+      "relation": "defines",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "backup-db.sh",
+      "source_location": "L95",
+      "weight": 1.0
+    },
+    {
+      "source": "backup_db",
+      "target": "backup_db_usuario_de",
+      "relation": "defines",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "backup-db.sh",
+      "source_location": "L95",
+      "weight": 1.0
+    },
+    {
+      "source": "backup_db",
+      "target": "backup_db_avisos",
+      "relation": "defines",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "backup-db.sh",
+      "source_location": "L96",
+      "weight": 1.0
+    },
+    {
+      "source": "backup_db",
+      "target": "backup_db_erros",
+      "relation": "defines",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "backup-db.sh",
+      "source_location": "L96",
+      "weight": 1.0
+    },
+    {
+      "source": "backup_db",
+      "target": "backup_db_linhas_relatorio",
+      "relation": "defines",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "backup-db.sh",
+      "source_location": "L96",
+      "weight": 1.0
+    },
+    {
+      "source": "backup_db",
+      "target": "backup_db_ajustes_de",
+      "relation": "defines",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "backup-db.sh",
+      "source_location": "L97",
+      "weight": 1.0
+    },
+    {
+      "source": "backup_db",
+      "target": "backup_db_dump_de",
+      "relation": "defines",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "backup-db.sh",
+      "source_location": "L97",
+      "weight": 1.0
+    },
+    {
+      "source": "backup_db",
+      "target": "backup_db_sabor_de",
+      "relation": "defines",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "backup-db.sh",
+      "source_location": "L97",
       "weight": 1.0
     },
     {
@@ -3538,7 +4060,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "scripts/roda-testes.sh",
-      "source_location": "L16",
+      "source_location": "L17",
       "weight": 1.0
     },
     {
@@ -3549,7 +4071,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "scripts/roda-testes.sh",
-      "source_location": "L17",
+      "source_location": "L18",
       "weight": 1.0
     },
     {
@@ -3560,7 +4082,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "scripts/roda-testes.sh",
-      "source_location": "L23",
+      "source_location": "L25",
       "weight": 1.0
     },
     {
@@ -3571,7 +4093,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "scripts/roda-testes.sh",
-      "source_location": "L24",
+      "source_location": "L26",
       "weight": 1.0
     },
     {
@@ -3582,7 +4104,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "scripts/roda-testes.sh",
-      "source_location": "L25",
+      "source_location": "L27",
       "weight": 1.0
     },
     {
@@ -3593,7 +4115,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "scripts/roda-testes.sh",
-      "source_location": "L26",
+      "source_location": "L28",
       "weight": 1.0
     },
     {
@@ -3604,7 +4126,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "scripts/roda-testes.sh",
-      "source_location": "L27",
+      "source_location": "L29",
       "weight": 1.0
     },
     {
@@ -3615,7 +4137,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "scripts/roda-testes.sh",
-      "source_location": "L30",
+      "source_location": "L32",
       "weight": 1.0
     },
     {
@@ -3626,7 +4148,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "scripts/roda-testes.sh",
-      "source_location": "L44",
+      "source_location": "L46",
       "weight": 1.0
     },
     {
@@ -3637,7 +4159,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "scripts/roda-testes.sh",
-      "source_location": "L48",
+      "source_location": "L50",
       "weight": 1.0
     },
     {
@@ -3648,7 +4170,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "scripts/roda-testes.sh",
-      "source_location": "L49",
+      "source_location": "L51",
       "weight": 1.0
     },
     {
@@ -3659,7 +4181,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "scripts/roda-testes.sh",
-      "source_location": "L50",
+      "source_location": "L52",
       "weight": 1.0
     },
     {
@@ -3670,7 +4192,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "scripts/roda-testes.sh",
-      "source_location": "L51",
+      "source_location": "L53",
       "weight": 1.0
     },
     {
@@ -3681,7 +4203,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "scripts/roda-testes.sh",
-      "source_location": "L52",
+      "source_location": "L54",
       "weight": 1.0
     },
     {
@@ -3692,7 +4214,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "scripts/roda-testes.sh",
-      "source_location": "L53",
+      "source_location": "L55",
       "weight": 1.0
     },
     {
@@ -3707,5 +4229,6 @@
       "weight": 1.0
     }
   ],
-  "hyperedges": []
+  "hyperedges": [],
+  "built_at_commit": "30d73d3ed2243fe2622614ede913ada0881a5881"
 }

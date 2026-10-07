@@ -103,6 +103,52 @@ dez portas, isso é o jeito silencioso de fazer backup do banco errado dez vezes
 stub do lab recusa um `.cnf` sem `protocol=TCP` justamente para o teste proteger
 isso.
 
+**O nome do programa de dump NAO diz de que familia ele e.** Em Debian e Ubuntu o
+pacote do MariaDB instala `mysqldump` como atalho para `mariadb-dump`. Quem decide
+pelo nome decide errado. A familia sai do `--version`, e o caminho real sai do
+`readlink -f`, para o mesmo arquivo nao entrar duas vezes na lista como se fossem
+dois programas.
+
+**`COLUMN_STATISTICS` e o defeito que derrubou seis de dez bancos na primeira
+execucao real.** O `mysqldump` 8 do MySQL consulta uma tabela de histograma que o
+MariaDB nao tem, e o dump INTEIRO morre com `Unknown table 'COLUMN_STATISTICS' in
+information_schema`. Tres coisas fazem disso um pesadelo de diagnostico: a conexao
+funciona, a mensagem fala de tabela inexistente (parece problema no banco do
+cliente), e o nome do programa nao revela a familia. A correcao e
+`--column-statistics=0`, que so existe no cliente do MySQL 8.
+
+**A sonda LE o erro e ajusta; ela nao e uma escada fixa.** Os motivos de falha nao
+sao tres e nao se sabem de antemao. E importante saber que as frases dos
+servidores **nao tem a palavra "rotina" nem dizem qual opcao tirar**: o que elas
+trazem e a consulta que o programa tentou (`SHOW FUNCTION STATUS`, `show events`,
+`SHOW TRIGGERS`). Por isso os stubs do lab devolvem essas frases exatas: mensagem
+inventada testaria o teste, nao o script.
+
+**Diagnostico que nao consegue mudar nada NAO e diagnostico.** A primeira versao
+do laco parava quando o erro casava com um ajuste ja aplicado, e dois bancos que
+so precisavam degradar passaram a falhar. Hoje, diagnostico sem efeito cai na
+degradacao. Se mexer no `case`, manter essa regra.
+
+**O dump de verdade usa as opcoes EXATAS da sonda, lidas de volta inteiras.**
+Remontar a lista a partir do nome do nivel perde `--column-statistics=0` e
+`--skip-lock-tables`, e ai a sonda passa e o dump falha depois, que parece defeito
+aleatorio. Quatro bancos do lab so dumpam com um ajuste especifico, justamente
+para esse caminho ter teste.
+
+**Otimizacao que evita um erro tambem evita o TESTE daquele erro.** O script
+desliga a estatistica de coluna assim que ve um servidor MariaDB, e por isso o erro
+`COLUMN_STATISTICS` nunca acontecia no lab: o diagnostico pela FRASE ficou sem
+teste, existindo e importando. O lab tem agora o banco `disfarce`, que reporta
+versao de MySQL e recusa como MariaDB, que e o que um proxy reescrevendo o
+`VERSION()` produz. Ao acrescentar qualquer atalho, acrescentar tambem um caso que
+force o caminho longo.
+
+**Nunca escrever o log dentro do `TMP`.** No modo `--simular` o log morava no
+`mktemp -d` que o proprio script apaga na saida, e a mensagem de erro mandava o
+operador abrir um arquivo que acabara de ser deletado. Isso aconteceu na primeira
+execucao real. O log da simulacao mora em `$ESTADO`, e toda falha carrega a frase
+do servidor na propria mensagem, nao um "veja o log".
+
 **Falta de privilégio derruba o dump INTEIRO, não pula a parte.** Usuário de um
 banco só normalmente não tem privilégio para rotina nem para evento, e o
 `mysqldump --routines --events` falha por completo. Por isso existe a escada de
@@ -190,14 +236,18 @@ de corrigir.
 
 ## Estado atual
 
-Versão 1.0.0, implementada. Bateria em 28 casos contra o MySQL e o Drive
+Versão 1.1.0, implementada. Bateria em 34 casos contra os bancos e o Drive
 simulados.
 
 Pendente:
 
-1. **A primeira execução contra o servidor MySQL de verdade.** É o único lugar
-   onde privilégio real, versão real do `mysqldump`, tamanho real de dump e
-   latência de rede existem.
+1. **A segunda execução contra o servidor de verdade.** A primeira aconteceu em
+   07/10/2026 com a versão 1.0.0 e reprovou nove de dez bancos: seis por
+   `COLUMN_STATISTICS` (MariaDB recebendo o `mysqldump` 8 do MySQL) e três por
+   conexão, cuja causa ficou escondida no log que o próprio script apagava. Os dois
+   defeitos estão corrigidos na 1.1.0, e a nova execução é o que falta para dizer
+   que funciona. Os três bancos sem conexão continuam **sem diagnóstico**: com esta
+   versão a frase do servidor aparece na tela, com a dica do que fazer.
 2. **O leitor por `jq` não é exercitado pela bateria**, porque esta máquina não
    tem `jq`. A mitigação é que um filtro errado produziria campos fora de ordem e
    a validação por campo reprovaria alto, mas isso não é teste.
@@ -205,6 +255,6 @@ Pendente:
 4. Permissão 600, `flock` e a autorização do Google não são verificáveis nesta
    máquina, como nos projetos irmãos.
 
-Resultado da última rodada: **28 casos, 93 verificações, 0 reprovadas**, 2 puladas
+Resultado da última rodada: **34 casos, 127 verificações, 0 reprovadas**, 2 puladas
 nesta máquina (permissão POSIX, porque no MSYS sem ACL o `stat` devolve
 `0777 & ~umask` e não a permissão real, e `flock`, que não existe aqui).

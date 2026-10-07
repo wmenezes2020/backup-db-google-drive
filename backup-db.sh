@@ -33,7 +33,7 @@ if [[ -z "${BASH_VERSINFO:-}" ]] || ((BASH_VERSINFO[0] < 4)); then
   exit 1
 fi
 
-VERSAO_SCRIPT="1.0.0"
+VERSAO_SCRIPT="1.1.0"
 NOME_SCRIPT="$(basename "$0")"
 
 # ---------------------------------------------------------------------------
@@ -81,11 +81,20 @@ RELATORIO=""
 PASTA_DRIVE=""
 RETOMANDO=0
 TEM_NO_TABLESPACES=0
+TEM_COLUMN_STATISTICS=0
+BIN_MYSQL=""
+BIN_DUMP=""
+SABOR_CLIENTE=""
+declare -a DUMPS_DISPONIVEIS=()     # "binario|sabor"
+declare -a CLIENTES_DISPONIVEIS=()  # "binario|sabor"
+ERRO_CLIENTE=""
+AJUSTES=""
 NIVEL_DUMP=""
 declare -a FLAGS_DUMP=()
 declare -a NOMES=()
 declare -A SERVIDOR_DE=() PORTA_DE=() BANCO_DE=() USUARIO_DE=() SENHA_DE=()
 declare -a AVISOS=() ERROS=() LINHAS_RELATORIO=()
+declare -A SABOR_DE=() AJUSTES_DE=() DUMP_DE=()
 CORES=0
 OK_BANCOS=0
 FALHA_BANCOS=0
@@ -668,8 +677,67 @@ retencao_drive() {
 # ---------------------------------------------------------------------------
 # MySQL
 # ---------------------------------------------------------------------------
+# O mesmo trabalho tem dois nomes de programa, e as duas familias nao sao
+# intercambiaveis: o mysqldump 8 do MySQL consulta uma tabela de histograma que o
+# MariaDB nao tem, e o mariadb-dump nao conhece algumas opcoes do MySQL 8. Em
+# Debian e Ubuntu o pacote do MariaDB instala "mysqldump" como atalho para
+# "mariadb-dump", entao o nome do programa NAO diz de que familia ele e: quem diz
+# e o --version.
+sabor_do_binario() {
+  local v=""
+  v="$("$1" --version 2>/dev/null | head -1)" || v=""
+  case "$v" in
+    *MariaDB*|*mariadb*) printf 'MariaDB' ;;
+    "")                  printf 'desconhecido' ;;
+    *)                   printf 'MySQL' ;;
+  esac
+}
+
+mapeia_clientes() {
+  local b caminho visto=""
+  DUMPS_DISPONIVEIS=(); CLIENTES_DISPONIVEIS=()
+  for b in mysqldump mariadb-dump; do
+    tem "$b" || continue
+    caminho="$(command -v "$b")"
+    # em Debian o mysqldump e atalho para o mariadb-dump: o mesmo arquivo nao
+    # entra duas vezes, senao a troca de cliente tentaria o mesmo programa
+    caminho="$(readlink -f "$caminho" 2>/dev/null || printf '%s' "$caminho")"
+    case "$visto" in *"|$caminho|"*) continue ;; esac
+    visto="$visto|$caminho|"
+    DUMPS_DISPONIVEIS+=("$b|$(sabor_do_binario "$b")")
+  done
+  visto=""
+  for b in mysql mariadb; do
+    tem "$b" || continue
+    caminho="$(command -v "$b")"
+    caminho="$(readlink -f "$caminho" 2>/dev/null || printf '%s' "$caminho")"
+    case "$visto" in *"|$caminho|"*) continue ;; esac
+    visto="$visto|$caminho|"
+    CLIENTES_DISPONIVEIS+=("$b|$(sabor_do_binario "$b")")
+  done
+  ((${#DUMPS_DISPONIVEIS[@]})) || return 1
+  ((${#CLIENTES_DISPONIVEIS[@]})) || return 1
+  BIN_DUMP="${DUMPS_DISPONIVEIS[0]%%|*}"
+  BIN_MYSQL="${CLIENTES_DISPONIVEIS[0]%%|*}"
+  SABOR_CLIENTE="${DUMPS_DISPONIVEIS[0]##*|}"
+  return 0
+}
+
+# Os binarios de dump na ordem que faz sentido para ESTE servidor: a familia que
+# bate com a do servidor primeiro, a outra depois. Servidor MariaDB com
+# mariadb-dump disponivel nunca mais cai no COLUMN_STATISTICS.
+candidatos_dump() {  # <sabor do servidor>
+  local sabor="$1" item
+  for item in ${DUMPS_DISPONIVEIS[@]+"${DUMPS_DISPONIVEIS[@]}"}; do
+    [[ "${item##*|}" == "$sabor" ]] && printf '%s\n' "$item"
+  done
+  for item in ${DUMPS_DISPONIVEIS[@]+"${DUMPS_DISPONIVEIS[@]}"}; do
+    [[ "${item##*|}" == "$sabor" ]] || printf '%s\n' "$item"
+  done
+}
+
 instala_cliente_mysql() {
-  tem mysql && tem mysqldump && return 0
+  mapeia_clientes && return 0
   passo "Instalando o cliente MySQL"
   if tem apt-get && [[ $EUID -eq 0 ]]; then
     DEBIAN_FRONTEND=noninteractive apt-get install -y mysql-client >>"$LOG" 2>&1 \
@@ -681,12 +749,13 @@ instala_cliente_mysql() {
   elif tem brew; then
     brew install mysql-client >>"$LOG" 2>&1
   fi
-  if tem mysql && tem mysqldump; then
-    feito "cliente MySQL instalado"
+  if mapeia_clientes; then
+    feito "cliente instalado"
     return 0
   fi
-  falha "preciso do mysql e do mysqldump nesta maquina"
-  aviso "no Ubuntu:  sudo apt-get install -y mysql-client   (ou mariadb-client)"
+  falha "preciso de um cliente de linha de comando (mysql ou mariadb) e de um programa de dump (mysqldump ou mariadb-dump)"
+  aviso "no Ubuntu:  sudo apt-get install -y mysql-client   ou   sudo apt-get install -y mariadb-client"
+  aviso "ter OS DOIS instalados e melhor: o script escolhe por servidor qual usar"
   return 1
 }
 
@@ -725,12 +794,81 @@ arquivo_opcoes_mysql() {  # <servidor> <porta> <usuario> <senha> -> caminho
   printf '%s' "$arq"
 }
 
-testa_conexao() { mysql --defaults-extra-file="$1" -N -B -e "SELECT 1" >/dev/null 2>>"$LOG"; }
+# Quantas linhas o log tem agora, para depois ler SO o que o cliente acrescentou.
+linhas_log() { [[ -f "$LOG" ]] || { echo 0; return; }; wc -l < "$LOG" 2>/dev/null | tr -d ' ' || echo 0; }
+
+# A mensagem que o servidor deu, em uma linha, para entrar no aviso em vez de
+# virar "veja o log". Mandar a pessoa abrir um arquivo e pior quando o arquivo
+# fica dentro de um diretorio temporario que o proprio script apaga na saida,
+# que foi o que aconteceu na primeira execucao real deste script.
+erro_recente() {  # <marca de linhas_log>
+  local marca="${1:-0}" t=""
+  [[ -f "$LOG" ]] || { printf ''; return; }
+  t="$(tail -n "+$((marca + 1))" "$LOG" 2>/dev/null \
+       | grep -iE "error|denied|unknown|failed|can.t|cannot|refused|timed out" \
+       | tail -2 | tr "\n" " ")" || t=""
+  printf '%s' "$t" | sed 's/  */ /g; s/^ //; s/ $//' | cut -c1-240
+}
+
+# Testa a conexao com cada cliente disponivel e para no primeiro que responder.
+# Cliente MariaDB e cliente MySQL negociam autenticacao de forma diferente, e um
+# servidor que recusa um pode aceitar o outro.
+testa_conexao() {  # <opc>
+  local opc="$1" item bin marca
+  ERRO_CLIENTE=""
+  for item in ${CLIENTES_DISPONIVEIS[@]+"${CLIENTES_DISPONIVEIS[@]}"}; do
+    bin="${item%%|*}"
+    marca="$(linhas_log)"
+    if "$bin" --defaults-extra-file="$opc" -N -B -e "SELECT 1" >/dev/null 2>>"$LOG"; then
+      BIN_MYSQL="$bin"
+      return 0
+    fi
+    ERRO_CLIENTE="$(erro_recente "$marca")"
+  done
+  return 1
+}
+
+# O servidor ja diz por que recusou. Esta funcao so traduz a frase dele para o
+# que a pessoa precisa fazer, porque as causas moram em lugares diferentes: senha
+# esta no credentials.json, firewall esta na rede, plugin esta no cliente.
+dica_da_recusa() {  # <frase do servidor>
+  case "$1" in
+    *"Access denied for user"*|*"access denied for user"*)
+      printf 'a senha ou o usuario nao conferem, ou esse usuario nao tem permissao de vir do IP desta maquina. Confira o credentials.json e o GRANT do usuario.' ;;
+    *"Unknown database"*|*"unknown database"*)
+      printf 'o usuario conecta, mas nao existe banco com esse nome nesta porta. Confira o campo "banco".' ;;
+    *"Can't connect"*|*"Connection refused"*|*"connect to server"*)
+      printf 'nada atendeu nessa porta. Confira se a instancia esta no ar, se a porta e essa, e se o firewall deixa esta maquina chegar.' ;;
+    *"timed out"*|*"Lost connection"*|*timeout*)
+      printf 'o servidor nao respondeu em tempo. Costuma ser rede no caminho ou servidor sobrecarregado.' ;;
+    *plugin*|*"authentication"*|*caching_sha2*)
+      printf 'o servidor pede um metodo de autenticacao que este cliente nao faz. Instalar a outra familia de cliente costuma resolver: sudo apt-get install -y mysql-client mariadb-client' ;;
+    *"too many connections"*|*"Too many"*)
+      printf 'o servidor esta com todas as conexoes ocupadas. Tente de novo mais tarde, ou aumente max_connections.' ;;
+    *"SSL"*|*"TLS"*|*"secure connection"*)
+      printf 'o servidor exige conexao cifrada e a negociacao falhou. Confira a configuracao de TLS do servidor.' ;;
+    "")
+      printf 'o cliente nao devolveu mensagem nenhuma, o que costuma ser rede: a conexao morreu antes de o servidor falar.' ;;
+    *) printf '' ;;
+  esac
+}
+
+# "MariaDB 10.11.6" ou "MySQL 8.0.36". Vazio quando nao deu para saber.
+sabor_servidor() {  # <opc>
+  local v=""
+  v="$("$BIN_MYSQL" --defaults-extra-file="$1" -N -B -e "SELECT VERSION()" 2>>"$LOG" | head -1 | tr -d "\r")" || v=""
+  [[ -n "$v" ]] || { printf ''; return 1; }
+  case "$v" in
+    *MariaDB*|*mariadb*) printf 'MariaDB %s' "${v%%-*}" ;;
+    *)                   printf 'MySQL %s' "${v%%-*}" ;;
+  esac
+  return 0
+}
 
 # imprime "tabelas bytes myisam" do banco
 info_banco() {
   local opc="$1" b="$2"
-  mysql --defaults-extra-file="$opc" -N -B -e "
+  "$BIN_MYSQL" --defaults-extra-file="$opc" -N -B -e "
     SELECT COUNT(*),
            COALESCE(SUM(data_length + index_length), 0),
            COALESCE(SUM(engine = 'MyISAM'), 0)
@@ -738,33 +876,164 @@ info_banco() {
     WHERE table_schema = '$b' AND table_type = 'BASE TABLE'" 2>>"$LOG"
 }
 
-# O usuario de um banco so costuma NAO ter privilegio de rotina e de evento, e
-# ai o mysqldump falha inteiro em vez de pular aquela parte. Em vez de descobrir
-# isso depois de uma hora de dump, aqui a sonda e um dump SEM DADO, que e rapido
-# e exercita exatamente os mesmos privilegios.
-escolhe_nivel() {  # <opc> <banco>
-  local opc="$1" b="$2" nome extra
-  declare -a base=(--single-transaction --quick --default-character-set=utf8mb4)
-  # no MySQL 8 o mysqldump pede o privilegio PROCESS so para ler tablespace, e
-  # usuario de um banco so nao tem. --no-tablespaces resolve, quando existe.
-  ((TEM_NO_TABLESPACES)) && base+=(--no-tablespaces)
-  for nome in completo "sem rotina e evento" minimo; do
-    case "$nome" in
-      completo)              extra="--routines --events --triggers" ;;
-      "sem rotina e evento") extra="--triggers" ;;
-      *)                     extra="" ;;
-    esac
-    # o $extra vai sem aspas de proposito: e assim que ele vira varios argumentos
-    # shellcheck disable=SC2086
-    if mysqldump --defaults-extra-file="$opc" "${base[@]}" $extra --no-data "$b" >/dev/null 2>>"$LOG"; then
-      FLAGS_DUMP=("${base[@]}")
-      # shellcheck disable=SC2086
-      [[ -n "$extra" ]] && FLAGS_DUMP+=($extra)
-      NIVEL_DUMP="$nome"
+# ---------------------------------------------------------------------------
+# As opcoes do dump, escolhidas lendo o que o servidor responde
+#
+# Em servidor de verdade o mysqldump falha por motivos que nao se sabe de
+# antemao, e cada um tem uma correcao diferente:
+#
+#   o que o servidor responde                      o que resolve
+#   ---------------------------------------------  -----------------------
+#   Unknown table 'COLUMN_STATISTICS'              --column-statistics=0
+#   you need (at least one of) the PROCESS ...      --no-tablespaces
+#   Access denied ... LOCK TABLES                  --skip-lock-tables
+#   PROCEDURE, mysql.proc, EVENT                   sem --routines --events
+#   TRIGGER                                        sem --triggers
+#
+# O COLUMN_STATISTICS e o mais comum e o menos obvio: ele aparece quando o
+# CLIENTE e o mysqldump 8 do MySQL e o SERVIDOR e MariaDB. O mysqldump 8 consulta
+# uma tabela de histograma que o MariaDB nao tem, e o dump INTEIRO morre com
+# "Unknown table", que nao parece ter nada a ver com o que esta errado. Na
+# primeira execucao real deste script, seis de dez bancos falharam assim e a
+# mensagem dizia apenas que nem o nivel minimo passou.
+#
+# Por isso a sonda nao e uma escada fixa de tres degraus: ela tenta, LE o erro,
+# muda o que o erro aponta, e tenta de novo. Converge em uma a tres tentativas,
+# diz na tela qual ajuste foi preciso, e quando nao ha jeito mostra a frase do
+# servidor em vez de mandar abrir um arquivo.
+#
+# A sonda e um dump SEM DADO, que exercita os mesmos privilegios e as mesmas
+# consultas de metadado sem ler uma linha de tabela.
+# ---------------------------------------------------------------------------
+escolhe_opcoes_dump() {  # <opc> <banco> <sabor do servidor>
+  local opc="$1" b="$2" sabor="${3:-}"
+  local rotinas=1 gatilhos=1 tablespaces=0 colstats=0 semtrava=0
+  local tentativa=0 marca erro antes
+  declare -a feitos=()
+
+  ((TEM_NO_TABLESPACES)) && tablespaces=1
+  # cliente MySQL 8 contra servidor MariaDB: o histograma nao existe la, entao
+  # desligar ja na primeira tentativa poupa uma ida e volta
+  if ((TEM_COLUMN_STATISTICS)) && [[ "$sabor" == MariaDB* ]]; then
+    colstats=1
+    feitos+=("sem estatistica de coluna, porque o servidor e MariaDB")
+  fi
+
+  AJUSTES=""; ERRO_CLIENTE=""; NIVEL_DUMP=""
+
+  while ((tentativa < 8)); do
+    tentativa=$((tentativa + 1))
+    FLAGS_DUMP=(--single-transaction --quick --default-character-set=utf8mb4)
+    ((tablespaces)) && FLAGS_DUMP+=(--no-tablespaces)
+    ((colstats))    && FLAGS_DUMP+=(--column-statistics=0)
+    ((semtrava))    && FLAGS_DUMP+=(--skip-lock-tables)
+    ((rotinas))     && FLAGS_DUMP+=(--routines --events)
+    ((gatilhos))    && FLAGS_DUMP+=(--triggers)
+
+    marca="$(linhas_log)"
+    if "$BIN_DUMP" --defaults-extra-file="$opc" "${FLAGS_DUMP[@]}" --no-data "$b" >/dev/null 2>>"$LOG"; then
+      NIVEL_DUMP="completo"
+      ((rotinas))  || NIVEL_DUMP="sem rotina e evento"
+      ((gatilhos)) || NIVEL_DUMP="minimo"
+      AJUSTES="$(printf '%s; ' ${feitos[@]+"${feitos[@]}"})"
+      AJUSTES="${AJUSTES%; }"
       return 0
     fi
+
+    erro="$(erro_recente "$marca")"
+    ERRO_CLIENTE="$erro"
+    antes="$colstats$tablespaces$semtrava$rotinas$gatilhos"
+    diagnosticou=0
+
+    # O diagnostico so vale quando ele consegue MUDAR alguma coisa. Um erro que
+    # aponta um ajuste ja aplicado nao e diagnostico: insistir nele parava a
+    # sonda e dois bancos que deviam apenas degradar passaram a falhar.
+    case "$erro" in
+      *COLUMN_STATISTICS*|*column_statistics*|*column-statistics*)
+        if ((TEM_COLUMN_STATISTICS)) && ((colstats == 0)); then
+          colstats=1; diagnosticou=1
+          feitos+=("sem estatistica de coluna, que o servidor nao tem")
+        fi ;;
+      *PROCESS*|*TABLESPACE*|*tablespace*|*Tablespace*)
+        if ((TEM_NO_TABLESPACES)) && ((tablespaces == 0)); then
+          tablespaces=1; diagnosticou=1
+          feitos+=("sem tablespace, que pede o privilegio PROCESS")
+        fi ;;
+      *"LOCK TABLES"*|*"lock tables"*|*LOCK_TABLES*)
+        if ((semtrava == 0)); then
+          semtrava=1; diagnosticou=1
+          feitos+=("sem travar tabela, que o usuario nao pode")
+        fi ;;
+    esac
+
+    # Rotina, evento e gatilho nao aparecem no erro com essas palavras: o que
+    # aparece e a consulta que o mysqldump tentou. Estas sao as frases que os
+    # servidores devolvem de verdade.
+    if ((diagnosticou == 0)); then
+      case "$erro" in
+        *"FUNCTION STATUS"*|*"PROCEDURE STATUS"*|*"function status"*|*"procedure status"*\
+        |*mysql.proc*|*"SHOW EVENTS"*|*"show events"*|*EVENT*|*ROUTINE*|*PROCEDURE*)
+          if ((rotinas)); then
+            rotinas=0; diagnosticou=1
+            feitos+=("sem rotina e evento, que o usuario nao alcanca")
+          fi ;;
+        *"SHOW TRIGGERS"*|*"show triggers"*|*TRIGGER*|*trigger*)
+          if ((gatilhos)); then
+            gatilhos=0; diagnosticou=1
+            feitos+=("sem gatilho, que o usuario nao alcanca")
+          fi ;;
+      esac
+    fi
+
+    # Sem pista aproveitavel, degrada na ordem que custa menos: primeiro o que e
+    # extra (rotina, evento, gatilho), depois o que e opcao de leitura.
+    if ((diagnosticou == 0)); then
+      if ((rotinas)); then
+        rotinas=0
+        feitos+=("sem rotina e evento, por tentativa")
+      elif ((gatilhos)); then
+        gatilhos=0
+        feitos+=("sem gatilho, por tentativa")
+      elif ((TEM_NO_TABLESPACES)) && ((tablespaces == 0)); then
+        tablespaces=1
+        feitos+=("sem tablespace, por tentativa")
+      elif ((semtrava == 0)); then
+        semtrava=1
+        feitos+=("sem travar tabela, por tentativa")
+      elif ((TEM_COLUMN_STATISTICS)) && ((colstats == 0)); then
+        colstats=1
+        feitos+=("sem estatistica de coluna, por tentativa")
+      else
+        break
+      fi
+    fi
+
+    # nada mudou: insistir seria laco infinito
+    [[ "$antes" == "$colstats$tablespaces$semtrava$rotinas$gatilhos" ]] && break
   done
-  NIVEL_DUMP=""
+
+  AJUSTES="$(printf '%s; ' ${feitos[@]+"${feitos[@]}"})"
+  AJUSTES="${AJUSTES%; }"
+  return 1
+}
+
+# Tenta cada programa de dump disponivel, come a familia do servidor primeiro.
+# Cliente de uma familia contra servidor da outra falha de formas que nenhuma
+# opcao conserta, e nesse caso trocar de programa e a correcao.
+escolhe_dump_e_opcoes() {  # <opc> <banco> <sabor do servidor>
+  local opc="$1" b="$2" sabor="${3:-}" item bin erro_guardado="" ajuste_guardado=""
+  while IFS= read -r item; do
+    [[ -n "$item" ]] || continue
+    bin="${item%%|*}"
+    BIN_DUMP="$bin"
+    if escolhe_opcoes_dump "$opc" "$b" "$sabor"; then
+      return 0
+    fi
+    [[ -n "$erro_guardado" ]] || erro_guardado="$ERRO_CLIENTE"
+    [[ -n "$ajuste_guardado" ]] || ajuste_guardado="$AJUSTES"
+  done < <(candidatos_dump "$sabor")
+  ERRO_CLIENTE="${ERRO_CLIENTE:-$erro_guardado}"
+  AJUSTES="${AJUSTES:-$ajuste_guardado}"
   return 1
 }
 
@@ -773,7 +1042,7 @@ dump_banco() {  # <opc> <banco> <saida>
   declare -a flags=("${FLAGS_DUMP[@]}")
   ((SO_ESTRUTURA)) && flags+=(--no-data)
   set +e
-  mysqldump --defaults-extra-file="$1" "${flags[@]}" "$2" 2>>"$LOG" | gzip -"$NIVEL_COMPRESSAO" > "$3"
+  "$BIN_DUMP" --defaults-extra-file="$1" "${flags[@]}" "$2" 2>>"$LOG" | gzip -"$NIVEL_COMPRESSAO" > "$3"
   estados=("${PIPESTATUS[@]}")
   set -e
   [[ "${estados[0]:-1}" == 0 ]] || return 1
@@ -1095,9 +1364,24 @@ if [[ "$PERM" =~ ^[0-7]?[0-7][0-7][0-7]$ ]] && [[ "${PERM: -2}" != "00" ]]; then
   aviso "$(basename "$ARQUIVO_CRED") esta com permissao $PERM e tem senha de banco dentro. Corrija com: chmod 600 $ARQUIVO_CRED"
 fi
 
-instala_cliente_mysql || morre "sem o cliente MySQL nao da para fazer dump"
-if mysqldump --help 2>/dev/null | grep -q -- '--no-tablespaces'; then
-  TEM_NO_TABLESPACES=1
+instala_cliente_mysql || morre "sem cliente de banco nao da para fazer dump"
+
+# O que o CLIENTE instalado aceita. Nao se pergunta a versao e se deduz a opcao:
+# pergunta-se a ele mesmo, porque distribuicao nenhuma garante o que empacotou.
+AJUDA_DUMP="$("$BIN_DUMP" --help 2>/dev/null || true)"
+grep -q -- '--no-tablespaces'     <<< "$AJUDA_DUMP" && TEM_NO_TABLESPACES=1
+grep -q -- '--column-statistics'  <<< "$AJUDA_DUMP" && TEM_COLUMN_STATISTICS=1
+
+lista_bin=""
+for item in "${CLIENTES_DISPONIVEIS[@]}"; do lista_bin="$lista_bin ${item%%|*} (${item##*|})"; done
+feito "cliente:${lista_bin}"
+lista_bin=""
+for item in "${DUMPS_DISPONIVEIS[@]}"; do lista_bin="$lista_bin ${item%%|*} (${item##*|})"; done
+feito "dump:${lista_bin}"
+if ((${#DUMPS_DISPONIVEIS[@]} == 1)); then
+  outro="mariadb-client"
+  [[ "${DUMPS_DISPONIVEIS[0]##*|}" == MariaDB ]] && outro="mysql-client"
+  diz "so uma familia de cliente instalada. Com as duas, o script escolhe por servidor: sudo apt-get install -y $outro"
 fi
 
 if ((SEM_NICE == 0)); then
@@ -1140,7 +1424,10 @@ fi
 TMP="$(mktemp -d)"; chmod 700 "$TMP"
 
 if ((SIMULAR)); then
-  LOG="$TMP/simulacao.log"; : > "$LOG"
+  # NAO dentro do TMP: ele e apagado na saida, e a mensagem de erro apontaria
+  # para um arquivo que o proprio script acabou de remover.
+  LOG="$ESTADO/simulacao-$CARIMBO.log"
+  : > "$LOG"; chmod 600 "$LOG"
 else
   LOG="$ESTADO/backup-$CARIMBO.log"
   : > "$LOG"; chmod 600 "$LOG"
@@ -1198,17 +1485,21 @@ fi
 # ---------------------------------------------------------------------------
 passo "Testando a conexao de cada banco"
 
-declare -A TABELAS_DE=() BYTES_DE=() MYISAM_DE=() NIVEL_DE=()
+declare -A TABELAS_DE=() BYTES_DE=() MYISAM_DE=() NIVEL_DE=() FLAGS_DE=() CLIENTE_DE=()
 declare -a BONS=()
 for nome in "${NOMES[@]}"; do
   opc="$(arquivo_opcoes_mysql "${SERVIDOR_DE[$nome]}" "${PORTA_DE[$nome]}" "${USUARIO_DE[$nome]}" "${SENHA_DE[$nome]}")"
   if ! testa_conexao "$opc"; then
-    falha "$nome: nao consegui conectar em ${SERVIDOR_DE[$nome]}:${PORTA_DE[$nome]} como ${USUARIO_DE[$nome]} (veja $LOG)"
+    falha "$nome: nao conectei em ${SERVIDOR_DE[$nome]}:${PORTA_DE[$nome]} como ${USUARIO_DE[$nome]}. O servidor disse: ${ERRO_CLIENTE:-nada, nem respondeu}"
+    dica="$(dica_da_recusa "$ERRO_CLIENTE")"
+    [[ -z "$dica" ]] || aviso "$nome: $dica"
     FALHA_BANCOS=$((FALHA_BANCOS + 1))
     LINHAS_RELATORIO+=("$nome	${BANCO_DE[$nome]}	${SERVIDOR_DE[$nome]}:${PORTA_DE[$nome]}	0	0	sem-conexao	0")
     rm -f "$opc"
     continue
   fi
+  CLIENTE_DE["$nome"]="$BIN_MYSQL"
+  SABOR_DE["$nome"]="$(sabor_servidor "$opc" || true)"
   info="$(info_banco "$opc" "${BANCO_DE[$nome]}")" || info=""
   tabelas=0; bytes=0; myisam=0
   [[ -n "$info" ]] && IFS=$'\t' read -r tabelas bytes myisam <<< "$info"
@@ -1223,20 +1514,34 @@ for nome in "${NOMES[@]}"; do
     aviso "$nome: ${MYISAM_DE[$nome]} tabela(s) MyISAM. Com --single-transaction o dump NAO fica consistente para elas: MyISAM nao tem transacao."
   fi
 
-  if escolhe_nivel "$opc" "${BANCO_DE[$nome]}"; then
+  if escolhe_dump_e_opcoes "$opc" "${BANCO_DE[$nome]}" "${SABOR_DE[$nome]}"; then
     NIVEL_DE["$nome"]="$NIVEL_DUMP"
+    FLAGS_DE["$nome"]="${FLAGS_DUMP[*]}"
+    DUMP_DE["$nome"]="$BIN_DUMP"
+    AJUSTES_DE["$nome"]="$AJUSTES"
     [[ "$NIVEL_DUMP" == "completo" ]] \
-      || aviso "$nome: o usuario nao tem privilegio para tudo, o dump vai sair no nivel '$NIVEL_DUMP'"
+      || aviso "$nome: o dump vai sair no nivel '$NIVEL_DUMP', porque o usuario nao alcanca o resto"
+    [[ -z "$AJUSTES" ]] \
+      || diz "$nome: ajustei o dump: $AJUSTES"
   else
-    falha "$nome: o mysqldump nao passou nem no nivel minimo (veja $LOG)"
+    falha "$nome: nenhum programa de dump conseguiu ler a estrutura de '${BANCO_DE[$nome]}'. O servidor disse: ${ERRO_CLIENTE:-nada}"
+    [[ -z "$AJUSTES" ]] || aviso "$nome: tentei com: $AJUSTES"
+    tentados=""
+    for item in ${DUMPS_DISPONIVEIS[@]+"${DUMPS_DISPONIVEIS[@]}"}; do tentados="$tentados ${item%%|*} (${item##*|})"; done
+    aviso "$nome: servidor ${SABOR_DE[$nome]:-de versao desconhecida}. Tentei com:${tentados}."
+    if ((${#DUMPS_DISPONIVEIS[@]} == 1)); then
+      outra="mariadb-client"
+      [[ "${DUMPS_DISPONIVEIS[0]##*|}" == MariaDB ]] && outra="mysql-client"
+      aviso "$nome: so existe UMA familia de cliente nesta maquina. Programa de uma familia contra servidor da outra falha de formas que opcao nenhuma conserta. Instale a outra: sudo apt-get install -y $outra"
+    fi
     FALHA_BANCOS=$((FALHA_BANCOS + 1))
-    LINHAS_RELATORIO+=("$nome	${BANCO_DE[$nome]}	${SERVIDOR_DE[$nome]}:${PORTA_DE[$nome]}	${BYTES_DE[$nome]}	0	sem-privilegio	0")
+    LINHAS_RELATORIO+=("$nome	${BANCO_DE[$nome]}	${SERVIDOR_DE[$nome]}:${PORTA_DE[$nome]}	${BYTES_DE[$nome]}	0	sem-dump	0")
     rm -f "$opc"
     continue
   fi
   rm -f "$opc"
 
-  feito "$nome: ${TABELAS_DE[$nome]} tabela(s), $(legivel "${BYTES_DE[$nome]}"), nivel ${NIVEL_DE[$nome]}"
+  feito "$nome: ${TABELAS_DE[$nome]} tabela(s), $(legivel "${BYTES_DE[$nome]}"), ${SABOR_DE[$nome]:-versao desconhecida}, nivel ${NIVEL_DE[$nome]}, dump pelo ${DUMP_DE[$nome]}"
   BONS+=("$nome")
 done
 
@@ -1248,25 +1553,30 @@ done
 if ((SIMULAR)); then
   passo "Simulando (nada foi gerado e nada foi enviado)"
   total=0
-  printf '\n  %-26s %-22s %-28s %8s %10s %s\n' NOME BANCO SERVIDOR TABELAS TAMANHO NIVEL
-  printf '  %s\n' "$(printf '%.0s-' {1..116})"
+  printf '\n  %-24s %-20s %-24s %7s %10s %-18s %s\n' NOME BANCO SERVIDOR TABELAS TAMANHO VERSAO NIVEL
+  printf '  %s\n' "$(printf '%.0s-' {1..132})"
   for nome in "${BONS[@]}"; do
     total=$((total + ${BYTES_DE[$nome]}))
-    printf '  %-26s %-22s %-28s %8s %10s %s\n' \
+    printf '  %-24s %-20s %-24s %7s %10s %-18s %s\n' \
       "$nome" "${BANCO_DE[$nome]}" "${SERVIDOR_DE[$nome]}:${PORTA_DE[$nome]}" \
-      "${TABELAS_DE[$nome]}" "$(legivel "${BYTES_DE[$nome]}")" "${NIVEL_DE[$nome]}"
+      "${TABELAS_DE[$nome]}" "$(legivel "${BYTES_DE[$nome]}")" \
+      "${SABOR_DE[$nome]:-?}" "${NIVEL_DE[$nome]}"
   done
-  printf '  %s\n' "$(printf '%.0s-' {1..116})"
-  printf '  %-26s %-22s %-28s %8s %10s\n\n' "${#BONS[@]} banco(s)" "" "" "" "$(legivel "$total")"
+  printf '  %s\n' "$(printf '%.0s-' {1..132})"
+  printf '  %-24s %-20s %-24s %7s %10s\n\n' "${#BONS[@]} banco(s)" "" "" "" "$(legivel "$total")"
+  for nome in "${BONS[@]}"; do
+    [[ -n "${AJUSTES_DE[$nome]:-}" ]] && printf '  ajuste em %s: %s\n' "$nome" "${AJUSTES_DE[$nome]}"
+  done
   printf '  Tamanho em disco no servidor, nao do dump: o dump comprimido costuma\n'
   printf '  sair bem menor, mas isso depende do conteudo.\n\n'
   printf '  Pasta no Drive: %s:%s%s\n' "$DRIVE_REMOTE" "$DRIVE_PASTA" \
     "$( ((SEM_DATA)) || printf '/%s' "$PASTA_DATA" )"
   printf '  Pico de disco local esperado: o dump de um banco por vez, nao a soma.\n'
   if ((FALHA_BANCOS > 0)); then
-    printf '\n  %s\n' "$(cor '1;31' "$FALHA_BANCOS banco(s) NAO responderam. Veja as falhas acima.")"
+    printf '\n  %s\n' "$(cor '1;31' "$FALHA_BANCOS banco(s) NAO passaram. Veja as falhas acima.")"
   fi
-  printf '\n'
+  printf '\n  Log desta simulacao: %s\n' "$LOG"
+  printf '  Ele fica guardado, com a resposta crua do servidor de cada banco.\n\n'
   ((FALHA_BANCOS > 0)) && exit 2
   exit 0
 fi
@@ -1361,21 +1671,20 @@ for nome in "${BONS[@]}"; do
     continue
   fi
 
-  # as flags do nivel foram escolhidas no teste de conexao
+  # As opcoes sao as MESMAS que a sonda achou, lidas de volta inteiras. Remontar
+  # a partir do nome do nivel perderia os ajustes que o erro do servidor pediu,
+  # como --column-statistics=0, e o dump de verdade falharia depois de a sonda ter
+  # passado, que e o pior jeito de errar: parece defeito aleatorio.
   NIVEL_DUMP="${NIVEL_DE[$nome]}"
-  declare -a base=(--single-transaction --quick --default-character-set=utf8mb4)
-  ((TEM_NO_TABLESPACES)) && base+=(--no-tablespaces)
-  FLAGS_DUMP=("${base[@]}")
-  case "$NIVEL_DUMP" in
-    completo)              FLAGS_DUMP+=(--routines --events --triggers) ;;
-    "sem rotina e evento") FLAGS_DUMP+=(--triggers) ;;
-  esac
+  BIN_DUMP="${DUMP_DE[$nome]}"
+  read -r -a FLAGS_DUMP <<< "${FLAGS_DE[$nome]}"
 
   opc="$(arquivo_opcoes_mysql "${SERVIDOR_DE[$nome]}" "${PORTA_DE[$nome]}" "${USUARIO_DE[$nome]}" "${SENHA_DE[$nome]}")"
   rm -f "$arquivo"
-  diz "gerando o dump (nivel $NIVEL_DUMP)"
+  diz "gerando o dump pelo $BIN_DUMP, nivel $NIVEL_DUMP${AJUSTES_DE[$nome]:+, ${AJUSTES_DE[$nome]}}"
+  marca_log="$(linhas_log)"
   if ! dump_banco "$opc" "$banco" "$arquivo"; then
-    falha "$nome: o mysqldump falhou (veja $LOG)"
+    falha "$nome: o $BIN_DUMP falhou. O servidor disse: $(erro_recente "$marca_log")"
     rm -f "$arquivo" "$opc"
     FALHA_BANCOS=$((FALHA_BANCOS + 1))
     LINHAS_RELATORIO+=("$nome	$banco	$endereco	${BYTES_DE[$nome]}	0	erro-dump	$(( $(date +%s) - comeco ))")
@@ -1476,6 +1785,12 @@ RELATORIO="$ESTADO/RELATORIO-$CARIMBO.txt"
   echo "SCRIPT ......... $NOME_SCRIPT v$VERSAO_SCRIPT"
   echo "CREDENCIAL ..... $ARQUIVO_CRED"
   echo "LIDO POR ....... ${LEITOR:-desconhecido}"
+  printf 'CLIENTES ....... '
+  for item in ${CLIENTES_DISPONIVEIS[@]+"${CLIENTES_DISPONIVEIS[@]}"}; do printf '%s (%s)  ' "${item%%|*}" "${item##*|}"; done
+  printf '\n'
+  printf 'DUMP ........... '
+  for item in ${DUMPS_DISPONIVEIS[@]+"${DUMPS_DISPONIVEIS[@]}"}; do printf '%s (%s)  ' "${item%%|*}" "${item##*|}"; done
+  printf '\n'
   echo "DESTINO DRIVE .. $PASTA_DRIVE"
   echo "ESTADO ......... $ESTADO"
   echo "HISTORICO ...... $( ((SEM_DATA)) && echo 'nao, o dump de hoje substitui o de ontem' || echo "sim, uma pasta por execucao ($PASTA_DATA)" )"
@@ -1494,6 +1809,12 @@ RELATORIO="$ESTADO/RELATORIO-$CARIMBO.txt"
   for linha in ${LINHAS_RELATORIO[@]+"${LINHAS_RELATORIO[@]}"}; do
     IFS=$'\t' read -r n b e by tb si te <<< "$linha"
     printf '%-26s %-22s %-28s %12s %8s %-14s %7ss\n' "$n" "$b" "$e" "$(legivel "$by")" "$tb" "$si" "$te"
+  done
+  echo
+  echo "SERVIDOR E OPCOES, BANCO POR BANCO"
+  for nome in ${NOMES[@]+"${NOMES[@]}"}; do
+    printf '  %-24s %-20s %-18s %s\n' "$nome" "${SABOR_DE[$nome]:-nao respondeu}" \
+      "${DUMP_DE[$nome]:--}" "${AJUSTES_DE[$nome]:-nenhum ajuste}"
   done
   echo
   echo "BANCOS OK ...... $OK_BANCOS"

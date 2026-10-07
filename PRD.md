@@ -1,7 +1,7 @@
 # PRD: Backup de bancos MySQL para o Google Drive
 
 Autoria: Wesley Menezes
-Versão: 1.0.0
+Versão: 1.1.0
 Data: 07/10/2026
 
 ## 1. Para que serve
@@ -22,21 +22,28 @@ você precisa restaurar. Os problemas que aparecem:
 1. **Dump que parou no meio tem cara de backup bom.** O arquivo existe, abre,
    tem tabelas dentro. Só não restaura. Quem não confere a última linha do dump
    descobre isso no pior dia possível.
-2. **Falta de privilégio derruba o dump inteiro.** Usuário de um banco só
+2. **MySQL e MariaDB falam parecido e não são a mesma coisa.** O `mysqldump` 8 do
+   MySQL consulta uma tabela de histograma que o MariaDB não tem, e o dump
+   **inteiro** morre com `Unknown table 'COLUMN_STATISTICS'`. A conexão funciona,
+   a mensagem parece problema no banco do cliente, e o nome do programa não revela
+   de que família ele é, porque em Debian o `mysqldump` é atalho para o
+   `mariadb-dump`. Na primeira execução real deste produto, isso derrubou **seis de
+   dez bancos**.
+3. **Falta de privilégio derruba o dump inteiro.** Usuário de um banco só
    normalmente não tem privilégio para rotina armazenada e para evento, e o
    `mysqldump` falha por completo em vez de pular aquela parte. O script ingênuo
    grava um arquivo de zero byte e segue em frente.
-3. **A senha vai na linha de comando.** `mysqldump -p$SENHA` deixa a senha
+4. **A senha vai na linha de comando.** `mysqldump -p$SENHA` deixa a senha
    visível no `ps` para qualquer usuário da máquina. O próprio `mysqldump`
    avisa, e o aviso é ignorado todo dia.
-4. **O dump de hoje sobrescreve o de ontem.** Se o de hoje sair ruim, o bom já
+5. **O dump de hoje sobrescreve o de ontem.** Se o de hoje sair ruim, o bom já
    foi. É assim que se perde um banco de dados tendo backup.
-5. **Nome de banco repetido em portas diferentes.** Com um arquivo por nome de
+6. **Nome de banco repetido em portas diferentes.** Com um arquivo por nome de
    banco, três clientes com o banco `villas` em três portas geram um arquivo só,
    e dois backups desaparecem em silêncio.
-6. **Credencial errada só aparece depois de uma hora.** Sem teste prévio, a
+7. **Credencial errada só aparece depois de uma hora.** Sem teste prévio, a
    execução quebra no meio da madrugada.
-7. **Ninguém confere se chegou.** Dump que subiu truncado para a nuvem fica lá
+8. **Ninguém confere se chegou.** Dump que subiu truncado para a nuvem fica lá
    parecendo um dump.
 
 ## 3. Entregas
@@ -52,7 +59,7 @@ Script bash único, sem dependência de pacote, sem build, sem instalação.
 | 1 | Confere os comandos, e que o arquivo de credencial existe e é legível |
 | 2 | Avisa se o arquivo de credencial estiver legível por outros usuários |
 | 3 | Lê o JSON e valida cada entrada: nome único, porta numérica, campos presentes |
-| 4 | Testa a conexão de **cada** banco, mede tabelas e tamanho, e descobre o nível de privilégio |
+| 4 | Testa a conexão de **cada** banco com cada cliente instalado, mede tabelas e tamanho, pergunta a versão do servidor, e descobre as opções de dump que funcionam |
 | 5 | Conecta o Drive. Na primeira vez, conduz a autorização |
 | 6 | Mostra o resumo e pede **uma** confirmação |
 | 7 | Para cada banco: dump para gzip, conferência tripla, cifra opcional, envio, conferência no destino, libera o disco |
@@ -74,23 +81,41 @@ ruim é pior que não ter dump, porque ele ocupa o lugar do bom no inventário.
 Além disso, o número de tabelas do dump é comparado com o do
 `information_schema`: zero contra algo é falha, menos contra mais é aviso.
 
-**Nível de privilégio, descoberto antes de gastar tempo**
+**As opções do dump, descobertas lendo o que o servidor responde**
 
-Três combinações, testadas com um dump sem dados, que é rápido:
+Antes de dumpar, o script pergunta três coisas: de que família é cada programa
+instalado (pelo `--version`, nunca pelo nome), de que família e versão é o servidor
+(`SELECT VERSION()`), e que opções o cliente aceita (`--help`).
 
-| Nível | Flags |
+Depois faz um dump sem dados, que é rápido, e se falhar **lê o erro** e muda o que
+o erro aponta:
+
+| O que o servidor responde | O que muda |
 |---|---|
-| completo | `--routines --events --triggers` |
-| sem rotina e evento | `--triggers` |
-| mínimo | nenhuma das três |
+| `Unknown table 'COLUMN_STATISTICS'` | acrescenta `--column-statistics=0` |
+| `you need (at least one of) the PROCESS privilege(s)` | acrescenta `--no-tablespaces` |
+| `LOCK TABLES command denied` | acrescenta `--skip-lock-tables` |
+| `SHOW FUNCTION STATUS`, `show events`, `mysql.proc` | tira `--routines --events` |
+| `SHOW TRIGGERS` | tira `--triggers` |
+| nada reconhecível | degrada na ordem que custa menos |
 
-O nível escolhido aparece na tela e no relatório. Sem isso, um usuário sem
-privilégio de rotina produziria falha total do dump, e o motivo ficaria escondido
-no log do MySQL.
+No máximo oito voltas por programa de dump. Esgotadas as opções, ele **troca de
+programa** para o da outra família e recomeça, porque incompatibilidade de família
+não se conserta com opção.
 
-No MySQL 8, `--no-tablespaces` entra sempre que o `mysqldump` o suporta: sem ele,
-o servidor exige o privilégio `PROCESS` só para ler tablespace, e usuário de um
-banco só não tem.
+O nível, o ajuste e o programa usado aparecem na tela e no relatório, banco por
+banco. O dump de verdade usa as opções **exatas** que a sonda achou, lidas de volta
+inteiras: remontar a lista a partir do nome do nível perderia os ajustes, e o dump
+falharia depois de a sonda ter passado.
+
+**Toda falha carrega a frase do servidor**, não um "veja o log". O log da simulação
+fica na pasta de estado e sobrevive à execução.
+
+**E a recusa de conexão vem traduzida em ação.** `Access denied` aponta para o
+`credentials.json` e para o `GRANT`; `Can't connect` aponta para firewall e porta;
+`Unknown database` aponta para o campo `banco`; algo sobre `plugin` aponta para a
+família de cliente instalada. Saber que "não conectou" não resolve nada, porque
+cada uma dessas causas mora num lugar diferente e tem outro responsável.
 
 **Nenhuma senha na linha de comando**
 
@@ -196,7 +221,7 @@ normal.
 ```
 bash -n backup-db.sh          sintaxe: ok
 bash scripts/monta-lab.sh     lab montado
-bash scripts/roda-testes.sh   28 casos, 93 verificações, 0 reprovadas
+bash scripts/roda-testes.sh   34 casos, 127 verificações, 0 reprovadas
 ```
 
 ### 6.1 O que a bateria cobre
@@ -204,11 +229,15 @@ bash scripts/roda-testes.sh   28 casos, 93 verificações, 0 reprovadas
 | Caso | O que prova |
 |---|---|
 | T01 | `--simular` lê os 10 bancos, mede tabelas e tamanho, descobre os três níveis de privilégio, aponta a credencial que não conecta, avisa MyISAM e banco sem tabela visível, sai com 2 e não cria nada no Drive |
-| T01b | Nenhuma das 7 senhas aparece na linha de comando do `mysql` ou do `mysqldump`. Senha com aspa dupla e senha com barra invertida atravessam o arquivo de opções e conectam |
+| T01b | Nenhuma das 11 senhas aparece na linha de comando do `mysql` ou do `mysqldump`. Senha com aspa dupla e senha com barra invertida atravessam o arquivo de opções e conectam |
+| T01c | A família de cada cliente e de cada programa de dump sai do `--version`, não do nome. A versão de cada servidor é lida, MySQL e MariaDB |
+| T01d | O dump se ajusta de duas formas distintas: pela **versão** (servidor MariaDB já começa sem estatística de coluna) e pela **frase** (servidor que reporta versão de MySQL e recusa igual, que é um proxy reescrevendo o `VERSION()`). Também `--skip-lock-tables` num usuário sem `LOCK TABLES`, dois ajustes em sequência no mesmo banco, e troca de programa de dump quando opção nenhuma resolve |
+| T01e | O log da simulação fica na pasta de estado, sobrevive, guarda a frase crua do servidor, e a tela diz onde ele está |
 | T02 | Recusa nome repetido, porta que não é número, nome de banco com caractere estranho, banco sem servidor, JSON quebrado e arquivo inexistente |
 | T02b | Sem `nome`, o padrão `<banco>-<porta>` não colide quando o mesmo banco está em duas portas |
 | T02c | Um `credentials.json` salvo com fim de linha do Windows: nenhuma senha chega com retorno de carro colado no fim |
 | T03 | Backup completo com pasta de data por padrão. Os 7 bancos saudáveis sobem; o truncado, o de dump vazio e o sem conexão não sobem |
+| T03a | Os quatro bancos que só dumpam com um ajuste específico (`--column-statistics=0`, `--skip-lock-tables`, `--no-tablespaces`, outra família) subiram de verdade. É a prova de que as opções da sonda atravessaram até o dump |
 | T03b | O mesmo banco em três portas gera três arquivos distintos |
 | T04 | O dump no Drive passa no `gunzip -t`, tem as tabelas, tem dados e termina com a marca de completo |
 | T05 | Dump sem a marca de `Dump completed` é recusado, apagado, e não sobra no disco local |
@@ -231,17 +260,25 @@ bash scripts/roda-testes.sh   28 casos, 93 verificações, 0 reprovadas
 | T15 | O `rclone.conf` ganha a seção nova sem perder a que já existia, e sem `client_id` nem `client_secret` |
 | T16 | Avisa quando o arquivo de credencial está legível por outros usuários |
 | T17 | A trava recusa duas execuções ao mesmo tempo |
+| T18 | Com uma família de cliente só, ele diz que essa é a causa e qual pacote instalar, e diz com que programa tentou |
+| T18b | Com as duas famílias instaladas, o mesmo banco passa sem intervenção |
+
+O laboratório tem **15 bancos**, e quatro deles existem só para exercitar
+compatibilidade: um servidor MariaDB, um MariaDB disfarçado de MySQL, um que exige
+`--no-tablespaces`, um que exige `--skip-lock-tables` e um que só aceita o dump da
+própria família.
 
 ### 6.2 Resultado
 
-**28 casos, 93 verificações, 0 reprovadas.** Duas verificações puladas nesta
+**34 casos, 127 verificações, 0 reprovadas.** Duas verificações puladas nesta
 máquina, com o motivo registrado na seção 6.3: permissão POSIX e `flock`.
 
 ### 6.3 O que NÃO foi verificado, e por quê
 
 | Item | Por que | Como fica |
 |---|---|---|
-| Um servidor MySQL de verdade | A bateria roda contra `mysql` e `mysqldump` de mentira. Eles reproduzem o comportamento que importa (código de saída por falta de privilégio, dump sem a marca de fim, banco inexistente), mas são modelo, não o produto | A primeira execução contra o servidor real continua pendente |
+| Um servidor MySQL de verdade | A bateria roda contra `mysql` e `mysqldump` de mentira. Eles reproduzem o comportamento que importa, com as frases de erro que os servidores devolvem de fato, mas são modelo, não o produto | A primeira execução real já aconteceu, reprovou nove de dez bancos e gerou a seção 2 item 2 deste PRD. Uma segunda execução, com esta versão, continua pendente |
+| Os três bancos que não conectaram na execução real | A frase do servidor estava no log que o script apagava. Com esta versão ela aparece na tela, mas ainda não foi lida | Diagnóstico pendente: pode ser senha, rede, ou plugin de autenticação |
 | Permissão 600 | `chmod` não gruda em NTFS pelo MSYS | Não afirmado como verificado |
 | Trava com `flock` | Esta máquina não tem `flock` | Verificação pulada |
 | Autorização do Google | Precisa de alguém clicando em Permitir numa tela do Google | Registrado como não testado |
@@ -249,6 +286,11 @@ máquina, com o motivo registrado na seção 6.3: permissão POSIX e `flock`.
 | Dump de vários gigabytes | O lab gera dump de alguns kilobytes | O comportamento com arquivo grande (tempo, pico de disco, `--drive-chunk-size`) não foi medido |
 
 ## 7. Próximos passos sugeridos
+
+Itens que saíram desta lista porque foram implementados na versão 1.1.0: detecção
+de família de cliente e de servidor, sonda guiada pelo erro, troca de programa de
+dump, e a frase do servidor nas mensagens de falha.
+
 
 1. **Conferência de restauração, automática.** Restaurar o dump num banco
    descartável e comparar a contagem de linhas por tabela. Ganho: hoje o script
