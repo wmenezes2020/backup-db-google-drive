@@ -1,0 +1,49 @@
+# ===========================================================================
+# O ARQUIVO DE CREDENCIAL NUNCA ENTRA NO REPOSITORIO.
+# Ele tem servidor, porta, usuario e SENHA de banco de producao. Esta linha e a
+# primeira coisa que este arquivo faz, e ela existe desde o primeiro commit:
+# tirar segredo do historico depois de publicar nao desfaz o que ja saiu.
+# ===========================================================================
+credentials.json
+credential*.json
+!credentials.exemplo.json
+*.cred.json
+.my.cnf
+*.cnf
+!**/*.exemplo.cnf
+
+# Dump de banco. Nunca versionar: e dado de cliente.
+*.sql
+*.sql.gz
+*.sql.gz.gpg
+*.sql.gz.enc
+*.dump
+
+# Registro, log e relatorio: dizem quais bancos existem e para onde foram.
+registro.tsv
+backup-*.log
+RELATORIO-*.txt
+execucao-atual
+
+# Nunca, em nenhuma hipotese
+*.pem
+*.key
+id_rsa
+id_rsa.*
+.env
+.env.*
+rclone.conf
+rclone.conf.antes-*
+
+# O laboratorio da bateria de testes: reproduzivel com scripts/monta-lab.sh.
+.lab/
+.lab.velho.*/
+
+# Rascunho da maquina dentro do graphify-out. O resto do graphify-out E
+# versionado e entra no commit da tarefa: ele e o mapa do repositorio, nao
+# sobra de build, e nao entra em nenhuma limpeza de disco.
+graphify-out/cache/
+graphify-out/.graphify_detect.json
+graphify-out/.graphify_extract.json
+graphify-out/.graphify_root
+graphify-out/.graphify_python
